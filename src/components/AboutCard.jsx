@@ -1,42 +1,61 @@
-/* eslint-disable react/destructuring-assignment */
-import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai';
-import { MdEmail } from 'react-icons/md';
-import { LuLink2 } from 'react-icons/lu';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
 
 export default function AboutCard(props) {
+  const commonColorStyle = 'text-blue-500'; // Define a common color style for all attributes
+  const priceBoxStyle = 'bg-green-500 text-white rounded-full px-2 py-1';
+
   return (
-    <div 
+    <div
       className="flex z-49 flex-col bg-red
                   backdrop-blur-2xl
              rounded-3xl gap-5 bg-slate-400/5 items-center border relative border-slate-300/50 hover:bg-slate-400/20 p-5 transition-all duration-200"
     >
-      <img
-        src={props.image}
-        alt={props.name}
-        className="rounded-3xl max-w-md w-[80%]"
-      />
-      <div className="flex items-center flex-col">
-        <h2 className="text-center capitalize font-medium blue-gradient text-3xl drop-shadow font-sans shadow-accent">
+      <div className="img">
+        <img
+          src={props.image}
+          alt={props.name}
+          className="rounded-3xl max-w-md w-[105%]"
+        />
+      </div>
+      <div className="text flex flex-col w-full">
+        <div className="category flex justify-between items-start mb-2">
+          <span
+            style={{
+              background:
+                props.category === 'For Sale' ? '#25b5791a' : '#ff98001a',
+              color: props.category === 'For Sale' ? '#25b579' : '#ff9800',
+            }}
+          >
+            {props.category}
+          </span>
+          {/* Use FontAwesome's FaHeart component for the heart icon */}
+          <FaHeart className="text-xl" />
+        </div>
+        <h2
+          className={`text-left capitalize font-bold ${commonColorStyle} text-2xl drop-shadow font-sans shadow-accent mt-2`}
+        >
           {props.name}
         </h2>
-        <p className="text-xl capitalize text-slate-800 font-medium">
-          Fullstack Developer
+        <p
+          className={`flex items-center mt-1 ${commonColorStyle} `}
+        >
+          {/* Ensure the location icon and name are in the same line */}
+          <FaMapMarkerAlt className="hover:text-blue-600 mr-2 text-xl" />
+          <span className="text-lg">{props.location}</span>
         </p>
-      </div>
-      <div className="flex flex-grow justify-around w-[60%] text-accent text-2xl">
-        <Link to={`https://github.com/${props.github}`} target="_blank">
-          <AiFillGithub className="hover:text-blue-600 " />
-        </Link>
-        <Link to={`https://www.linkedin.com/in/${props.linkedin}`} target="_blank">
-          <AiFillLinkedin className="hover:text-blue-600 " />
-        </Link>
-        <Link to={`mailto:${props.email}`}>
-          <MdEmail className="hover:text-blue-600 " />
-        </Link>
-        <Link to={`${props.portfolio}`} target="_blank">
-          <LuLink2 className="hover:text-blue-600 " />
-        </Link>
+        <div className="button flex">
+          {/* Add your button here if needed */}
+        </div>
+        {/* Move the priceBox to the bottom left */}
+        <div className={`${commonColorStyle} flex items-center mt-10 ml-1`}>
+          <div className={priceBoxStyle}>
+            {props.price}
+          </div>
+          <span className="ml-1">/Month</span>
+                {/* Move props.type to the extreme right using ml-auto */}
+      <span className={`${commonColorStyle} ml-auto`}>{props.type}</span>
+        </div>
       </div>
     </div>
   );
