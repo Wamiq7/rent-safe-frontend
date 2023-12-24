@@ -2,7 +2,7 @@ import React from 'react';
 import { FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
 
 export default function AboutCard(props) {
-  const commonColorStyle = 'text-blue-500'; // Define a common color style for all attributes
+  const commonColorStyle = 'text-blue-500'; 
   const priceBoxStyle = 'bg-green-500 text-white rounded-full px-2 py-1';
 
   return (
@@ -29,7 +29,6 @@ export default function AboutCard(props) {
           >
             {props.category}
           </span>
-          {/* Use FontAwesome's FaHeart component for the heart icon */}
           <FaHeart className="text-xl" />
         </div>
         <h2
@@ -40,20 +39,17 @@ export default function AboutCard(props) {
         <p
           className={`flex items-center mt-1 ${commonColorStyle} `}
         >
-          {/* Ensure the location icon and name are in the same line */}
           <FaMapMarkerAlt className="hover:text-blue-600 mr-2 text-xl" />
           <span className="text-lg">{props.location}</span>
         </p>
         <div className="button flex">
-          {/* Add your button here if needed */}
+        
         </div>
-        {/* Move the priceBox to the bottom left */}
         <div className={`${commonColorStyle} flex items-center mt-10 ml-1`}>
           <div className={priceBoxStyle}>
             {props.price}
           </div>
           <span className="ml-1">/Month</span>
-                {/* Move props.type to the extreme right using ml-auto */}
       <span className={`${commonColorStyle} ml-auto`}>{props.type}</span>
         </div>
       </div>
