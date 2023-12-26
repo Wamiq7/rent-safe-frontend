@@ -25,7 +25,7 @@ function ProfilePicDev({
       <div className="box-decoration w-full py-6">
         <label
           htmlFor="image-upload-input"
-          className="image-upload-label"
+          className="image-upload-label mt-10"
         >
           {image ? image.name : 'Choose an image'}
 
@@ -47,7 +47,7 @@ function ProfilePicDev({
                 className="img-display-after"
               />
             ) : (
-              <RxAvatar className="w-40 h-40 text-accent" />
+              <RxAvatar className="w-40 h-20 text-accent" />
             )}
 
             <input

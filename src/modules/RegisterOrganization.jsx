@@ -21,14 +21,14 @@ function RegisterOrganization() {
   const [formData, setFormData] = useState({
     name: '',
     about: '',
-    password: '',
+    // password: '',
     domain: '',
     website: '',
     photo: null,
   });
   const [validationErrors, setValidationErrors] = useState({
     name: '',
-    password: '',
+    // password: '',
     website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,19 +44,19 @@ function RegisterOrganization() {
       setValidationErrors((prevErrors) => ({ ...prevErrors, name: "" }));
     }
   };
-  const validatePassword = (password) => {
-    if (password.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-    } else if (!password) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password is required" }));
-    } else if (password.length < 8) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must be at least 8 characters long." }));
-    } else if (password.length > 16) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must not exceed 16 characters." }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
-    }
-  };
+  // const validatePassword = (password) => {
+  //   if (password.length === 0) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+  //   } else if (!password) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password is required" }));
+  //   } else if (password.length < 8) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must be at least 8 characters long." }));
+  //   } else if (password.length > 16) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must not exceed 16 characters." }));
+  //   } else {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+  //   }
+  // };
   const validateWebsite = (website) => {
     if (website.length === 0) {
       setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
@@ -72,9 +72,11 @@ function RegisterOrganization() {
 
     if (field === "name") {
       validateName(value);
-    } else if (field === "password") {
-      validatePassword(value);
-    } else if (field === "website") {
+    } 
+    // else if (field === "password") {
+    //   validatePassword(value);
+    // } 
+    else if (field === "website") {
       validateWebsite(value);
     }
   };
@@ -108,7 +110,7 @@ function RegisterOrganization() {
     }
   };
 
-  const requiredFields = ['name', 'password'];
+  const requiredFields = ['name'];
 
   const handleClick = async (direction) => {
     let newStep = currentStep;
@@ -148,7 +150,7 @@ function RegisterOrganization() {
       await setProgress(15);
 
       bodyData.append("name", formData.name);
-      bodyData.append("password", formData.password);
+      // bodyData.append("password", formData.password);
       if (formData.about) {
         bodyData.append("about", formData.about);
       }

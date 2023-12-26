@@ -1,39 +1,40 @@
 import { Link } from 'react-router-dom';
-// import { LoginContainer } from '../components/form/login/LoginContainer';
 import LoginContainer from '../components/form/login/LoginContainer';
-// import Skate from '/Run_Skate.png';
-// import developer from '/developer.svg';
-// import organization from '/organization.svg';
-import Skate from "../../public/Run_Skate.png";
-import developer from '../../public/developer.svg';
-import organization from '../../public/organization.svg';
+import Skate from '../../public/Run_Skate.png';
 
 function Login() {
+  const commonHeadingStyle = "text-white font-bold text-4xl transition items-center justify-center hover:bg-full hover:font-bold rounded-lg h-full w-[60%] max-w-full relative p-2";
+  const commonButtonStyle = "relative bg-gradient-to-r from-blue-500 to-blue-600 text-white text-2xl font-bold px-8 py-4 rounded-full hover:scale-105 transform transition-transform overflow-hidden";
+
   return (
-    <LoginContainer image={Skate}>
-      <div className="flex flex-col w-full relative h-full py-3 items-center transition-transform gap-5 justify-center">
+    <LoginContainer image={Skate} className="relative h-full w-full">
+      <div className="flex flex-col w-full relative h-full py-3 items-center gap-5 justify-center text-center mt-5 ">
+        {/* <h1 className="text-5xl font-bold mb-auto text-white"></h1> */}
+
         <Link
-          className="flex flex-col text-xl transition items-center justify-center hover:bg-accent/5 hover:font-semibold rounded-lg"
+          className={`${commonHeadingStyle} ${commonButtonStyle} bg-green-500`}
           to="/login/developer"
         >
-          <img
-            alt="developer"
-            src={developer}
-            className="h-52 lg:h-auto w-full"
-          />
-          <h1 className=" blue-gradient ">Developer</h1>
+          <h1>State Agent</h1>
+          <div className="cloud-shape"></div>
         </Link>
-        <div className="border-b border-slate-300 w-full"> </div>
+        <div className="border-b border-slate-300 w-full"></div>
+
         <Link
-          className="flex flex-col text-xl transition items-center justify-center hover:bg-accent/5 hover:font-semibold rounded-lg"
+          className={`${commonHeadingStyle} ${commonButtonStyle} bg-pink-500`}
           to="/login/company"
         >
-          <img
-            alt="organization"
-            src={organization}
-            className="h-52 lg:h-auto w-full"
-          />
-          <h1 className=" blue-gradient ">Organization</h1>
+          <h1>Landlord</h1>
+          <div className="cloud-shape"></div>
+        </Link>
+        <div className="border-b border-slate-300 w-full"></div>
+
+        <Link
+          className={`${commonHeadingStyle} ${commonButtonStyle} bg-red-600`}
+          to="/login/company"
+        >
+          <h1>Tenant</h1>
+          <div className="cloud-shape"></div>
         </Link>
       </div>
     </LoginContainer>

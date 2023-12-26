@@ -41,7 +41,7 @@ function OrgBanner({ formData, setFormData }) {
               className="aspect-video md:w4 h-40 object-cover rounded-lg"
             />
           ) : (
-            <VscOrganization className="w-40 h-40 text-accent" />
+            <VscOrganization className="w-40 h-20 text-accent" />
           )}
 
           <input
