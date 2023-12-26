@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import organization from '../../../../public/organization.svg';
 import LoginContainer from './LoginContainer';
 
-export default function OrgLogin() {
+export default function LandlordLogin() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -48,6 +48,9 @@ export default function OrgLogin() {
       autoClose: 2000,
     });
 
+    // Save "IstrueLandlord" to local storage
+    localStorage.setItem('Islandlord', 'true');
+
     // You can add additional logic here for actual sign-in process if needed
 
     // Navigate to the desired page after login
@@ -59,7 +62,7 @@ export default function OrgLogin() {
       <div className="w-full mr-0 mb-0 ml-0 relative space-y-8">
         <button
           type="button"
-          onClick={() => onSignIn()} // Updated to call onSignIn instead of onConnectWallet
+          onClick={() => onSignIn()}
           className={`absolute -bottom-52 cursor-pointer pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-500 hover:bg-gray-600 cursor-not-allowed' : ''}`}
           disabled={isSubmitting}
         >

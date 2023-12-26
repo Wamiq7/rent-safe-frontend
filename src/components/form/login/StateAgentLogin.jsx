@@ -5,7 +5,7 @@ import LoginContainer from './LoginContainer';
 import 'react-toastify/dist/ReactToastify.min.css';
 import developer from '../../../../public/developer.svg';
 
-export default function DevLogin() {
+export default function StateAgentLogin() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [connected, setConnected] = useState(false);
@@ -30,8 +30,11 @@ export default function DevLogin() {
         autoClose: 2000,
       });
 
+      // Save "Istruestateagent" to local storage
+      localStorage.setItem('Isstateagent', 'true');
+
       setIsSubmitting(false);
-      navigate('/');
+      navigate('/dashboard');
     }, 2000);
   };
 

@@ -13,7 +13,7 @@ function Login() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle} bg-green-500`}
-          to="/login/developer"
+          to="/login/stateAgent"
         >
           <h1>State Agent</h1>
           <div className="cloud-shape"></div>
@@ -22,7 +22,7 @@ function Login() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle} bg-pink-500`}
-          to="/login/company"
+          to="/login/Landlord"
         >
           <h1>Landlord</h1>
           <div className="cloud-shape"></div>
@@ -31,7 +31,7 @@ function Login() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle} bg-red-600`}
-          to="/login/company"
+          to="/login/tenant"
         >
           <h1>Tenant</h1>
           <div className="cloud-shape"></div>
