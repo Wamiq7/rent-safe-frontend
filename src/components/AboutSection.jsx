@@ -4,10 +4,11 @@ import Image1 from '../../public/recentproperty/img1.png';
 import Image2 from '../../public/recentproperty/img2.png';
 import Image3 from '../../public/recentproperty/img3.png';
 import Image4 from '../../public/recentproperty/img4.png';
-import Image5 from '../../public/recentproperty/img5.png';
-// import Image from "../../public/developers/img1.jpg";
+
+
 
 export default function AboutSection() {
+ 
   return (
     <section className="flex flex-col items-center justify-center  bg-[url('/bgsvg.svg')]  min-h-[50vh] w-full">
       <div className=" flex flex-col items-center filter w-full  py-24 h-full bg-white/70">
@@ -22,6 +23,7 @@ export default function AboutSection() {
             price = "85,000"
             type= "Apartment"
             category= "For rent"
+            id="65716a535c5b47daa40c4572"
           />
           <AboutCard
             image={Image2}
@@ -30,6 +32,7 @@ export default function AboutSection() {
             price = "60,000"
             type= "Apartment"
             category= "For rent" 
+            id={2}
           />
           <AboutCard
             image={Image3}
@@ -38,6 +41,7 @@ export default function AboutSection() {
             price = "75,000"
             type= "Apartment"
             category= "For rent"
+            id={3}
           />
            <AboutCard
             image={Image4}
@@ -46,15 +50,9 @@ export default function AboutSection() {
             price = "54,000"
             type= "Apartment"
             category= "For rent"
+            id={4}
           />
-           {/* <AboutCard
-            image={Image5}
-            name = "Sumaira Heights"
-            location = "Johar"
-            price = "Rent : 77,000"
-            type= "appartment"
-            category= "For rent"
-          /> */}
+  
         
         </div>
       </div>

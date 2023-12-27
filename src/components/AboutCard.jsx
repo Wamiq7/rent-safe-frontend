@@ -1,12 +1,16 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function AboutCard(props) {
   const commonColorStyle = 'text-blue-500'; 
   const priceBoxStyle = 'bg-green-500 text-white rounded-full px-2 py-1';
+  const navigate = useNavigate();
 
   return (
-    <div
+    <div onClick={()=>{ navigate(`/projects/${props.id}`)}}
       className="flex z-49 flex-col bg-red
                   backdrop-blur-2xl
              rounded-3xl gap-5 bg-slate-400/5 items-center border relative border-slate-300/50 hover:bg-slate-400/20 p-5 transition-all duration-200"
