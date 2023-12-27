@@ -18,13 +18,13 @@ const CompanyList = ({ organizationsProp = [] }) => {
     // console.log('developer >>>>>', developer);
     const {
       // eslint-disable-next-line camelcase
-      uid, propertyType, estateName, duration, propertyId, banner_img, org_projects,
+      _id, title, stateAgent, duration, propertyId, banner_img,
     } = organization;
     return (
-      <React.Fragment key={uid}>
+      <React.Fragment key={_id}>
         {/* ---------------- Project List--------------- */}
         <Link
-          to={`/agreements/${uid}`}
+          to={`/agreements/${_id}`}
           className="flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative"
         >
           <div className="flex  flex-col lg:flex-row w-full gap-6 items-center relative">
@@ -36,7 +36,7 @@ const CompanyList = ({ organizationsProp = [] }) => {
             />
             <div className="flex flex-col w-full">
               {/* ------------ Company Name------------- */}
-              <h1 className="text-xl font-medium text-slate-900">{propertyType}</h1>
+              <h1 className="text-xl font-medium text-slate-900">{title}</h1>
 
 
               <div className="flex my-5">
@@ -57,7 +57,7 @@ const CompanyList = ({ organizationsProp = [] }) => {
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
                     <h3 className="listing-content-data">Created By</h3>
-                    <h4 className="listing-content-constant">{estateName}</h4>
+                    <h4 className="listing-content-constant">{stateAgent.estateName}</h4>
                   </div>
                 </div>
               </div>
@@ -66,7 +66,7 @@ const CompanyList = ({ organizationsProp = [] }) => {
 
 
           <div className="flex border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl">
-            Agreement Id : {uid}
+            Agreement Id : {_id}
           </div>
 
         </Link>

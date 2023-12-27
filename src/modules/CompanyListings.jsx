@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import CompanyList from "../components/CompanyList";
 import FilterButton from "../components/navbar/FilterButton";
-// import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
-import AgreementData from "../modules/agreements.json"
+import Data from "../components/demo.json";
 
 const filters = [
   {
@@ -28,7 +27,7 @@ function CompanyListings() {
 
   useEffect(() => {
 
-    setOrganizations(AgreementData.data);
+    setOrganizations(Data.AgreementData);
 
   }, []);
   return (
