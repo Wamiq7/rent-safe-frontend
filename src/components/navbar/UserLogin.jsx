@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import { MdOutlineLogout } from "react-icons/md";
-// import { IoMdLogIn } from "react-icons/io";
 
 function UserLogin() {
   const [isOpen, setIsOpen] = useState(false);
-  // let token = localStorage.getItem("authToken");
   let tenant = localStorage.getItem("Istenant");
   let landlord = localStorage.getItem("Islandlord");
   let stateagent = localStorage.getItem("Isstateagent");
   const logOut = () => {
-    // console.log('yoooooo');
-    // localStorage.removeItem("authToken");
-    // eslint-disable-next-line no-unused-expressions
+
     tenant ? localStorage.removeItem("Istenant") : null;
     // eslint-disable-next-line no-unused-expressions
     landlord ? localStorage.removeItem("Islandlord") : null;

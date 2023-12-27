@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { toast } from 'react-toastify';
-import ProjectList from "../components/ProjectList";
+import PropertyList from "../components/PropertyList";
 import FilterButton from "../components/navbar/FilterButton";
 // import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
 import { loadingContext } from "../components/context/LoadingState";
-import projectsData from "./projects.json"
+import propertiesData from "./properties.json"
 
 const filters = [
   {
@@ -32,38 +32,23 @@ const filters = [
   },
 ];
 
-function ProjectListings() {
+function PropertyListings() {
   // const [isOpen, setIsOpen] = useState(false);
-  const [projects, setProjects] = useState([]);
+  const [properties, setproperties] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
   const isStateAgent=localStorage.getItem("Isstateagent")
   const islandlord=localStorage.getItem("Islandlord")
   const isTenanat=localStorage.getItem("Istenant")
-  const authToken = localStorage.getItem("authToken");
 
-  const progressState = useContext(loadingContext);
-  const { setProgress } = progressState;
 
-  // const fetchProjects = async () => {
-  //   const searchTitle = `?title=${searchInput.searchString}`;
-  //   const response = await fetch(
-  //     `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
-  //     { mode: "cors" },
-  //   );
-  //   const fetchedProjects = await response.json();
-  //   setProjects(fetchedProjects.data);
-  //   console.log(fetchedProjects.data);
-  //   return fetchedProjects.message;
-  // };
-
-  const fetchProjects = async () => {
-    setProjects(projectsData.projects);
+  const fetchproperties = async () => {
+    setproperties(propertiesData.properties);
   };
   useEffect(() => {
-    fetchProjects();
+    fetchproperties();
   }, []);
 
-  const orgToken = localStorage.getItem("isOrg");
+
 
 
 
@@ -83,11 +68,11 @@ function ProjectListings() {
         </h1>
 
         {/* ----------------Show Only for Organizations------------ */}
-        {orgToken && (
+        {isStateAgent && (
           <div className="flex my-8 items-center justify-center gap-10 z-[1]">
             <div className="flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center">
               <a
-                href="/projects/create"
+                href="/properties/create"
                 className="flex p-3 md:p-4 items-center justify-center"
               >
                 List property
@@ -110,8 +95,8 @@ function ProjectListings() {
             {/* --------sort button--------- */}
             <FilterButton
               filters={filters}
-              projects={projects}
-              setProjects={setProjects}
+              properties={properties}
+              setproperties={setproperties}
             />
 
             {/* --------sort button END--------- */}
@@ -129,14 +114,14 @@ function ProjectListings() {
             {/* <Search /> */}
           </div>
 
-          {projects.length > 0 ? (
-            <ProjectList projectsProp={projects} />
+          {properties.length > 0 ? (
+            <PropertyList propertiesProp={properties} />
           ) : (
             <div className="flex w-full py-10 justify-center text-slate-500">
               <img alt="loader" src={loading} />
             </div>
           )}
-          {(!isStateAgent && !islandlord &&!isTenanat) && projects.length > 0 ? (
+          {(!isStateAgent && !islandlord &&!isTenanat) && properties.length > 0 ? (
             <h1 className=" blue-gradient text-center text-2xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>
@@ -147,4 +132,4 @@ function ProjectListings() {
   );
 }
 
-export default ProjectListings;
+export default PropertyListings;

@@ -10,7 +10,7 @@ export default function AboutCard(props) {
   const navigate = useNavigate();
 
   return (
-    <div onClick={()=>{ navigate(`/projects/${props.id}`)}}
+    <div onClick={()=>{ navigate(`/properties/${props.id}`)}}
       className="flex z-49 flex-col bg-red
                   backdrop-blur-2xl
              rounded-3xl gap-5 bg-slate-400/5 items-center border relative border-slate-300/50 hover:bg-slate-400/20 p-5 transition-all duration-200"

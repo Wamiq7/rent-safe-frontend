@@ -3,7 +3,7 @@ import { RxAvatar } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function ProjectAdd() {
+export default function PropertyAdd() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     address: "",
@@ -166,30 +166,6 @@ export default function ProjectAdd() {
               />
             </label>
           </div>
-          {/* <div className="mb-4">
-            <label
-              htmlFor="board"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Project Board
-              <select
-                id="board"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                value={formData.board}
-                onChange={(e) => setFormData({ ...formData, board: e.target.value })}
-              >
-                <option
-                  disabled
-                  defaultValue
-                >
-                  Pick the suitable board
-                </option>
-                <option value="Scrum">Scrum</option>
-                <option value="Agile">Agile</option>
-                <option value="Kanban">Kanban</option>
-              </select>
-            </label>
-          </div> */}
           <div className="mb-4">
             <label
               htmlFor="owner_wallet"

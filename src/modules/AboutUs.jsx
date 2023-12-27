@@ -1,17 +1,15 @@
 import React from 'react';
-import Footer from '../components/Footer';
 
 const links = [
-  { name: 'Properties', href: '/projects' },
+  { name: 'Properties', href: '/properties' },
   { name: 'Agreements', href: '/companies' },
-  // { name: 'Reviews', href: '/developers' },
-  // { name: 'About us', href: '#' },
+
 ];
 const stats = [
   { name: 'Tenants Who Trust Us', value: '1000 +' },
   { name: 'EstateAgent Who Trust Us', value: '1000 +' },
   { name: 'Landlord Who Trust Us', value: '1000 +' },
-  // { name: 'Reliability', value: 'Unlimited' },
+
 ];
 
 export default function AboutUs() {

@@ -13,7 +13,7 @@ function Register() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle}`}
-          to="/register/developer"
+          to="/register/stateAgent"
         >
           <h1>Estate Agent</h1>
           <div className="cloud-shape"></div>
@@ -22,7 +22,7 @@ function Register() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle}`}
-          to="/register/company"
+          to="/register/tenantORlandlord"
         >
           <h1>Landlord</h1>
           <div className="cloud-shape"></div>
@@ -31,7 +31,7 @@ function Register() {
 
         <Link
           className={`${commonHeadingStyle} ${commonButtonStyle}`}
-          to="/register/company"
+          to="/register/tenantORlandlord"
         >
           <h1>Tenant</h1>
           <div className="cloud-shape"></div>

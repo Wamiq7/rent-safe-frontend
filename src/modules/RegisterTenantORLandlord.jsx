@@ -12,7 +12,7 @@ import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
 import { loadingContext } from '../components/context/LoadingState';
 
-function RegisterOrganization() {
+function RegisterTenantORLandlord() {
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
 
@@ -281,4 +281,4 @@ function RegisterOrganization() {
   );
 }
 
-export default RegisterOrganization;
+export default RegisterTenantORLandlord;

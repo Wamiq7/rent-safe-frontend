@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CompanyDetails from '../components/CompanyDetails';
+import AgreementsDetails from '../components/AgreementDetails';
 import agreementsData from "../components/demo.json"
 
-function CompanyMain() {
+function AgreementMain() {
   const { uid } = useParams();
   const [AgreementData, setAgreementData] = useState({});
 
@@ -24,11 +24,11 @@ function CompanyMain() {
 
   return (
     <div>
-      <CompanyDetails
+      <AgreementsDetails
         agreementData={AgreementData}
       />
     </div>
   );
 }
 
-export default CompanyMain;
+export default AgreementMain;

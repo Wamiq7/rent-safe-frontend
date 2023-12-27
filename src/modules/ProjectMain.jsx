@@ -1,9 +1,9 @@
-import ProjectDetails from '../components/ProjectDetails';
+import PropertyDetails from '../components/PropertyDetails';
 
 function ProjectMain() {
   return (
     <div className="mb-10">
-      <ProjectDetails />
+      <PropertyDetails />
     </div>
   );
 }

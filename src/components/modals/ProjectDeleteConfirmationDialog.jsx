@@ -7,19 +7,7 @@ export default function ProjectDeleteConfirmationDialog({
   propUid,
   onDeleteSuccess,
 }) {
-  const requestDelete = async (uid) => {
-    fetch(`${import.meta.env.VITE_API_URL}/projects/${uid}`, {
-      method: "DELETE",
-      headers: {
-        authorization: localStorage.getItem("authToken"),
-      },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        onDeleteSuccess();
-      });
-    setDeleteBtn(!deleteBtn);
-  };
+ 
 
   return (
     <div className="flex fixed inset-0 items-center justify-center h-screen w-screen bg-slate-500/40 z-[999] transition">

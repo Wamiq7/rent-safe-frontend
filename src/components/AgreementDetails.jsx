@@ -1,11 +1,10 @@
 import {  useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
 import loading from "../../public/SVG/loading.svg";
 
 
-function CompanyDetails({
-  agreementData, update, edit,
+function AgreementDetails({
+  agreementData, 
 }) {
 
 
@@ -34,7 +33,7 @@ function CompanyDetails({
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
         >
-          {/* ------------------Company Banner */}
+          {/* ------------------Agreement Banner */}
           <div className="flex justify-start w-full mt-6 items-start place-content-start gap-[5%] border-b border-slate-300 px-5 py-7 relative">
             <div className="flex items-center relative justify-center h-24 p-0 m-0">
               <img
@@ -45,7 +44,7 @@ function CompanyDetails({
             </div>
 
             <div className="flex flex-col justify-between items-start gap-3">
-              {/* --------Company Name------------------- */}
+              {/* --------Agreement Name------------------- */}
               <h1 className="text-3xl font-medium text-slate-900">
                 {agreementData.title}
               </h1>
@@ -135,7 +134,7 @@ function CompanyDetails({
             {/* ----------Col-2----------------*/}
             <div className="flex flex-col border-b md:border-b-0 md:border-l md:pl-2 border-slate-300 md:gap-6 md:w-2/3 pb-10">
               <div className="flex flex-col gap-2 px-5 py-7">
-                {/* ---------Company Name------------ */}
+                {/* ---------Agreement Name------------ */}
                 <h1 className="text-2xl font-semibold mb-3">
                   Extra Details/Requirements
                 </h1>
@@ -164,7 +163,7 @@ function CompanyDetails({
         >
           <div className="flex w-full flex-col">
             <h1 className="text-2xl font-semibold px-5 pt-7 mb-1">Property Details</h1>
-            {/* ---------TODO: Comapny Projects------------ */}
+            {/* ---------TODO: Property Details------------ */}
             <div className=" py-5">
 
               <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreementData.propertyDetails._id}>
@@ -176,12 +175,12 @@ function CompanyDetails({
                       className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
                     />
                     <div className="flex flex-col md:hidden">
-                      <Link to={`/projects/${agreementData.propertyDetails._id}`} className=" text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.name}</Link>
+                      <Link to={`/properties/${agreementData.propertyDetails._id}`} className=" text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.name}</Link>
                       <p>{agreementData.propertyDetails._id}</p>
                     </div>
                   </div>
                   <div className="lg:w-[60%] md:pl-6">
-                    <Link to={`/projects/${agreementData.propertyDetails._id}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</Link>
+                    <Link to={`/properties/${agreementData.propertyDetails._id}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</Link>
                     <div className="hidden md:flex place-content-start items-center w-full text-slate-600 gap-1">
                       {/* ------------------------ Project Description-------------------------- */}
                       <p><span className='font-bold'>Id : </span> {agreementData.propertyDetails._id}</p>
@@ -201,7 +200,7 @@ function CompanyDetails({
           </div>
 
         </div>
-        {/* ----------Company Reviews------------ */}
+        {/* ----------Entities Involved------------ */}
         <div
           className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
@@ -361,7 +360,7 @@ function CompanyDetails({
             </div>
           </div>
         </div>
-        {/* ----------END  Company Reviews------------ */}
+        {/* ----------END  Agreement Reviews------------ */}
 
 
       </div>
@@ -373,4 +372,4 @@ function CompanyDetails({
   );
 }
 
-export default CompanyDetails;
+export default AgreementDetails;

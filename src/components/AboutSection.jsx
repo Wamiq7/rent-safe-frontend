@@ -1,4 +1,3 @@
-import { TiHeartFullOutline } from 'react-icons/ti';
 import AboutCard from './AboutCard';
 import Image1 from '../../public/recentproperty/img1.png';
 import Image2 from '../../public/recentproperty/img2.png';

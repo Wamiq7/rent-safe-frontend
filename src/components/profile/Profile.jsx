@@ -2,7 +2,6 @@ import {
   useContext, useEffect, useRef, useState,
 } from 'react';
 import { BiSolidMap } from 'react-icons/bi';
-import { MdReviews } from 'react-icons/md';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -10,15 +9,15 @@ import loading from "../../../public/SVG/loading.svg";
 import profileData from '../../modules/profile.json';
 
 export default function Profile() {
-  const [developer, setDeveloper] = useState(profileData.developer);
+  const [user, setuser] = useState(profileData.user);
 
 
 
 
 
-  const skills = developer?.skills;
+  const skills = user?.skills;
   if (
-    !Object.keys(developer).length > 0 
+    !Object.keys(user).length > 0 
   ) {
     return (
       <div className="flex w-full py-10 justify-center text-slate-500">
@@ -38,24 +37,24 @@ export default function Profile() {
             <div className="flex items-center relative justify-center h-24 lg:h-80 p-0 m-0">
               <img
                 alt="profile"
-                src={developer?.profile_pic}
+                src={user?.profile_pic}
                 className="inline-block object-cover aspect-square  h-full p-0 shadow shadow-accent rounded-full"
               />
             </div>
 
 
             <div className="flex flex-col justify-between lg:pb-16 h-full  gap-3">
-              {/* --------Developer Name------------------- */}
+              {/* --------user Name------------------- */}
               <h1 className="text-3xl lg:text-5xl font-medium text-slate-900">
-                {developer?.fname}
+                {user?.fname}
                 {' '}
-                {developer?.lname}
+                {user?.lname}
               </h1>
               <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
                 <BiSolidMap />
-                {/* ------------------------ Developer City-------------------------- */}
+                {/* ------------------------ user City-------------------------- */}
                 <p>
-                  {developer?.city}
+                  {user?.city}
                 </p>
               </div>
             </div>
@@ -65,19 +64,19 @@ export default function Profile() {
             <div className="flex flex-col gap-6 px-5 py-7  mr-2  md:w-1/3">
               <div className="flex flex-col gap-2  ">
                 <h1 className="text-lg text-slate-900 font-medium">Role</h1>
-                <p className="description">{developer?.role}</p>
+                <p className="description">{user?.role}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <h1 className="text-lg text-slate-900 font-medium">
                   Wallet Address
                 </h1>
-                <p className="description">{developer?.walletAddress}</p>
+                <p className="description">{user?.walletAddress}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <h1 className="text-lg text-slate-900 font-medium">
                   CNIC
                 </h1>
-                <p className="description">{developer?.CNIC}</p>
+                <p className="description">{user?.CNIC}</p>
               </div>
               
               
@@ -87,27 +86,27 @@ export default function Profile() {
               <div className="flex flex-col gap-2 px-5 py-7">
                 {/* ---------Domain------------ */}
                 <h1 className="text-2xl font-semibold mb-3">
-                  {developer?.role}
+                  {user?.role}
                 </h1>
                 <p className="description">
-                  {developer?.about}
+                  {user?.about}
                 </p>
               </div>
               <div className="flex flex-col gap-2 ml-5">
                 <h1 className="text-lg text-slate-900 font-medium">Contact</h1>
                 <Link
-                  to={`mailto:${developer?.email}`}
+                  to={`mailto:${user?.email}`}
                   className="contact-dev"
                 >
                   <FaEnvelope />
-                  {developer?.email}
+                  {user?.email}
                 </Link>
                 <Link
-                  to={`tel:${developer?.phone}`}
+                  to={`tel:${user?.phone}`}
                   className="contact-dev"
                 >
                   <FaPhone />
-                  {developer?.phone}
+                  {user?.phone}
                 </Link>
               </div>
             </div>

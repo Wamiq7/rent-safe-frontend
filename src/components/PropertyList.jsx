@@ -3,20 +3,20 @@ import React from "react";
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const ProjectList = ({ projectsProp = [] }) => {
-   const isStateAgent=localStorage.getItem("Isstateagent")
-  const islandlord=localStorage.getItem("Islandlord")
-  const isTenanat=localStorage.getItem("Istenant")
+const PropertyList = ({ propertiesProp = [] }) => {
+  const isStateAgent = localStorage.getItem("Isstateagent")
+  const islandlord = localStorage.getItem("Islandlord")
+  const isTenanat = localStorage.getItem("Istenant")
 
-  let limitedProjects;
+  let limitedproperties;
   if (!isStateAgent && !islandlord && !isTenanat) {
     // const maxToShow = 4;
-    limitedProjects = projectsProp.slice(0, 4);
+    limitedproperties = propertiesProp.slice(0, 4);
   } else {
-    limitedProjects = projectsProp;
+    limitedproperties = propertiesProp;
   }
 
-  return limitedProjects.map((projects, index) => {
+  return limitedproperties.map((properties, index) => {
     const {
       uid,
       title,
@@ -26,15 +26,15 @@ const ProjectList = ({ projectsProp = [] }) => {
       floor,
       status,
       stateAgent
-    } = projects;
+    } = properties;
 
     return (
-    // giving key prop to react fragment is imp to avoid unique key warnings
+      // giving key prop to react fragment is imp to avoid unique key warnings
       <React.Fragment key={index}>
         {/* ---------------- Project List--------------- */}
         <Link
           key={index}
-          to={`/projects/${uid}`}
+          to={`/properties/${uid}`}
           className="flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative"
         >
           <div className="flex flex-col lg:flex-row w-full gap-6 items-center relative">
@@ -67,7 +67,7 @@ const ProjectList = ({ projectsProp = [] }) => {
                     <h4 className="listing-content-constant">Floor</h4>
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -85,4 +85,4 @@ const ProjectList = ({ projectsProp = [] }) => {
   });
 };
 
-export default ProjectList;
+export default PropertyList;

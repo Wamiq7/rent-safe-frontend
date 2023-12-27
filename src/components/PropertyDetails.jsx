@@ -5,36 +5,36 @@ import { useEffect, useState } from 'react';
 import Container from './Container';
 import Members from './Members';
 import loading from "../../public/SVG/loading.svg";
-import projectsData from "../modules/projects.json"
+import propertiesData from "../modules/properties.json"
 import { RiArrowRightSLine } from "react-icons/ri";
 
 
 
-function ProjectDetails() {
+function PropertyDetails() {
   const { uid } = useParams();
-  const [project, setProject] = useState([]);
+  const [property, setproperty] = useState([]);
   const isStateAgent=localStorage.getItem("Isstateagent")
   const islandlord=localStorage.getItem("Islandlord")
 
 
 
-  const fetchProject = async () => {
-    const matchingProject = projectsData.projects.find(
+  const fetchproperty = async () => {
+    const matchingproperty = propertiesData.properties.find(
       (item) => item.uid === uid
     );
 
-    if (matchingProject) {
-      setProject(matchingProject);
+    if (matchingproperty) {
+      setproperty(matchingproperty);
     }
 
   };
   useEffect(() => {
-    fetchProject();
+    fetchproperty();
   }, []);
 
 
 
-  if (!Object.keys(project).length > 0) {
+  if (!Object.keys(property).length > 0) {
     return (
       <div className="flex w-full py-10 justify-center text-slate-500">
         <img alt="loader" src={loading} />
@@ -48,15 +48,15 @@ function ProjectDetails() {
         <div className="flex w-full items-center justify-start flex-col md:flex-row relative">
           <div className="flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto ">
             <img
-              alt="project"
-              src={project?.thumbnail}
+              alt="property"
+              src={property?.thumbnail}
               className="aspect-video  mb-2 w-full  md:h-44 max  object-cover rounded-lg"
             />
           </div>
           {/* Heading */}
           <div className="flex flex-col w-full md:w-auto justify-start items-start  md:ml-0">
             <h1 className="text-2xl px-6 text-start font-medium text-slate-800 mb-6 ">
-              {project?.title}
+              {property?.title}
             </h1>
             {/* Domain */}
             <Link
@@ -64,25 +64,25 @@ function ProjectDetails() {
             >
               Posted by
               {' '}
-              {project?.stateAgent.name}
+              {property?.stateAgent.name}
             </Link>
             {/* Timestamp */}
             <p className="text-sm px-6 text-slate-600">
               Posted on
               {' '}
-              {project?.createdAt}
+              {property?.createdAt}
             </p>
             <div className="flex px-6 flex-col my-5 gap-2">
               {/* City */}
               <p className="text-base flex items-center gap-2 text-slate-800">
                 <BiSolidMap className="text-accent" />
                 {' '}
-                {project?.city}
+                {property?.city}
               </p>
               <p className="text-base flex items-center gap-2 text-slate-800">
                 <BiSolidMap className="text-accent" />
                 {' '}
-                {project?.area}
+                {property?.area}
               </p>
 
             </div>
@@ -91,7 +91,7 @@ function ProjectDetails() {
 
         <div className="flex w-full border-t py-3">
           {/* description */}
-          <h1 className="description px-6">{project?.description}</h1>
+          <h1 className="description px-6">{property?.description}</h1>
         </div>
         {/* Pricing */}
         <div className="flex justify-start gap-8 w-full border-t pt-3 pb-6">
@@ -100,7 +100,7 @@ function ProjectDetails() {
             <p className="text-base font-medium">
               Rs.
               {' '}
-              {project?.rent}
+              {property?.rent}
               {' '}
               <br />
               {' '}
@@ -112,7 +112,7 @@ function ProjectDetails() {
           {/* Experience Level */}
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
             <p className="text-base font-medium">
-              {project?.timeframe}
+              {property?.timeframe}
               {' '}
               <br />
               {' '}
@@ -123,7 +123,7 @@ function ProjectDetails() {
           </div>
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
             <p className="text-base font-medium">
-              {project?.floor}
+              {property?.floor}
               {' '}
               <br />
               {' '}
@@ -138,7 +138,7 @@ function ProjectDetails() {
           <p className="text-base capitalize px-6 text-start font-normal text-slate-800">
             <span className=" font-medium">Property Status:</span>
             {' '}
-            {project?.status}
+            {property?.status}
             {' '}
             property
           </p>
@@ -152,10 +152,10 @@ function ProjectDetails() {
               Property Owner
             </h1>
             <Members
-              image={`${project?.landlord.image}`}
-              walletAddress={`${project?.landlord.walletAddress}`}
-              name={`${project?.landlord.name}`}
-              cnic={`${project?.landlord.cnic}`}
+              image={`${property?.landlord.image}`}
+              walletAddress={`${property?.landlord.walletAddress}`}
+              name={`${property?.landlord.name}`}
+              cnic={`${property?.landlord.cnic}`}
               className="font-medium"
               imageclass="w-[10vw] md:w-14"
             />
@@ -168,10 +168,10 @@ function ProjectDetails() {
             </h1>
 
             <Members
-              image={`${project?.tenant.image}`}
-              walletAddress={`${project?.tenant.walletAddress}`}
-              name={`${project?.tenant.name}`}
-              cnic={`${project?.tenant.cnic}`}
+              image={`${property?.tenant.image}`}
+              walletAddress={`${property?.tenant.walletAddress}`}
+              name={`${property?.tenant.name}`}
+              cnic={`${property?.tenant.cnic}`}
               className="font-medium"
               imageclass="w-[10vw] md:w-14"
             />
@@ -185,11 +185,11 @@ function ProjectDetails() {
             </h1>
 
             <Members
-              image={`${project?.stateAgent.image}`}
-              walletAddress={`${project?.stateAgent.walletAddress}`}
-              name={`${project?.stateAgent.name}`}
-              cnic={`${project?.stateAgent.cnic}`}
-              estateName={`${project?.stateAgent.estateName}`}
+              image={`${property?.stateAgent.image}`}
+              walletAddress={`${property?.stateAgent.walletAddress}`}
+              name={`${property?.stateAgent.name}`}
+              cnic={`${property?.stateAgent.cnic}`}
+              estateName={`${property?.stateAgent.estateName}`}
               className="font-medium"
               imageclass="w-[10vw] md:w-14"
             />
@@ -217,7 +217,7 @@ function ProjectDetails() {
             <div className="flex justify-between  items-center cursor-pointer ">
               <button
                 type="button"
-                onClick={() => deleteProject(1)}
+                onClick={() => deleteproperty(1)}
                 className="text-green-600 border border-solid border-green-500 text-l w-[11.7rem] lg:text-xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-[7px]"
               >
                 Approve Listing
@@ -231,7 +231,6 @@ function ProjectDetails() {
           <div className="flex justify-between  items-center cursor-pointer ">
             <button
                     type="button"
-                    onClick={() => deleteProject(1)}
                     className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
                   >
                     Delist Property
@@ -253,4 +252,4 @@ function ProjectDetails() {
   );
 }
 
-export default ProjectDetails;
+export default PropertyDetails;

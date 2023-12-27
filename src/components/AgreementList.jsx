@@ -1,22 +1,21 @@
-import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
 
-const CompanyList = ({ organizationsProp = [] }) => {
+const AgreementList = ({ agreementsProp = [] }) => {
   const isStateAgent=localStorage.getItem("Isstateagent")
   const islandlord=localStorage.getItem("Islandlord")
   const isTenanat=localStorage.getItem("Istenant")
 
-  let limitedOrganizations;
+  let limitedagreements;
   if (!isStateAgent && !islandlord && !isTenanat) {
     // const maxToShow = 4;
-    limitedOrganizations = organizationsProp.slice(0, 4);
+    limitedagreements = agreementsProp.slice(0, 4);
   } else {
-    limitedOrganizations = organizationsProp;
+    limitedagreements = agreementsProp;
   }
 
-  return limitedOrganizations.map((organization) => {
+  return limitedagreements.map((organization) => {
     // console.log('developer >>>>>', developer);
     const {
       // eslint-disable-next-line camelcase
@@ -37,7 +36,7 @@ const CompanyList = ({ organizationsProp = [] }) => {
               alt=""
             />
             <div className="flex flex-col w-full">
-              {/* ------------ Company Name------------- */}
+              {/* ------------ Agreement Name------------- */}
               <h1 className="text-xl font-medium text-slate-900">{title}</h1>
 
 
@@ -77,4 +76,4 @@ const CompanyList = ({ organizationsProp = [] }) => {
   });
 };
 
-export default CompanyList;
+export default AgreementList;

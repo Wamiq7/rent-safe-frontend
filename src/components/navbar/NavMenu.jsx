@@ -8,7 +8,7 @@ const navigations = [
   },
   {
     name: "Properties",
-    path: "/projects",
+    path: "/properties",
   },
   {
     name: "Agreements",

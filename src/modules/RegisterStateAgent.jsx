@@ -12,7 +12,7 @@ import developer from "../../public/developer.svg";
 import { loadingContext } from '../components/context/LoadingState';
 // import developer from "../../../../../../../../developer.svg";
 
-function RegisterDeveloper() {
+function RegisterStateAgent() {
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
 
@@ -423,4 +423,4 @@ function RegisterDeveloper() {
   );
 }
 
-export default RegisterDeveloper;
+export default RegisterStateAgent;

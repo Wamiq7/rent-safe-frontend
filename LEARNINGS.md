@@ -12,11 +12,11 @@ vercel 404: NOT_FOUND Code: NOT_FOUND
 
 ```bash
 Warning: Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.
-    at ProjectList
+    at PropertyList
 ```
 
 - So sometimes this issue will still persist even if there are no List elements in the component or even when they're taken care of by giving a unique `key={}` prop into it.
-- Now in the case of `components/ProjectList` component, the `map` method was return the empty react fragments like the following :
+- Now in the case of `components/PropertyList` component, the `map` method was return the empty react fragments like the following :
 
 ```javascript
 return (

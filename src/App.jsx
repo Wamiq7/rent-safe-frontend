@@ -6,18 +6,16 @@ import LoadingBar from 'react-top-loading-bar';
 import { useContext } from 'react';
 import Header from './components/Header';
 import Home from './modules/Home';
-import CompanyListings from './modules/CompanyListings';
-import DevelopersListing from './modules/DevelopersListing';
-import ProjectListings from './modules/ProjectListings';
-import CompanyMain from './modules/CompanyMain';
+import AgreementListings from './modules/AgreementListings';
+import PropertyListings from './modules/PropertyListings';
+import AgreementMain from './modules/AgreementMain';
 import ProjectMain from './modules/ProjectMain';
-import DeveloperMain from './modules/DeveloperMain';
 import Login from './modules/Login';
 import Register from './modules/Register';
-import RegisterDeveloper from './modules/RegisterDeveloper';
-import RegisterOrganization from './modules/RegisterOrganization';
+import RegisterStateAgent from './modules/RegisterStateAgent';
+import RegisterTenantORLandlord from './modules/RegisterTenantORLandlord';
 import AboutUs from './modules/AboutUs';
-import ProjectAdd from './modules/ProjectAdd';
+import PropertyAdd from './modules/PropertyAdd';
 import StateAgentLogin from './components/form/login/StateAgentLogin';
 import TenantLogin from './components/form/login/TenantLogin';
 import AgreementAdd from './modules/AgreementAdd';
@@ -29,8 +27,7 @@ function App() {
   const progressState = useContext(loadingContext);
   const { progress } = progressState;
 
-  // console.log("env : ", import.meta.env.VITE_API_URL);
-  // console.log("env : ", process.env.REACT_APP_API_URL);
+
   return (
     <>
       <LoadingBar
@@ -46,19 +43,19 @@ function App() {
             element={<Home />}
           />
           <Route
-            path="/projects"
-            element={<ProjectListings />}
+            path="/properties"
+            element={<PropertyListings />}
           />
           <Route
-            path="/projects/create"
-            element={<ProjectAdd />}
+            path="/properties/create"
+            element={<PropertyAdd />}
           />
           <Route
             path="/about"
             element={<AboutUs />}
           />
           <Route
-            path="/projects/:uid"
+            path="/properties/:uid"
             element={<ProjectMain />}
           />
           <Route
@@ -67,27 +64,15 @@ function App() {
           />
           <Route
             path="/agreements"
-            element={<CompanyListings />}
+            element={<AgreementListings />}
           />
           <Route
             path="/agreements/:uid"
-            element={<CompanyMain />}
-          />
-          {/* -------------Company Profile----------------- */}
-          <Route
-            path="/companies/:id"
-            element={<CompanyMain />}
-          />
-          <Route
-            path="/developers"
-            element={<DevelopersListing />}
-          />
-          <Route
-            path="/developers/:uid"
-            element={<DeveloperMain />}
+            element={<AgreementMain />}
           />
 
-          {/* -------------Dev Profile----------------- */}
+
+          {/* -------------Profile----------------- */}
           <Route
             path="/profile"
             element={<Profile />}
@@ -113,12 +98,12 @@ function App() {
             element={<Register />}
           />
           <Route
-            path="/register/developer"
-            element={<RegisterDeveloper />}
+            path="/register/stateAgent"
+            element={<RegisterStateAgent />}
           />
           <Route
-            path="/register/company"
-            element={<RegisterOrganization />}
+            path="/register/tenantORlandlord"
+            element={<RegisterTenantORLandlord />}
           />
         </Routes>
       </div>
