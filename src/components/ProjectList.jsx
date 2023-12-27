@@ -9,7 +9,7 @@ const ProjectList = ({ projectsProp = [] }) => {
   const isTenanat=localStorage.getItem("Istenant")
 
   let limitedProjects;
-  if (!authToken) {
+  if (!isStateAgent && !islandlord && !isTenanat) {
     // const maxToShow = 4;
     limitedProjects = projectsProp.slice(0, 4);
   } else {
