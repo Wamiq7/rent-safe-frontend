@@ -15,7 +15,7 @@ function Login() {
           className={`${commonHeadingStyle} ${commonButtonStyle} bg-green-500`}
           to="/login/stateAgent"
         >
-          <h1>State Agent</h1>
+          <h1>Estate Agent</h1>
           <div className="cloud-shape"></div>
         </Link>
         <div className="border-b border-slate-300 w-full"></div>

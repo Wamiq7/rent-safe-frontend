@@ -2,40 +2,158 @@
   "AgreementData": [
     {
       "_id": "1",
-      "title": "2 Bed DD ",
-      "banner_img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+      "title": "Pearl Luxury",
+      "banner_img": "/public/recentproperty/img1.png",
       "duration": 9,
-      "extraDetails": "A brief description about the company",
+      "extraDetails": " 🌿 Passionate agents at ABC Estates Realty work tirelessly to match your dreams with environmentally conscious homes, emphasizing sustainable living",
       "status":"Active",
-      "rent":"25000",
-      "advance":"100000",
+      "rent":"85,000",
+      "advance":"100,000",
       "propertyDetails": {
-        "_id": "65716a535c5b47daa40c4572",
-        "propertyType": "2 Bed DD",
-        "thumbnail": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-        "description": "Fully Furnished property"
+        "_id": "no1",
+        "propertyType": "House",
+        "thumbnail": "/public/recentproperty/img1.png",
+        "description": "Fully Furnished 3 bed rooms with parking space and 30ft road"
       },
       "tenant": {
-        "_id": "1",
+        "_id": "t1",
         "name":"Zulnoor Siddiqui",
-        "cnic": "42001524562345",
-        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-        "walletAddress": "0x41235gsds5234235"
+        "cnic": "42200934587189",
+        "pic": "/public/tenant/tenant1.jpg",
+        "walletAddress": "0x423423523523736"
       },
       "landlord": {
-        "_id": "1",
+        "_id": "l1",
         "name":"Masab Bin Fakhar",
-        "cnic": "42001524562345",
-        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-        "walletAddress": "0x42gsdfgv435234235"
+        "cnic": "422009567999",
+        "pic": "/public/landlord/landlord1.png",
+        "walletAddress": "0x423423542323598"
       },
       "stateAgent": {
-        "_id": "1",
-        "name":"Abid Javed",
-        "cnic": "42001524562345",
-        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-        "walletAddress": "0x412354534234235",
-        "estateName": "WZM States"
+        "_id": "s1",
+        "name":"Wamiq Akram",
+        "cnic": "4220097887890",
+        "pic": "/public/stateagent/stateagent1.jpg",
+        "walletAddress": "0x423423523523123",
+        "estateName": "ABC Estates"
+      }
+    },
+
+    {
+      "_id": "2",
+      "title": "Apsara",
+      "banner_img": "/public/recentproperty/img2.png",
+      "duration": 4,
+      "extraDetails": "🌆 Navigating city life is a breeze with WZM Estate; our seasoned agents guide you through WZM Estate, ensuring you find the perfect home in the heart of the bustling city.",
+      "status":"Active",
+      "rent":"60,000",
+      "advance":"90,000",
+      "propertyDetails": {
+        "_id": "no2",
+        "propertyType": "Appartment",
+        "thumbnail": "/public/recentproperty/img2.png",
+        "description": "4 bed rooms with parking space"
+      },
+      "tenant": {
+        "_id": "t2",
+        "name":"saad",
+        "cnic": "42200973187890",
+        "pic": "/public/tenant/tenant2.jpg",
+        "walletAddress": "0x423423522223325"
+      },
+      "landlord": {
+        "_id": "l2",
+        "name":"ali",
+        "cnic": "422009567111",
+        "pic": "/public/landlord/landlord2.png",
+        "walletAddress": "0x423423555323325"
+      },
+      "stateAgent": {
+        "_id": "s2",
+        "name":"ahmad",
+        "cnic": "4220012387546",
+        "pic": "/public/stateagent/stateagent2.jpg",
+        "walletAddress": "0x475923523523325",
+        "estateName": "WZM Estate"
+      }
+    },
+
+
+    {
+      "_id": "3",
+      "title": "Bridge View",
+      "banner_img": "/public/recentproperty/img3.png",
+      "duration": 5,
+      "extraDetails": "🏖️ JF builders specializes in coastal living, offering a dedicated team committed to turning into a reality.",
+      "status":"Active",
+      "rent":"75,000",
+      "advance":"80,000",
+      "propertyDetails": {
+        "_id": "no3",
+        "propertyType": "House",
+        "thumbnail": "/public/recentproperty/img3.png",
+        "description": "Furnished 5 bed rooms with 50ft road"
+      },
+      "tenant": {
+        "_id": "t3",
+        "name":"Siddiqui",
+        "cnic": "41230934587890",
+        "pic": "/public/tenant/tenant3.jpg",
+        "walletAddress": "0x423333523523325"
+      },
+      "landlord": {
+        "_id": "l3",
+        "name":"Fakhar",
+        "cnic": "420009567890",
+        "pic": "/public/landlord/landlord3.png",
+        "walletAddress": "0x423423333323325"
+      },
+      "stateAgent": {
+        "_id": "s3",
+        "name":"bilal",
+        "cnic": "4220097887845",
+        "pic": "/public/stateagent/stateagent3.jpg",
+        "walletAddress": "0x423423528883325",
+        "estateName": "JF builders"
+      }
+    },
+
+    {
+      "_id": "4",
+      "title": "Sky Tower",
+      "banner_img": "/public/recentproperty/img4.png",
+      "duration": 12,
+      "extraDetails": "⛰️ Elevate your living experience with Iqbal estate, where our agents curate mountain retreats to provide you with a personalized sanctuary amidst stunning landscapes.",
+      "status":"Active",
+      "rent":"25000",
+      "advance":"10,000",
+      "propertyDetails": {
+        "_id": "no4",
+        "propertyType": "Appartment",
+        "thumbnail": "/public/recentproperty/img4.png",
+        "description": "2 bed room with parking space"
+      },
+      "tenant": {
+        "_id": "t4",
+        "name":" ahsan",
+        "cnic": "42200999987890",
+        "pic": "/public/tenant/tenant4.jpg",
+        "walletAddress": "0x423423523523111"
+      },
+      "landlord": {
+        "_id": "l4",
+        "name":"Talha",
+        "cnic": "422009567761",
+        "pic": "/public/landlord/landlord4.png",
+        "walletAddress": "0x423423542323222"
+      },
+      "stateAgent": {
+        "_id": "s4",
+        "name":"Javed",
+        "cnic": "4220438887890",
+        "pic": "/public/stateagent/stateagent4.jpg",
+        "walletAddress": "0x422223523523325",
+        "estateName": "Iqbal estate"
       }
     }
   ]

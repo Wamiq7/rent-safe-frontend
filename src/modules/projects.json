@@ -1,44 +1,164 @@
 {
     "projects": [
         {
-            "address": "MC # 49B",
-            "createdAt": "2023-12-07T06:46:43.909Z",
-            "description": "Fuly Furnished 3 bed DD with parking space and 30ft road",
+            "address": "no1",
+            "createdAt": "2023-12-07 T06 : 46:43.909Z",
+            "description": "Fully Furnished 3 bed rooms with parking space and 30ft road",
             "stateAgent": {
-                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-                "name": "Abid Javed",
+                "image": "/public/stateagent/stateagent1.jpg",
+                "name": "Wamiq Akram",
                 "cnic":"4220097887890",
-                "walletAddress":"0x423423523523325",
-                "estateName": "WZM Estates",
-                "uid": "org_23277285",
-                "_id": "65716a0c5c5b47daa40c4569"
+                "walletAddress":"0x423423523523123",
+                "estateName": "ABC Estates",
+                "uid": "1",
+                "_id": "s1"
             },
             "city": "KHI",
-            "area": "Green Town",
+            "area": "Maymar",
             "status": "Active",
             "floor": "Ground",
-            "thumbnail": "http://res.cloudinary.com/dtgsoxcta/image/upload/v1701931602/wegaffporsnpvizcsxrv.jpg",
+            "thumbnail": "/public/recentproperty/img1.png",
             "timeframe": "Monday 25-2023",
-            "title": "4 bedroom appartment",
+            "title": "Pearl Luxury",
             "tenant": {
-                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+                "image": "/public/tenant/tenant1.jpg",
                 "name": "Zulnoor Siddqui",
-                "cnic":"42200934587890",
-                "walletAddress":"0x423423523523325",
-                "_id": "65716a0c5c5b7868a40c4569"
+                "cnic":"42200934587189",
+                "walletAddress":"0x423423523523736",
+                "_id": "t1"
             },
             "landlord": {
-                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+                "image": "/public/landlord/landlord1.png",
                 "name": "Masab Bin Fakhar",
-                "cnic":"422009567890",
-                "walletAddress":"0x423423542323325",
-                "_id": "65716a0c5c5345a40c4569"
+                "cnic":"422009567999",
+                "walletAddress":"0x423423542323598",
+                "_id": "l1"
             },
             "project_uid": "proj_9238996",
-            "updatedAt": "2023-12-07T06:46:43.909Z",
+            "updatedAt": "2023-12-07 T06:46:43.909Z",
             "__v": 0,
             "uid": "65716a535c5b47daa40c4572",
-            "rent":"25000"
+            "rent":"85,000"
+        },
+        {
+            "address": "no2",
+            "createdAt": "2022-11-10 T07:46:43.909Z",
+            "description": "4 bed rooms with parking space",
+            "stateAgent": {
+                "image": "/public/stateagent/stateagent2.jpg",
+                "name": "ahmad",
+                "cnic":"4220012387546",
+                "walletAddress":"0x475923523523325",
+                "estateName": "WZM Estates",
+                "uid": "org_23277285",
+                "_id": "s1"
+            },
+            "city": "KHI",
+            "area": "Nazimabad",
+            "status": "Active",
+            "floor": "1st floor",
+            "thumbnail": "/public/recentproperty/img2.png",
+            "timeframe": "Tuesday 30-2023",
+            "title": "Apsara",
+            "tenant": {
+                "image": "/public/tenant/tenant2.png",
+                "name": "saad",
+                "cnic":"42200973187890",
+                "walletAddress":"0x423423522223325",
+                "_id": "t2"
+            },
+            "landlord": {
+                "image": "/public/landlord/landlord2.png",
+                "name": "ali",
+                "cnic":"422009567111",
+                "walletAddress":"0x423423555323325",
+                "_id": "l2"
+            },
+            "project_uid": "proj_9238996",
+            "updatedAt": "2021-7-08 T06:46:43.909Z",
+            "__v": 0,
+            "uid": "2",
+            "rent":"60,000"
+        },
+        {
+            "address": "no3",
+            "createdAt": "2020-4-25 T06:46:43.909Z",
+            "description": "Furnished 5 bed rooms with 50ft road",
+            "stateAgent": {
+                "image": "/public/stateagent/stateagent3.jpg",
+                "name": "bilal",
+                "cnic":"4220097887845",
+                "walletAddress":"0x423423528883325",
+                "estateName": "JF builders",
+                "uid": "org_23277285",
+                "_id": "s3"
+            },
+            "city": "KHI",
+            "area": "Gulshan",
+            "status": "Active",
+            "floor": "2nd floor",
+            "thumbnail": "/public/recentproperty/img3.png",
+            "timeframe": "Friday 25-2023",
+            "title": "Bridge View",
+            "tenant": {
+                "image": "/public/tenant/tenant3.png",
+                "name": "Siddqui",
+                "cnic":"41230934587890",
+                "walletAddress":"0x423333523523325",
+                "_id": "t3"
+            },
+            "landlord": {
+                "image": "/public/landlord/landlord3.png",
+                "name": "Fakhar",
+                "cnic":"420009567890",
+                "walletAddress":"0x423423333323325",
+                "_id": "l3"
+            },
+            "project_uid": "proj_9238996",
+            "updatedAt": "2019-12-11 T06:46:43.909Z",
+            "__v": 0,
+            "uid": "3",
+            "rent":"75,000"
+        },
+        {
+            "address": "no4",
+            "createdAt": "2018-12-17 T06:46:43.909Z",
+            "description": "2 bed room with parking space",
+            "stateAgent": {
+                "image": "/public/stateagent/stateagent4.jpg",
+                "name": "Javed",
+                "cnic":"4220438887890",
+                "walletAddress":"0x422223523523325",
+                "estateName": "Iqbal estate",
+                "uid": "org_23277285",
+                "_id": "s4"
+            },
+            "city": "KHI",
+            "area": "Bahria Town",
+            "status": "Active",
+            "floor": "Ground",
+            "thumbnail": "/public/recentproperty/img4.png",
+            "timeframe": "Sunday 11-2023",
+            "title": "Sky Tower",
+            "tenant": {
+                "image": "/public/tenant/tenant4.jpg",
+                "name": "Ahsan",
+                "cnic":"42200999987890",
+                "walletAddress":"0x423423523523111",
+                "_id": "t4"
+            },
+            "landlord": {
+                "image": "/public/landlord/landlord4.png",
+                "name": "talha",
+                "cnic":"422009567761",
+                "walletAddress":"0x423423542323222",
+                "_id": "l4"
+            },
+            "project_uid": "proj_9238996",
+            "updatedAt": "2017-03-11 T06:46:43.909Z",
+            "__v": 0,
+            "uid": "4",
+            "rent":"54,000"
         }
     ]
 }
