@@ -4,7 +4,9 @@ import React from 'react';
 
 
 const CompanyList = ({ organizationsProp = [] }) => {
-  const authToken = localStorage.getItem("authToken");
+  const isStateAgent=localStorage.getItem("Isstateagent")
+  const islandlord=localStorage.getItem("Islandlord")
+  const isTenanat=localStorage.getItem("Istenant")
 
   let limitedOrganizations;
   if (!isStateAgent && !islandlord && !isTenanat) {
