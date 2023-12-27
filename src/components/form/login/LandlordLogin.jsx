@@ -54,7 +54,7 @@ export default function LandlordLogin() {
     // You can add additional logic here for actual sign-in process if needed
 
     // Navigate to the desired page after login
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (

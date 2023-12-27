@@ -34,7 +34,7 @@ export default function StateAgentLogin() {
       localStorage.setItem('Isstateagent', 'true');
 
       setIsSubmitting(false);
-      navigate('/dashboard');
+      navigate('/');
     }, 2000);
   };
 

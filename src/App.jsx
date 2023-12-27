@@ -21,8 +21,6 @@ import ProjectAdd from './modules/ProjectAdd';
 import StateAgentLogin from './components/form/login/StateAgentLogin';
 import TenantLogin from './components/form/login/TenantLogin';
 import AgreementAdd from './modules/AgreementAdd';
-import DevLogin from './components/form/login/DevLogin';
-import OrgLogin from './components/form/login/OrgLogin';
 import Profile from './components/profile/Profile';
 import { loadingContext } from './components/context/LoadingState';
 import LandlordLogin from './components/form/login/LandlordLogin';

@@ -56,7 +56,7 @@ export default function TenantLogin() {
     // You can add additional logic here for the actual sign-in process if needed
 
     // Navigate to the desired page after login
-    navigate('/dashboard');
+    navigate('/');
   };
 
   return (
