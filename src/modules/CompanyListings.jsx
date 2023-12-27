@@ -23,7 +23,9 @@ const filters = [
 function CompanyListings() {
   const [organizations, setOrganizations] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const authToken = localStorage.getItem("authToken");
+  const isStateAgent=localStorage.getItem("Isstateagent")
+  const islandlord=localStorage.getItem("Islandlord")
+  const isTenanat=localStorage.getItem("Istenant")
 
   useEffect(() => {
 
@@ -80,7 +82,7 @@ function CompanyListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {!authToken && organizations.length > 0 ? (
+          {(!isStateAgent && !islandlord &&!isTenanat) && organizations.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>

@@ -4,7 +4,9 @@ import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const ProjectList = ({ projectsProp = [] }) => {
-  const authToken = localStorage.getItem("authToken");
+   const isStateAgent=localStorage.getItem("Isstateagent")
+  const islandlord=localStorage.getItem("Islandlord")
+  const isTenanat=localStorage.getItem("Istenant")
 
   let limitedProjects;
   if (!authToken) {

@@ -7,7 +7,7 @@ const CompanyList = ({ organizationsProp = [] }) => {
   const authToken = localStorage.getItem("authToken");
 
   let limitedOrganizations;
-  if (!authToken) {
+  if (!isStateAgent && !islandlord && !isTenanat) {
     // const maxToShow = 4;
     limitedOrganizations = organizationsProp.slice(0, 4);
   } else {

@@ -36,8 +36,9 @@ function ProjectListings() {
   // const [isOpen, setIsOpen] = useState(false);
   const [projects, setProjects] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const [saveBtnState, SetsaveBtnState] = useState(false);
-  const [bestMatchesBtnState, setBestMatchesBtnState] = useState(true);
+  const isStateAgent=localStorage.getItem("Isstateagent")
+  const islandlord=localStorage.getItem("Islandlord")
+  const isTenanat=localStorage.getItem("Istenant")
   const authToken = localStorage.getItem("authToken");
 
   const progressState = useContext(loadingContext);
@@ -135,7 +136,7 @@ function ProjectListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {!authToken && projects.length > 0 ? (
+          {(!isStateAgent && !islandlord &&!isTenanat) && projects.length > 0 ? (
             <h1 className=" blue-gradient text-center text-2xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>
