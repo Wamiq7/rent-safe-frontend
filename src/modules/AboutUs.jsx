@@ -3,15 +3,15 @@ import Footer from '../components/Footer';
 
 const links = [
   { name: 'Properties', href: '/projects' },
-  { name: 'State Agents', href: '/companies' },
-  { name: 'Reviews', href: '/developers' },
-  { name: 'About us', href: '#' },
+  { name: 'Agreements', href: '/companies' },
+  // { name: 'Reviews', href: '/developers' },
+  // { name: 'About us', href: '#' },
 ];
 const stats = [
-  { name: 'Tenants Who Trust Us', value: '1000+' },
-  { name: 'Ratings', value: '4.7' },
-  { name: 'Reviews', value: '250' },
-  { name: 'Reliability', value: 'Unlimited' },
+  { name: 'Tenants Who Trust Us', value: '1000 +' },
+  { name: 'EstateAgent Who Trust Us', value: '1000 +' },
+  { name: 'Landlord Who Trust Us', value: '1000 +' },
+  // { name: 'Reliability', value: 'Unlimited' },
 ];
 
 export default function AboutUs() {
