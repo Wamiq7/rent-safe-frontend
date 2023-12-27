@@ -21,12 +21,9 @@ const ProjectList = ({ projectsProp = [] }) => {
       description,
       timeframe,
       thumbnail,
-      project_type,
-      required_personnel,
-    //   featured,
-    //   board,
-    //   techstack,
-    //   fixed_price,
+      floor,
+      status,
+      stateAgent
     } = projects;
 
     return (
@@ -39,7 +36,6 @@ const ProjectList = ({ projectsProp = [] }) => {
           className="flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative"
         >
           <div className="flex flex-col lg:flex-row w-full gap-6 items-center relative">
-            <BsFillBookmarkPlusFill className="text-white lg:text-accent absolute w-7 h-7 top-2 border-spacing-4 right-3 z-30 hover:text-accent/30 drop-shadow-xl drop-shadow-white" />
             <img
               src={thumbnail}
               className="flex place-content-start items-start w-full aspect-video  h-48 object-cover rounded-lg"
@@ -54,21 +50,22 @@ const ProjectList = ({ projectsProp = [] }) => {
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
                     <h3 className="listing-content-data">{timeframe}</h3>
-                    <h4 className="listing-content-constant">Duration</h4>
+                    <h4 className="listing-content-constant">Listed Date</h4>
                   </div>
                   <div>
                     <h3 className="listing-content-data">
-                      {required_personnel}
+                      {status}
                     </h3>
-                    <h4 className="listing-content-constant">Role</h4>
+                    <h4 className="listing-content-constant">Status</h4>
                   </div>
                 </div>
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
-                    <h3 className="listing-content-data">{project_type}</h3>
-                    <h4 className="listing-content-constant">Project Type</h4>
+                    <h3 className="listing-content-data">{floor}</h3>
+                    <h4 className="listing-content-constant">Floor</h4>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -78,7 +75,7 @@ const ProjectList = ({ projectsProp = [] }) => {
 
           {/* -------------tech Stack---------------- */}
           <div className="flex border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl">
-            {uid}
+            Posted By :&nbsp;&nbsp;<b>{stateAgent.name}</b>
           </div>
         </Link>
       </React.Fragment>

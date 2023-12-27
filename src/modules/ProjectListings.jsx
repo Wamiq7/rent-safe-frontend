@@ -7,6 +7,7 @@ import FilterButton from "../components/navbar/FilterButton";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
 import { loadingContext } from "../components/context/LoadingState";
+import projectsData from "./projects.json"
 
 const filters = [
   {
@@ -42,67 +43,29 @@ function ProjectListings() {
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
 
+  // const fetchProjects = async () => {
+  //   const searchTitle = `?title=${searchInput.searchString}`;
+  //   const response = await fetch(
+  //     `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
+  //     { mode: "cors" },
+  //   );
+  //   const fetchedProjects = await response.json();
+  //   setProjects(fetchedProjects.data);
+  //   console.log(fetchedProjects.data);
+  //   return fetchedProjects.message;
+  // };
+
   const fetchProjects = async () => {
-    const searchTitle = `?title=${searchInput.searchString}`;
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
-      { mode: "cors" },
-    );
-    const fetchedProjects = await response.json();
-    setProjects(fetchedProjects.data);
-    console.log(fetchedProjects.data);
-    return fetchedProjects.message;
+    setProjects(projectsData.projects);
   };
   useEffect(() => {
-    if (!localStorage.getItem("isDev")) {
-      SetsaveBtnState(false);
-    }
     fetchProjects();
-  }, [searchInput]);
+  }, []);
 
   const orgToken = localStorage.getItem("isOrg");
 
-  const fetchSavedProjects = async () => {
-    // always start the loader with 0
-    await setProgress(0);
-    await setProgress(10);
 
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/projects?bookmark=${localStorage.getItem("isDev")}`,
-      { mode: "cors" },
-    );
-    await setProgress(30);
-    const fetchedProjects = await response.json();
-    setProjects(fetchedProjects.data);
-    await setProgress(50);
-    // alert(`${fetchedProjects.message}`);
-    toast.success(`${fetchedProjects.message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
-    });
-    await setProgress(1000);
-  };
-  const handleBestMatches = async () => {
-    // always start the loader with 0
-    await setProgress(0);
-    await setProgress(10);
 
-    // using async-await is imp here as fetchProjects returns a Promise so need to handle it untill it is resolved by the fetchProjects() method.
-    const message = await fetchProjects();
-
-    await setProgress(30);
-    toast.success(`${message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
-    });
-    await setProgress(50);
-    SetsaveBtnState(false);
-    setBestMatchesBtnState(true);
-    await setProgress(100);
-  };
-  const handleSaved = async () => {
-    await fetchSavedProjects();
-    SetsaveBtnState(true);
-    setBestMatchesBtnState(false);
-  };
   return (
     <div className="flex flex-col justify-center w-full">
       {/* ------------- Background Gradient ------------ */}
@@ -141,14 +104,6 @@ function ProjectListings() {
           </h1>
           <div className="flex mt-6 w-full justify-between border-b ">
             <div className="tabs gap-4 pl-6">
-              <button type="button" className={`tab ${bestMatchesBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleBestMatches}>
-                Best Matches
-              </button>
-              {localStorage.getItem("isDev") ? (
-                <button type="button" className={`tab ${saveBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleSaved}>
-                  Saved Jobs
-                </button>
-              ) : null}
             </div>
 
             {/* --------sort button--------- */}

@@ -29,37 +29,6 @@ export default function ProjectAdd() {
     setFormData({ ...formData, photo: file });
   };
 
-  const patchORG = (projId, projMessage) => {
-    fetch(`${import.meta.env.VITE_API_URL}/organizations/${localStorage.getItem("orgUID")}`)
-      .then((response) => response.json())
-      .then((orgData) => {
-        // update the org_projects array with newly added project to that organization :
-        const existingProjects = orgData.data.org_projects ? orgData.data.org_projects.map((project) => project._id) : [];
-        const updatedProjects = [...existingProjects, projId];
-
-        fetch(`${import.meta.env.VITE_API_URL}/organizations/${localStorage.getItem("orgUID")}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: localStorage.getItem("authToken"),
-          },
-          body: JSON.stringify({ org_projects: updatedProjects }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            toast.success(`${projMessage} Also ${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
-            });
-            navigate("/");
-          })
-          .catch((error) => {
-            console.log("Error updating organization : ", error);
-          })
-          .finally(() => {
-            setIsSubmitting(false); // Enable the button again after request completion
-          });
-      });
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -111,32 +80,7 @@ export default function ProjectAdd() {
       bodyData.append('photo', formData.photo);
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/projects`, {
-      method: "POST",
-      headers: {
-        // "Content-Type": "application/json",
-        authorization: localStorage.getItem("authToken"),
-      },
-      // body: JSON.stringify(formData),
-      body: bodyData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          // alerts_toast
-          // alert(`${data.message}: ${data.error}`);
-          toast.success(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
-          });
-        } else {
-          patchORG(data.data._id, data.message);
-          // alert(`${data.message}`);
-        }
-        // navigate("/");
-      })
-      .catch((error) => {
-        console.log("Error posting the project : ", error);
-      });
+    console.log("Submitted Data",bodyData);
   };
   const handleClick = () => {
     hiddenFileInput.current.click();

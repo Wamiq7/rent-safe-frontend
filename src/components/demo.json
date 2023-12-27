@@ -1,0 +1,42 @@
+{
+  "AgreementData": [
+    {
+      "_id": "1",
+      "title": "2 Bed DD ",
+      "banner_img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+      "duration": 9,
+      "extraDetails": "A brief description about the company",
+      "status":"Active",
+      "rent":"25000",
+      "advance":"100000",
+      "propertyDetails": {
+        "_id": "65716a535c5b47daa40c4572",
+        "propertyType": "2 Bed DD",
+        "thumbnail": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+        "description": "Fully Furnished property"
+      },
+      "tenant": {
+        "_id": "1",
+        "name":"Zulnoor Siddiqui",
+        "cnic": "42001524562345",
+        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+        "walletAddress": "0x41235gsds5234235"
+      },
+      "landlord": {
+        "_id": "1",
+        "name":"Masab Bin Fakhar",
+        "cnic": "42001524562345",
+        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+        "walletAddress": "0x42gsdfgv435234235"
+      },
+      "stateAgent": {
+        "_id": "1",
+        "name":"Abid Javed",
+        "cnic": "42001524562345",
+        "pic": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+        "walletAddress": "0x412354534234235",
+        "estateName": "WZM States"
+      }
+    }
+  ]
+}

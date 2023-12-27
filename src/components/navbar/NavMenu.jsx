@@ -11,13 +11,10 @@ const navigations = [
     path: "/projects",
   },
   {
-    name: "State Agents",
-    path: "/companies",
+    name: "Agreements",
+    path: "/agreements",
   },
-  {
-    name: "Customers",
-    path: "/developers",
-  },
+
 ];
 
 export default function NavMenu() {

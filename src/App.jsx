@@ -18,6 +18,7 @@ import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
 import AboutUs from './modules/AboutUs';
 import ProjectAdd from './modules/ProjectAdd';
+import AgreementAdd from './modules/AgreementAdd';
 import DevLogin from './components/form/login/DevLogin';
 import OrgLogin from './components/form/login/OrgLogin';
 import Profile from './components/profile/Profile';
@@ -60,11 +61,15 @@ function App() {
             element={<ProjectMain />}
           />
           <Route
-            path="/companies"
+            path="/agreements/create/:uid"
+            element={<AgreementAdd />}
+          />
+          <Route
+            path="/agreements"
             element={<CompanyListings />}
           />
           <Route
-            path="/companies/:uid"
+            path="/agreements/:uid"
             element={<CompanyMain />}
           />
           {/* -------------Company Profile----------------- */}

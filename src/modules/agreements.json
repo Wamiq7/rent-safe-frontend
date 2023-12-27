@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "uid": "1",
+            "propertyType": "2 Bed DD",
+            "estateName": "Qadri States",
+            "duration": 9,
+            "propertyId": "65716a0c5c5b47daa40c4569",
+            "banner_img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg"
+        },
+        {
+            "uid": "2",
+            "propertyType": "3 bed DD",
+            "estateName": "WZM States",
+            "duration": 12,
+            "propertyId": "65716a0c5c5b7868a40c4569",
+            "banner_img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg"
+        }
+    ]
+}

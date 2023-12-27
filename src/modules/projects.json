@@ -1,31 +1,44 @@
 {
     "projects": [
         {
-            "board": "Scrum",
-            "bookmark": [],
+            "address": "MC # 49B",
             "createdAt": "2023-12-07T06:46:43.909Z",
-            "description": "lfaskod",
-            "featured": false,
-            "members": [],
-            "open": true,
-            "proj_organization": {
-                "banner_img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
-                "name": "Wzm estates",
+            "description": "Fuly Furnished 3 bed DD with parking space and 30ft road",
+            "stateAgent": {
+                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+                "name": "Abid Javed",
+                "cnic":"4220097887890",
+                "walletAddress":"0x423423523523325",
+                "estateName": "WZM Estates",
                 "uid": "org_23277285",
                 "_id": "65716a0c5c5b47daa40c4569"
             },
-            "project_type": "one",
-            "proposals": [],
-            "required_personnel": "fsdf",
-            "reviews": [],
-            "techStack": "mern",
+            "city": "KHI",
+            "area": "Green Town",
+            "status": "Active",
+            "floor": "Ground",
             "thumbnail": "http://res.cloudinary.com/dtgsoxcta/image/upload/v1701931602/wegaffporsnpvizcsxrv.jpg",
-            "timeframe": "fafa",
-            "title": "fkasmfla",
+            "timeframe": "Monday 25-2023",
+            "title": "4 bedroom appartment",
+            "tenant": {
+                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+                "name": "Zulnoor Siddqui",
+                "cnic":"42200934587890",
+                "walletAddress":"0x423423523523325",
+                "_id": "65716a0c5c5b7868a40c4569"
+            },
+            "landlord": {
+                "img": "https://res.cloudinary.com/dulptytgu/image/upload/v1689547610/vdgzaagklqgqjpnzlyyl.jpg",
+                "name": "Masab Bin Fakhar",
+                "cnic":"422009567890",
+                "walletAddress":"0x423423542323325",
+                "_id": "65716a0c5c5345a40c4569"
+            },
             "project_uid": "proj_9238996",
             "updatedAt": "2023-12-07T06:46:43.909Z",
             "__v": 0,
-            "project_id": "65716a535c5b47daa40c4572"
+            "uid": "65716a535c5b47daa40c4572",
+            "rent":"25000"
         }
     ]
 }
