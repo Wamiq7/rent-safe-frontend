@@ -57,9 +57,9 @@ function RegisterStateAgent() {
     if (name.length === 0) {
       setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
     } else if (!name) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Firt name is required" }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Name is required" }));
     } else if (name.length < 3) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "First name must be atleast 3 characters long." }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Name must be atleast 3 characters long." }));
     } else {
       setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
     }
@@ -68,9 +68,9 @@ function RegisterStateAgent() {
     if (name.length === 0) {
       setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
     } else if (!name) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name is required" }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Estate name is required" }));
     } else if (name.length < 2) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name must be atleast 2 characters long." }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Estate name must be atleast 2 characters long." }));
     } else {
       setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
     }
@@ -79,9 +79,9 @@ function RegisterStateAgent() {
     if (email.length === 0) {
       setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
     } else if (!email) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Email is required" }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "CNIC is required" }));
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid email address" }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid CNIC" }));
     } else {
       setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
     }

@@ -2,7 +2,7 @@ import React from 'react';
 
 const links = [
   { name: 'Properties', href: '/properties' },
-  { name: 'Agreements', href: '/companies' },
+  { name: 'Agreements', href: '/agreements' },
 
 ];
 const stats = [
