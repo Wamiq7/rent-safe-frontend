@@ -6,24 +6,24 @@ import { MdOutlineLogout } from "react-icons/md";
 
 function UserLogin() {
   const [isOpen, setIsOpen] = useState(false);
-  let token = localStorage.getItem("authToken");
-  let orgToken = localStorage.getItem("isOrg");
-  let devToken = localStorage.getItem("isDev");
-  let devUid = localStorage.getItem("dev_uid");
+  // let token = localStorage.getItem("authToken");
+  let tenant = localStorage.getItem("Istenant");
+  let landlord = localStorage.getItem("Islandlord");
+  let stateagent = localStorage.getItem("Isstateagent");
   const logOut = () => {
     // console.log('yoooooo');
-    localStorage.removeItem("authToken");
+    // localStorage.removeItem("authToken");
     // eslint-disable-next-line no-unused-expressions
-    orgToken ? localStorage.removeItem("isOrg") : null;
+    tenant ? localStorage.removeItem("Istenant") : null;
     // eslint-disable-next-line no-unused-expressions
-    devToken ? localStorage.removeItem("isDev") : null;
+    landlord ? localStorage.removeItem("Islandlord") : null;
     // eslint-disable-next-line no-unused-expressions
-    devUid ? localStorage.removeItem("dev_uid") : null;
+    stateagent ? localStorage.removeItem("Isstateagent") : null;
 
-    token = null;
-    orgToken = null;
-    devToken = null;
-    devUid = null;
+    // token = null;
+    tenant = null;
+    landlord = null;
+    stateagent = null;
   };
   // console.log('token is -----', token);
   return (
@@ -41,7 +41,7 @@ function UserLogin() {
         </button>
         {/* ----------for Logged Out Users------------------- */}
 
-        {isOpen && !token && (
+        {isOpen && !stateagent && !landlord && !tenant && (
           <div
             role="button"
             tabIndex={0}
@@ -68,7 +68,7 @@ function UserLogin() {
         )}
 
         {/* ----------for Logged In Users------------------- */}
-        {isOpen && token && (
+        {isOpen && (stateagent || landlord || tenant)&& (
           <div
             onClick={() => setIsOpen(!isOpen)}
             onKeyDown={(e) => {

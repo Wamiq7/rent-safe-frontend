@@ -12,11 +12,11 @@ function AccountCredentials({
   return (
     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8 h-[40vh] overflow-y-scroll scroll-smooth z-100 scrollbar p-3">
       <div className="flex flex-auto gap-5 w-full items-center justify-between">
-        <div className="relative w-full">
+        <div className="relative w-full mb-1">
           <p
-            className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
+            className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-1 mr-0 mb-0 ml-0 font-medium text-gray-600 absolute"
           >
-            First Name*
+             Name
           </p>
           <input
             name="fname"
@@ -35,7 +35,7 @@ function AccountCredentials({
           <p
             className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
           >
-            Last Name*
+            Estate Name
           </p>
           <input
             placeholder="Wick"
@@ -52,10 +52,10 @@ function AccountCredentials({
       </div>
       <div className="relative">
         <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-          Email*
+          CNIC*
         </p>
         <input
-          placeholder="johndoe@example.com"
+          placeholder="13 digit (XXXXX-XXXXXX-X)"
           type="text"
           required
           value={formData.email}
@@ -66,7 +66,7 @@ function AccountCredentials({
         <p className="text-red-500">{validationErrors.email}</p>
         )}
       </div>
-      <div className="relative">
+      {/* <div className="relative">
         <p
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
         >
@@ -84,7 +84,7 @@ function AccountCredentials({
         <p className="text-red-500">{validationErrors.password}</p>
         )}
 
-      </div>
+      </div> */}
       {/* <div className="relative">
         <p
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600

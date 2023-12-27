@@ -2,16 +2,16 @@ import React from 'react';
 import Footer from '../components/Footer';
 
 const links = [
-  { name: 'Open Projects', href: '/projects' },
-  { name: 'Company List', href: '/companies' },
-  { name: 'Our Developers', href: '/developers' },
-  { name: 'Meet our leadership', href: '#' },
+  { name: 'Properties', href: '/projects' },
+  { name: 'State Agents', href: '/companies' },
+  { name: 'Reviews', href: '/developers' },
+  { name: 'About us', href: '#' },
 ];
 const stats = [
-  { name: 'Companies Who Trust Us', value: '1200+' },
-  { name: 'Full-time Developers', value: '3000+' },
-  { name: 'Hours per week', value: '40' },
-  { name: 'Earning Potential', value: 'Unlimited' },
+  { name: 'Tenants Who Trust Us', value: '1000+' },
+  { name: 'Ratings', value: '4.7' },
+  { name: 'Reviews', value: '250' },
+  { name: 'Reliability', value: 'Unlimited' },
 ];
 
 export default function AboutUs() {
@@ -44,18 +44,10 @@ export default function AboutUs() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl ">
-              About IdeaBox
+              About Rent Safe
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-300 text-justify">
-              At Ideabox, we have created a dynamic and innovative project
-              listing application designed to empower developers and foster
-              collaboration in the world of software development. Our platform
-              serves as a hub where developers can discover, join, and
-              contribute to a diverse range of exciting projects. With Ideabox,
-              we aim to break down the barriers that often hinder project
-              collaboration and provide a space where talented developers can
-              connect with like-minded individuals, share their skills, and
-              contribute to cutting-edge projects across different domains.
+            Welcome to Rent Safe, where your property journey begins with trust and security. At Rent Safe, we believe in revolutionizing the renting experience by providing a secure and transparent platform for landlords, tenants, and state agents. Our commitment to safety is reflected in our blockchain-based smart contracts, ensuring every agreement and transaction is tamper-proof and verifiable. Whether you're a landlord managing your property listings, a tenant seeking a reliable rental, or a state agent facilitating seamless agreements, Rent Safe is your trusted partner. Join us in creating a rental ecosystem where safety and transparency redefine the way we live, rent, and thrive.
             </p>
           </div>
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">

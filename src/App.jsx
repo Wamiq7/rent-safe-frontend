@@ -18,11 +18,14 @@ import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
 import AboutUs from './modules/AboutUs';
 import ProjectAdd from './modules/ProjectAdd';
+import StateAgentLogin from './components/form/login/StateAgentLogin';
+import TenantLogin from './components/form/login/TenantLogin';
 import AgreementAdd from './modules/AgreementAdd';
 import DevLogin from './components/form/login/DevLogin';
 import OrgLogin from './components/form/login/OrgLogin';
 import Profile from './components/profile/Profile';
 import { loadingContext } from './components/context/LoadingState';
+import LandlordLogin from './components/form/login/LandlordLogin';
 
 function App() {
   const progressState = useContext(loadingContext);
@@ -96,12 +99,16 @@ function App() {
             element={<Login />}
           />
           <Route
-            path="/login/developer"
-            element={<DevLogin />}
+            path="/login/stateAgent"
+            element={<StateAgentLogin/>}
           />
           <Route
-            path="/login/company"
-            element={<OrgLogin />}
+            path="/login/landlord"
+            element={<LandlordLogin />}
+          />
+          <Route
+            path="/login/tenant"
+            element={<TenantLogin/>}
           />
           <Route
             path="/register"
