@@ -58,7 +58,7 @@
         "_id": "t2",
         "name":"saad",
         "cnic": "42200973187890",
-        "pic": "/public/tenant/tenant2.jpg",
+        "pic": "/public/tenant/tenant2.png",
         "walletAddress": "0x423423522223325"
       },
       "landlord": {
@@ -98,7 +98,7 @@
         "_id": "t3",
         "name":"Siddiqui",
         "cnic": "41230934587890",
-        "pic": "/public/tenant/tenant3.jpg",
+        "pic": "/public/tenant/tenant3.png",
         "walletAddress": "0x423333523523325"
       },
       "landlord": {
