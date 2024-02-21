@@ -1,96 +1,80 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import organization from '../../../../public/organization.svg';
 import LoginContainer from './LoginContainer';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { ethers } from 'ethers';
 
-// ... (imports)
-
-export default function TenantLogin() {
-  const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+function App() {
   const [connected, setConnected] = useState(false);
+  const [id, setId] = useState(null);
+  const navigate = useNavigate();
 
-  const onConnectWallet = () => {
-    if (isSubmitting) {
-      return;
+  const connect = async () => {
+    try {
+      if (!connected) {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        const displayAddress = address?.substr(0, 8) + "...";
+        const message = "Welcome";
+        const sig = await signer.signMessage(message);
+        ethers.verifyMessage(message, sig);
+        setId(displayAddress);
+        setConnected(true);
+      } else {
+        window.ethereum.selectedAddress = null;
+        setConnected(false);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
-
-    setIsSubmitting(true);
-
-    const id = toast.loading('Connecting to Wallet...', {
-      position: toast.POSITION.TOP_CENTER,
-    });
-
-    // Simulating an asynchronous operation, as there's no actual wallet connection functionality provided
-    setTimeout(() => {
-      toast.update(id, {
-        render: 'Wallet Connected',
-        type: 'success',
-        isLoading: false,
-        autoClose: 2000,
-      });
-
-      setIsSubmitting(false);
-      setConnected(true); // Update the state to indicate wallet connection
-    }, 2000);
   };
 
-  const onSignIn = () => {
-    if (!connected) {
-      toast.error('Please connect your wallet first.', {
+  const signIn = () => {
+    if (connected) {
+      toast.success('You are logged in now.', {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000,
+        autoClose: 2000,
       });
-      return;
+  
+      // Save "IstrueLandlord" to local storage
+      localStorage.setItem('Istenant', 'true');
+  
+      navigate('/');
+    } else {
+      // Show a message or perform some action if not connected
+      toast.error("Connect your wallet first");
     }
-
-    toast.success('You are logged in now.', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-
-    // Save "Istruetenant" to local storage
-    localStorage.setItem('Istenant', 'True');
-
-    // You can add additional logic here for the actual sign-in process if needed
-
-    // Navigate to the desired page after login
-    navigate('/');
   };
 
   return (
     <LoginContainer image={organization}>
-      <div className="w-full mr-0 mb-0 ml-0 relative space-y-8">
-        <button
-          type="button"
-          onClick={() => onSignIn()}
-          className={`absolute -bottom-52 cursor-pointer pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-500 hover:bg-gray-600 cursor-not-allowed' : ''}`}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Sign In' : 'Sign In'}
-        </button>
-      </div>
+      <div className="parent">
+        <section className="glass">
+          <button
+            role="switch"
+            id="flexSwitchChecked"
+            className={`relative inline-flex items-center px-10 py-3 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transform transition-transform hover:scale-105 animate-spin ${
+              connected ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
+            }`}
+            onClick={connect}
+          >
+            {connected ? id : "CONNECT"}
+          </button>
 
-      <div className="mb-20 ml-auto mr-auto text-center h-full flex justify-center items-center">
-        <label
-          htmlFor="flexSwitchChecked"
-          className="inline-block text-gray-700 text-lg font-bold mb-8"
-        >
-          <div className="inline-block form-control">
-            <button
-              role="switch"
-              id="flexSwitchChecked"
-              className={`relative inline-flex items-center px-10 py-3 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transform transition-transform hover:scale-105 animate-spin ${
-                connected ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-              }`}
-              onClick={() => onConnectWallet()}
-            >
-              {connected ? 'Connected' : 'Connect To Wallet'}
-            </button>
-          </div>
-        </label>
+          {/* Always show the Sign In button, but make it clickable only when connected */}
+          <button
+            className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded-md ${connected ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
+            onClick={signIn}
+            disabled={!connected}
+          >
+            Sign In
+          </button>
+        </section>
       </div>
     </LoginContainer>
   );
 }
+
+export default App;

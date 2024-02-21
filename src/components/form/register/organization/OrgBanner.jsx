@@ -21,7 +21,7 @@ function OrgBanner({ formData, setFormData }) {
     <div className="flex w-full justify-center">
       <div className="box-decoration w-full py-6">
         <label htmlFor="image-upload-input" className="image-upload-label">
-          {image ? image.name : "Choose an image"}
+          {image ? image.name : "Choose an imagesrerw"}
         </label>
         <div
           onClick={handleClick}

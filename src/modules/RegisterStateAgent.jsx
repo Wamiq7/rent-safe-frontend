@@ -22,34 +22,34 @@ function RegisterStateAgent() {
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
-    email: '',
+    cnic: '',
     // password: '',
     // phone: '',
-    city: '',
-    technical_role: '',
-    qualification: '',
-    skills: "",
-    photo: null,
-    openToWork: false,
-    linkedin: "",
-    github: "",
-    about: "",
+    // city: '',
+    // technical_role: '',
+    // qualification: '',
+    // skills: "",
+    // photo: null,
+    // openToWork: false,
+    // linkedin: "",
+    // github: "",
+    // about: "",
   });
   const [validationErrors, setValidationErrors] = useState({
     fname: '',
     lname: '',
-    email: '',
+    cnic: '',
     // password: '',
     // phone: '',
-    city: '',
-    technical_role: '',
-    qualification: '',
-    skills: "",
-    photo: null,
-    openToWork: false,
-    linkedin: "",
-    github: "",
-    about: "",
+    // city: '',
+    // technical_role: '',
+    // qualification: '',
+    // skills: "",
+    // photo: null,
+    // openToWork: false,
+    // linkedin: "",
+    // github: "",
+    // about: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -75,15 +75,15 @@ function RegisterStateAgent() {
       setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
     }
   };
-  const validateEmail = (email) => {
-    if (email.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-    } else if (!email) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "CNIC is required" }));
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid CNIC" }));
+  const validatecnic = (cnic) => {
+    if (cnic.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
+    } else if (!cnic) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "CNIC is required" }));
+    } else if (!/\S+@\S+\.\S+/.test(cnic)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "Please enter a valid CNIC" }));
     } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
     }
   };
   // const validatePassword = (password) => {
@@ -112,39 +112,39 @@ function RegisterStateAgent() {
   //     setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "" }));
   //   }
   // };
-  const validateSkills = (skills) => {
-    if (skills.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
-    } else if (!/^([a-zA-Z.]+, )*[a-zA-Z.]+$/.test(skills)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "Please provide a valid input with space comma separation." }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
-    }
-  };
-  const validateLinkedin = (linkedin) => {
-    if (linkedin.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
-    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(linkedin)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "Please provide a valid URL." }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
-    }
-  };
-  const validateGithub = (github) => {
-    if (github.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
-    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(github)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "Please provide a valid URL." }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
-    }
-  };
+  // const validateSkills = (skills) => {
+  //   if (skills.length === 0) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+  //   } else if (!/^([a-zA-Z.]+, )*[a-zA-Z.]+$/.test(skills)) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "Please provide a valid input with space comma separation." }));
+  //   } else {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+  //   }
+  // };
+  // const validateLinkedin = (linkedin) => {
+  //   if (linkedin.length === 0) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+  //   } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(linkedin)) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "Please provide a valid URL." }));
+  //   } else {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+  //   }
+  // };
+  // const validateGithub = (github) => {
+  //   if (github.length === 0) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+  //   } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(github)) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, github: "Please provide a valid URL." }));
+  //   } else {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+  //   }
+  // };
 
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
 
-    // if (field === "email") {
-    //   validateEmail(value);
+    // if (field === "cnic") {
+    //   validatecnic(value);
     // } 
     // else if (field === "password") {
     //   validatePassword(value);}
@@ -157,16 +157,18 @@ function RegisterStateAgent() {
     // else if (field === "phone") {
     //   validatePhone(value);
     // }
-     else if (field === "skills") {
-      validateSkills(value);
-    } else if (field === "linkedin") {
-      validateLinkedin(value);
-    } else if (field === "github") {
-      validateGithub(value);
-    }
+    //  else if (field === "skills") {
+    //   validateSkills(value);
+    // } 
+    // else if (field === "linkedin") {
+    //   validateLinkedin(value);
+    // } 
+    // else if (field === "github") {
+    //   validateGithub(value);
+    // }
   };
 
-  const steps = ['Login Details', 'Personal Details', 'Review'];
+  const steps = ['Login Details', 'Personal Details'];
 
   const displayStep = (step) => {
     switch (step) {
@@ -203,8 +205,8 @@ function RegisterStateAgent() {
   };
 
   // for not letting the form proceed ahead without these fields being filled
-  const requiredFields = ['fname', 'email', 'lname'];
-  const requiredFields1 = ['fname', 'email'];
+  const requiredFields = ['fname', 'cnic', 'lname'];
+  const requiredFields1 = ['fname', 'cnic'];
   const requiredFields2 = ['fname'];
 
   // console.log('currentStep---', currentStep);
@@ -253,41 +255,41 @@ function RegisterStateAgent() {
 
       bodyData.append('fname', formData.fname);
       bodyData.append('lname', formData.lname);
-      bodyData.append('email', formData.email);
+      bodyData.append('cnic', formData.cnic);
       // bodyData.append('password', formData.password);
       // bodyData.append('phone', formData.phone);
-      if (formData.qualification) {
-        bodyData.append('qualification', formData.qualification);
-      }
-      if (formData.skills) {
-        // converting input string to array
-        const skillsArray = formData.skills.split(", ");
-        // appending each array element to a separate form-data key as sending array in form-data type is tricky
-        skillsArray.forEach((skill) => {
-          bodyData.append('skills', skill);
-        });
-      }
-      if (formData.city) {
-        bodyData.append('city', formData.city);
-      }
-      if (formData.technical_role) {
-        bodyData.append('technical_role', formData.technical_role);
-      }
-      if (formData.openToWork) {
-        bodyData.append('openToWork', formData.openToWork);
-      }
-      if (formData.linkedin) {
-        bodyData.append('linkedin', formData.linkedin);
-      }
-      if (formData.github) {
-        bodyData.append('github', formData.github);
-      }
-      if (formData.about) {
-        bodyData.append('about', formData.about);
-      }
-      if (formData.photo) {
-        bodyData.append('photo', formData.photo);
-      }
+      // if (formData.qualification) {
+      //   bodyData.append('qualification', formData.qualification);
+      // }
+      // if (formData.skills) {
+      //   // converting input string to array
+      //   const skillsArray = formData.skills.split(", ");
+      //   // appending each array element to a separate form-data key as sending array in form-data type is tricky
+      //   skillsArray.forEach((skill) => {
+      //     bodyData.append('skills', skill);
+      //   });
+      // }
+      // if (formData.city) {
+      //   bodyData.append('city', formData.city);
+      // }
+      // if (formData.technical_role) {
+      //   bodyData.append('technical_role', formData.technical_role);
+      // }
+      // if (formData.openToWork) {
+      //   bodyData.append('openToWork', formData.openToWork);
+      // }
+      // if (formData.linkedin) {
+      //   bodyData.append('linkedin', formData.linkedin);
+      // }
+      // if (formData.github) {
+      //   bodyData.append('github', formData.github);
+      // }
+      // if (formData.about) {
+      //   bodyData.append('about', formData.about);
+      // }
+      // if (formData.photo) {
+      //   bodyData.append('photo', formData.photo);
+      // }
 
       // console.log("bodyData === ", bodyData);
       fetch(`${import.meta.env.VITE_API_URL}/developers/auth/register`, {
@@ -345,7 +347,7 @@ function RegisterStateAgent() {
 
     // direction === 'next' ? newStep++ : newStep--;
     if (direction === 'next') {
-      if (validationErrors.fname || validationErrors.email || validationErrors.skills || validationErrors.linkedin || validationErrors.github) {
+      if (validationErrors.fname || validationErrors.cnic) {
         toast.error('Please correct the input errors before proceeding ahead.', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
@@ -392,6 +394,9 @@ function RegisterStateAgent() {
     if (newStep > 0 && newStep <= steps.length) {
       setCurrentStep(newStep);
     }
+
+    console.log('Current formData:', formData);
+    console.log('Validation Errors:', validationErrors);
   };
 
   return (

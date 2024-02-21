@@ -28,7 +28,7 @@ function ProfilePicDev({
           className="image-upload-label mt-10"
         >
           {image ? image.name : 'Choose an image'}
-
+ 
           <div
             role="button"
             tabIndex={0}

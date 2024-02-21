@@ -5,7 +5,7 @@ function AccountCredentials({
 }) {
   // 1.Form
   // fName lname
-  // Email
+  // cnic
   // Password
   // Re-enter Password
 
@@ -58,12 +58,12 @@ function AccountCredentials({
           placeholder="13 digit (XXXXX-XXXXXX-X)"
           type="text"
           required
-          value={formData.email}
-          onChange={(event) => updateFormValue("email", event.target.value)}
-          className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.email ? 'focus:border-red-500 border-red-300' : ''}`}
+          value={formData.cnic}
+          onChange={(event) => updateFormValue("cnic", event.target.value)}
+          className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.cnic ? 'focus:border-red-500 border-red-300' : ''}`}
         />
-        {validationErrors.email && (
-        <p className="text-red-500">{validationErrors.email}</p>
+        {validationErrors.cnic && (
+        <p className="text-red-500">{validationErrors.cnic}</p>
         )}
       </div>
       {/* <div className="relative">

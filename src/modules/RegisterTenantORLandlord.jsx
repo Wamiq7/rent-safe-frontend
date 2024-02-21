@@ -20,16 +20,16 @@ function RegisterTenantORLandlord() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
-    about: '',
+    // about: '',
     // password: '',
-    domain: '',
-    website: '',
-    photo: null,
+    // domain: '',
+    // website: '',
+    // photo: null,
   });
   const [validationErrors, setValidationErrors] = useState({
     name: '',
     // password: '',
-    website: '',
+    // website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -57,15 +57,15 @@ function RegisterTenantORLandlord() {
   //     setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
   //   }
   // };
-  const validateWebsite = (website) => {
-    if (website.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
-    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(website)) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "Please provide a valid URL." }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
-    }
-  };
+  // const validateWebsite = (website) => {
+  //   if (website.length === 0) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
+  //   } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(website)) {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, website: "Please provide a valid URL." }));
+  //   } else {
+  //     setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
+  //   }
+  // };
 
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
@@ -76,12 +76,12 @@ function RegisterTenantORLandlord() {
     // else if (field === "password") {
     //   validatePassword(value);
     // } 
-    else if (field === "website") {
-      validateWebsite(value);
-    }
+    // else if (field === "website") {
+    //   validateWebsite(value);
+    // }
   };
 
-  const steps = ['Login Details', 'Company Details', 'Review'];
+  const steps = ['Login Details', 'Company Details'];
 
   const displayStep = (step) => {
     switch (step) {
@@ -151,18 +151,18 @@ function RegisterTenantORLandlord() {
 
       bodyData.append("name", formData.name);
       // bodyData.append("password", formData.password);
-      if (formData.about) {
-        bodyData.append("about", formData.about);
-      }
-      if (formData.domain) {
-        bodyData.append("domain", formData.domain);
-      }
-      if (formData.website) {
-        bodyData.append("website", formData.website);
-      }
-      if (formData.photo) {
-        bodyData.append("photo", formData.photo);
-      }
+      // if (formData.about) {
+      //   bodyData.append("about", formData.about);
+      // }
+      // if (formData.domain) {
+      //   bodyData.append("domain", formData.domain);
+      // }
+      // if (formData.website) {
+      //   bodyData.append("website", formData.website);
+      // }
+      // if (formData.photo) {
+      //   bodyData.append("photo", formData.photo);
+      // }
       await setProgress(30);
       fetch(
         `${import.meta.env.VITE_API_URL}/organizations/auth/register`,
@@ -249,6 +249,8 @@ function RegisterTenantORLandlord() {
     if (newStep > 0 && newStep <= steps.length) {
       setCurrentStep(newStep);
     }
+    console.log('Current formData:', formData);
+    console.log('Validation Errors:', validationErrors);
   };
 
   // console.log('org data ==== ', formData);
