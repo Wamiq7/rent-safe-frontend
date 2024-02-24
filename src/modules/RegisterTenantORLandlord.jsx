@@ -7,10 +7,9 @@ import { UseContextProvider } from '../components/form/register/StepperContext';
 import FormContainer from '../components/form/FormContainer';
 // import organization from '/organization.svg';
 import organization from '../../public/organization.svg';
-import OrgAccount from '../components/form/register/organization/OrgAccount';
-import OrgInfo from '../components/form/register/organization/OrgInfo';
-import OrgBanner from '../components/form/register/organization/OrgBanner';
 import { loadingContext } from '../components/context/LoadingState';
+import Details from '../components/form/register/organization/Details';
+import ConnectWallet from '../components/form/register/organization/ConnectWallet';
 
 function RegisterTenantORLandlord() {
   const progressState = useContext(loadingContext);
@@ -35,12 +34,6 @@ function RegisterTenantORLandlord() {
 
   const validateName = (name) => {
     if (name.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "" }));
-    } else if (!name) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "Company name is required" }));
-    } else if (name.length < 2) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "Company name must be atleast 2 characters long." }));
-    } else {
       setValidationErrors((prevErrors) => ({ ...prevErrors, name: "" }));
     }
   };
@@ -72,7 +65,7 @@ function RegisterTenantORLandlord() {
 
     if (field === "name") {
       validateName(value);
-    } 
+    }
     // else if (field === "password") {
     //   validatePassword(value);
     // } 
@@ -81,13 +74,13 @@ function RegisterTenantORLandlord() {
     // }
   };
 
-  const steps = ['Login Details', 'Company Details'];
+  const steps = ['Personal Details', 'Connect Wallet'];
 
   const displayStep = (step) => {
     switch (step) {
       case 1:
         return (
-          <OrgAccount
+          <Details
             formData={formData}
             setFormData={setFormData}
             validationErrors={validationErrors}
@@ -96,17 +89,13 @@ function RegisterTenantORLandlord() {
         );
       case 2:
         return (
-          <OrgInfo
+          <ConnectWallet
             formData={formData}
             setFormData={setFormData}
             validationErrors={validationErrors}
             updateFormValue={updateFormValue}
           />
         );
-      case 3:
-        return <OrgBanner formData={formData} setFormData={setFormData} />;
-      default:
-        return 0;
     }
   };
 

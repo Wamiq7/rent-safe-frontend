@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AccountCredentials({
+function StateAgentDetails({
   formData, validationErrors, updateFormValue,
 }) {
   // 1.Form
@@ -16,7 +16,7 @@ function AccountCredentials({
           <p
             className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-1 mr-0 mb-0 ml-0 font-medium text-gray-600 absolute"
           >
-             Name
+            Name
           </p>
           <input
             name="fname"
@@ -28,7 +28,7 @@ function AccountCredentials({
             className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.fname ? 'focus:border-red-500 border-red-300' : ''}`}
           />
           {validationErrors.fname && (
-          <p className="text-red-500">{validationErrors.fname}</p>
+            <p className="text-red-500">{validationErrors.fname}</p>
           )}
         </div>
         <div className="relative w-full">
@@ -46,7 +46,7 @@ function AccountCredentials({
             className={`border    placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.lname ? 'focus:border-red-500 border-red-300' : ''}`}
           />
           {validationErrors.lname && (
-          <p className="text-red-500">{validationErrors.lname}</p>
+            <p className="text-red-500">{validationErrors.lname}</p>
           )}
         </div>
       </div>
@@ -63,7 +63,7 @@ function AccountCredentials({
           className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.cnic ? 'focus:border-red-500 border-red-300' : ''}`}
         />
         {validationErrors.cnic && (
-        <p className="text-red-500">{validationErrors.cnic}</p>
+          <p className="text-red-500">{validationErrors.cnic}</p>
         )}
       </div>
       {/* <div className="relative">
@@ -107,4 +107,4 @@ function AccountCredentials({
   );
 }
 
-export default AccountCredentials;
+export default StateAgentDetails;

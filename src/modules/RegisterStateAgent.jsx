@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 import Stepper from '../components/form/register/Stepper';
 import StepperControl from '../components/form/register/StepperControl';
 import { UseContextProvider } from '../components/form/register/StepperContext';
-import AccountCredentials from '../components/form/register/developer/AccountCredentials';
-import PersonalInfo from '../components/form/register/developer/PersonalInfo';
+import StateAgentDetails from '../components/form/register/developer/StateAgentDetails';
 import Final from '../components/form/register/developer/Final';
 import FormContainer from '../components/form/FormContainer';
 import developer from "../../public/developer.svg";
 import { loadingContext } from '../components/context/LoadingState';
+import ConnectWallet from '../components/form/register/organization/ConnectWallet';
 // import developer from "../../../../../../../../developer.svg";
 
 function RegisterStateAgent() {
@@ -151,9 +151,9 @@ function RegisterStateAgent() {
     if (field === "fname") {
       validateFname(value);
     }
-     else if (field === "lname") {
+    else if (field === "lname") {
       validateLname(value);
-    } 
+    }
     // else if (field === "phone") {
     //   validatePhone(value);
     // }
@@ -168,13 +168,13 @@ function RegisterStateAgent() {
     // }
   };
 
-  const steps = ['Login Details', 'Personal Details'];
+  const steps = ['Personal Details', 'Connect Wallet'];
 
   const displayStep = (step) => {
     switch (step) {
       case 1:
         return (
-          <AccountCredentials
+          <StateAgentDetails
             formData={formData}
             setFormData={setFormData}
             validationErrors={validationErrors}
@@ -183,20 +183,11 @@ function RegisterStateAgent() {
         );
       case 2:
         return (
-          <PersonalInfo
+          <ConnectWallet
             formData={formData}
             setFormData={setFormData}
             validationErrors={validationErrors}
             updateFormValue={updateFormValue}
-          />
-        );
-      case 3:
-        return (
-          <Final
-            formData={formData}
-            setFormData={setFormData}
-            image={image}
-            setImage={setImage}
           />
         );
       default:
@@ -232,7 +223,7 @@ function RegisterStateAgent() {
       // return those fields from formData which are empty.
       const emptyFields = requiredFields.filter((field) => !formData[field]);
       if (emptyFields.length > 0) {
-      // map through each item and make a new array
+        // map through each item and make a new array
         const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
 
         const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
@@ -355,10 +346,10 @@ function RegisterStateAgent() {
         return;
       }
       if (currentStep === 1) {
-      // return those fields from formData which are empty.
+        // return those fields from formData which are empty.
         const emptyFields = requiredFields1.filter((field) => !formData[field]);
         if (emptyFields.length > 0) {
-        // map through each item and make a new array
+          // map through each item and make a new array
           const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
 
           const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
@@ -370,10 +361,10 @@ function RegisterStateAgent() {
         }
       }
       if (currentStep === 2) {
-      // return those fields from formData which are empty.
+        // return those fields from formData which are empty.
         const emptyFields = requiredFields2.filter((field) => !formData[field]);
         if (emptyFields.length > 0) {
-        // map through each item and make a new array
+          // map through each item and make a new array
           const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
 
           const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;

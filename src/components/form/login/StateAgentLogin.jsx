@@ -37,10 +37,10 @@ function App() {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
       });
-  
+
       // Save "IstrueLandlord" to local storage
       localStorage.setItem('Isstateagent', 'true');
-  
+
       navigate('/');
     } else {
       // Show a message or perform some action if not connected
@@ -49,23 +49,23 @@ function App() {
   };
 
   return (
+
     <LoginContainer image={organization}>
-      <div className="parent">
-        <section className="glass">
+      <div className="w-full h-2/3 flex items-start justify-center">
+        <section className="flex flex-col mt-20">
           <button
             role="switch"
             id="flexSwitchChecked"
-            className={`relative inline-flex items-center px-10 py-3 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transform transition-transform hover:scale-105 animate-spin ${
-              connected ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
-            }`}
+            className={`relative inline-flex items-center px-20 py-3 border border-transparent text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transform transition-transform hover:scale-105 animate-spin ${connected ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white' : 'bg-gray-300 text-gray-700'
+              }`}
             onClick={connect}
           >
-            {connected ? id : "CONNECT"}
+            {connected ? id : "Connect Wallet"}
           </button>
 
           {/* Always show the Sign In button, but make it clickable only when connected */}
           <button
-            className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded-md ${connected ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
+            className={`mt-4 px-20 py-6 bg-blue-500 text-white rounded-md ${connected ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
             onClick={signIn}
             disabled={!connected}
           >
