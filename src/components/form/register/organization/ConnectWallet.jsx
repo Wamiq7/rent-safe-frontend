@@ -8,6 +8,7 @@ function ConnectWallet({
     try {
       if (!formData.openToWork) {
         const provider = new ethers.BrowserProvider(window.ethereum);
+        console.log(provider);
         const signer = await provider.getSigner();
         const address = await signer.getAddress();
         const displayAddress = address?.substr(0, 8) + "...";

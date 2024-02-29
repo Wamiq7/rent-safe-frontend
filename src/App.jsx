@@ -83,15 +83,15 @@ function App() {
           />
           <Route
             path="/login/stateAgent"
-            element={<StateAgentLogin/>}
+            element={<StateAgentLogin role={0} />}
           />
           <Route
             path="/login/landlord"
-            element={<LandlordLogin />}
+            element={<LandlordLogin role={2} />}
           />
           <Route
             path="/login/tenant"
-            element={<TenantLogin/>}
+            element={<TenantLogin role={1} />}
           />
           <Route
             path="/register"
@@ -102,9 +102,13 @@ function App() {
             element={<RegisterStateAgent />}
           />
           <Route
-            path="/register/tenantORlandlord"
-            element={<RegisterTenantORLandlord />}
+            path="/register/tenant"
+            element={<RegisterTenantORLandlord role={1} />}
           />
+          <Route
+            path="/register/landlord"
+            element={<RegisterTenantORLandlord role={2} />} />
+
         </Routes>
       </div>
       <ToastContainer autoClose={2000} />

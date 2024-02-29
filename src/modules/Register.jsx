@@ -21,7 +21,7 @@ function Register() {
 
         <Link
           className={`${commonHeadingStyle} bg-pink-500`}
-          to="/register/tenantORlandlord"
+          to="/register/landlord"
         >
           <h1>Landlord</h1>
           <div className="cloud-shape"></div>
@@ -30,7 +30,7 @@ function Register() {
 
         <Link
           className={`${commonHeadingStyle} bg-red-600`}
-          to="/register/tenantORlandlord"
+          to="/register/tenant"
         >
           <h1>Tenant</h1>
           <div className="cloud-shape"></div>

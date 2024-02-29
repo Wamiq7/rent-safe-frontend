@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { ethers } from 'ethers';
 
-function App() {
+function App(props) {
   const [connected, setConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState();
   const [id, setId] = useState(null);
   const navigate = useNavigate();
 
@@ -16,8 +17,9 @@ function App() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const address = await signer.getAddress();
+        setWalletAddress(await signer.getAddress())
         const displayAddress = address?.substr(0, 8) + "...";
-        const message = "Welcome";
+        const message = "Please sign to connect the wallet";
         const sig = await signer.signMessage(message);
         ethers.verifyMessage(message, sig);
         setId(displayAddress);
@@ -30,19 +32,49 @@ function App() {
       console.log(error.message);
     }
   };
-
-  const signIn = () => {
+  const signIn = async () => {
     if (connected) {
-      toast.success('You are logged in now.', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
 
-      // Save "IstrueLandlord" to local storage
-      localStorage.setItem('Isstateagent', 'true');
+      try {
 
-      navigate('/');
-    } else {
+
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/user/veiwDetails/walletAddress/${walletAddress}`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        if (data.cnic !== "") {
+          if (data.role === 0) {
+
+            toast.success('You are logged in now.', {
+              position: toast.POSITION.TOP_CENTER,
+              autoClose: 2000,
+            });
+
+            localStorage.clear();
+            localStorage.setItem('Isstateagent', 'true');
+
+            navigate('/');
+          } else {
+            toast.warning('You are not registered as StateAgent')
+          }
+        }
+        else {
+          toast.success('User not found!');
+        }
+      }
+      catch (error) {
+        console.error('Error:', error.message);
+      }
+
+
+
+    }
+    else {
       // Show a message or perform some action if not connected
       toast.error("Connect your wallet first");
     }
