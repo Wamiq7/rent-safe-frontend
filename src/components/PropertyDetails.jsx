@@ -7,40 +7,56 @@ import Members from './Members';
 import loading from "../../public/SVG/loading.svg";
 import propertiesData from "../modules/properties.json"
 import { RiArrowRightSLine } from "react-icons/ri";
+import Scene from '../component/scena.jsx';
+import '../styles/index.css';
+import { Pannellum } from 'pannellum-react';
+
+
+
 
 
 
 function PropertyDetails() {
   const { uid } = useParams();
-  const [property, setproperty] = useState([]);
-  const isStateAgent=localStorage.getItem("Isstateagent")
-  const islandlord=localStorage.getItem("Islandlord")
+  const [property, setProperty] = useState(null);
+  const isStateAgent = localStorage.getItem("Isstateagent") === 'true';
+  const islandlord = localStorage.getItem("Islandlord") === 'true';
 
+  const imageLinks = [
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmVpsDGvPuQfoeE5pC4Pg79DzN7QwtsfL4RxDG3duC8L2m",
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmR7cRCNvKjqWpQyGXhUyWTafoBTvqGm7QbMyLKi43pPj1",
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmesKyXshBgnWgYJxpZmQo9XZPHZgkvhCfXzwC3xzJhPD6",
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmWWNsBv2dDd5mQKHxegN7wbH4jn9BeMX7f9ECvQW8yTbm",
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmYe5635izW71LeuHsHUaQCakqBdNfqkuoVQ389LgysZzn",
+    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmQojQdFiPm4Ar2QZTWZ97pkNDd5niAcQtA5KG7TzGkecz"
+  ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const handleNext = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageLinks.length);
+  };
 
-  const fetchproperty = async () => {
-    const matchingproperty = propertiesData.properties.find(
+  const fetchProperty = async () => {
+    const matchingProperty = propertiesData.properties.find(
       (item) => item.uid === uid
     );
-
-    if (matchingproperty) {
-      setproperty(matchingproperty);
+    if (matchingProperty) {
+      setProperty(matchingProperty);
     }
-
   };
+
   useEffect(() => {
-    fetchproperty();
-  }, []);
+    fetchProperty();
+  }, [uid]);
 
-
-
-  if (!Object.keys(property).length > 0) {
+  if (!property || !Object.keys(property).length) {
     return (
       <div className="flex w-full py-10 justify-center text-slate-500">
         <img alt="loader" src={loading} />
       </div>
     );
   }
+  
 
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3 relative">
@@ -143,6 +159,30 @@ function PropertyDetails() {
             property
           </p>
         </div>
+        
+
+        {/* chatgpt do here */}
+
+        <div className="flex justify-center items-center w-full my-5">
+          <div className="bg-white shadow-lg border border-gray-300 rounded-lg overflow-hidden max-w-4xl w-full mx-auto h-500px">
+            <Pannellum
+              width="100%"
+              height="500px"
+              image={imageLinks[currentImageIndex]}
+              pitch={10}
+              yaw={180}
+              hfov={110}
+              autoLoad
+              showZoomCtrl={true}
+            />
+            <button onClick={handleNext} className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded">
+              Next
+            </button>
+            <p>Current image index: {currentImageIndex + 1} / {imageLinks.length}</p>
+          </div>
+        </div>
+
+
 
         <div className="flex flex-col md:flex-row md:gap-64 gap-8 w-full border-t py-3 px-6">
           <div className="flex flex-col items-start justify-start gap-3">
@@ -248,7 +288,13 @@ function PropertyDetails() {
             
           </div> )}
 
+
     </div>
+
+    
+
+
+    
   );
 }
 
