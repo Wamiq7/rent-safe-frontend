@@ -5,7 +5,7 @@ function Details({
 
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form className="space-y-8">
       <div className="relative w-full">
         <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Name*</p>
         <input
