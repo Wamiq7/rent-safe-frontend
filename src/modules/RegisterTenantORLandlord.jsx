@@ -23,41 +23,53 @@ function RegisterTenantORLandlord(props) {
   const [formData, setFormData] = useState({
     name: '',
     cnic: '',
+    phone:'',
+    email:'',
     profilePic: '',
     cnicPic: ''
   });
   const [validationErrors, setValidationErrors] = useState({
     name: '',
     cnic: '',
+    phone:'',
+    email:'',
+    profilePic: '',
+    cnicPic: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateName = (name) => {
-    if (name.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "" }));
-    }
-  };
-  const validatecnic = (cnic) => {
-    if (cnic.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
-    } else if (!cnic) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "CNIC is required" }));
+  const validateField = (field, value) => {
+    if (!value) {
+      setValidationErrors(prev => ({ ...prev, [field]: `${field.charAt(0).toUpperCase() + field.slice(1)} is required` }));
     } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
+      setValidationErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
 
+  const handleEmailChange = (email) => {
+    if (!email) {
+      setValidationErrors(prev => ({ ...prev, email: 'Email is required' }));
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setValidationErrors(prev => ({ ...prev, email: 'Invalid email format' }));
+    } else {
+      setValidationErrors(prev => ({ ...prev, email: '' }));
+    }
+  };
 
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
-
-    if (field === "name") {
-      validateName(value);
-    }
+    validateField(field, value);
     if (field === "cnic") {
       validatecnic(value);
     }
+    else if (field === "name") {
+      validateName(value);
+    }
+    else if (field === 'email') {
+      handleEmailChange(value);
+    }
   };
+
 
   const steps = ['Personal Details'];
 
@@ -75,7 +87,7 @@ function RegisterTenantORLandlord(props) {
     }
   };
 
-  const requiredFields = ['name', 'cnic'];
+  const requiredFields = ['name', 'cnic','phone','email','profilePic','cnicPic'];
   const uploadToPinata = async (file) => {
     const fileData = new FormData();
     fileData.append("file", file);

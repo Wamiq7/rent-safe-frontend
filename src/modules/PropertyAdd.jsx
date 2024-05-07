@@ -15,16 +15,16 @@ export default function PropertyAdd() {
     floor: "",
     owner_wallet: "",
     imageLinks: []
-
   });
-  const [images, setImages] = useState([]);  // Changed to handle multiple images
+  const [errors, setErrors] = useState({});
+  const [images, setImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hiddenFileInput = useRef(null);
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
-    setImages((prevImages) => [...prevImages, ...files]); // Appending new files to existing ones
-    // Resetting input is not required, it might disrupt behavior
+    setImages((prevImages) => [...prevImages, ...files]);
+    setErrors({ ...errors, images: null });  
   };
 
   const uploadToPinata = async (files) => {
@@ -53,37 +53,70 @@ export default function PropertyAdd() {
     }));
   };
 
+  const validateForm = () => {
+    let newErrors = {};
+    let isValid = true;
+
+    // List all fields to validate
+    const fields = ['address', 'city', 'area', 'floor', 'owner_wallet', 'description'];
+    fields.forEach(field => {
+      if (!formData[field]) {
+        isValid = false;
+        newErrors[field] = `The ${field.replace('_', ' ')} is required.`;
+      }
+    });
+
+    if (images.length === 0) {
+      isValid = false;
+      newErrors.images = "At least one image is required.";
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    if (images.length > 0) {
-      const ipfsHashes = await uploadToPinata(images);
-      setFormData({ ...formData, imageLinks: ipfsHashes })
-      console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
-      try {
-        const provider = new ethers.BrowserProvider(window.ethereum)
-        const signer = await provider.getSigner();
-        const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-
-        const transaction = await contract.listProperty(
-          formData.address,
-          formData.city,
-          formData.area,
-          formData.floor,
-          formData.owner_wallet,
-          formData.description,
-          formData.imageLinks
-        )
-
-        const receipt = await transaction.wait(); // Wait for the transaction to be mined
-        console.log("Property listed!", receipt);
-        toast.success("Property Listed Successfully")
-      }
-      catch (error) {
-        console.error("Error listing property:", error);
-      }
+    if (!validateForm()) {
+      return; // Prevent submission if the form is invalid
     }
-    setIsSubmitting(false);
+
+    setIsSubmitting(true);
+    
+    const ipfsHashes = await uploadToPinata(images);
+    if (!ipfsHashes || ipfsHashes.includes(null)) {
+      setIsSubmitting(false);
+      return; // Stop the submission if images fail to upload
+    }
+
+    setFormData({ ...formData, imageLinks: ipfsHashes });
+    console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
+      const transaction = await contract.listProperty(
+        formData.address,
+        formData.city,
+        formData.area,
+        formData.floor,
+        formData.owner_wallet,
+        formData.description,
+        ipfsHashes
+      );
+
+      const receipt = await transaction.wait(); // Wait for the transaction to be mined
+      console.log("Property listed!", receipt);
+      toast.success("Property Listed Successfully");
+    } catch (error) {
+      console.error("Error listing property:", error);
+      toast.error("Error listing property.", {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClick = () => {
@@ -97,63 +130,56 @@ export default function PropertyAdd() {
         <form className="bg-white/50 shadow-md px-8 pt-6 pb-8 mb-4 border z-10 border-slate-300 rounded-2xl py-5" onSubmit={handleSubmit}>
           <h2 className="text-gray-900 text-center text-2xl md:text-3xl mb-5 font-semibold">Enter Property Details</h2>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Complete Property Address
-              <input type="text" name="address" value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              City
-              <input type="text" name="city" value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Area
-              <input type="text" name="area" value={formData.area} onChange={(e) => setFormData({ ...formData, area: e.target.value })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Floor
-              <input type="text" name="floor" value={formData.floor} onChange={(e) => setFormData({ ...formData, floor: e.target.value })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Owner Wallet Address
-              <input type="text" name="owner_wallet" value={formData.owner_wallet} onChange={(e) => setFormData({ ...formData, owner_wallet: e.target.value })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Property Description
-              <textarea id="description" name="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows="3" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-            </label>
-
-            {/* Multiple Image Input */}
-            <div className="mb-4">
+          {/* Multiple input fields with error handling */}
+          {['address', 'city', 'area', 'floor', 'owner_wallet', 'description'].map((field, index) => (
+            <div key={index} className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Choose images
-                <div onClick={handleClick} style={{ cursor: 'pointer' }} className="box-decoration w-full py-6">
-                  {images.length > 0 ? (
-                    images.map((image, index) => (
-                      <img key={index} src={URL.createObjectURL(image)} alt={`Upload Preview ${index}`} className="aspect-video md:w-full h-40 object-cover rounded-lg mb-2" />
-                    ))
-                  ) : (
-                    <RxAvatar className="w-40 h-40 text-accent" />
-                  )}
-                  <input
-                    id="image-upload-input"
-                    type="file"
-                    multiple
-                    onChange={handleImageChange}
-                    ref={hiddenFileInput}
-                    style={{ display: 'none' }}
-                    accept="image/*"
-                  />
-                </div>
+                {field.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                <input
+                  type={field === 'description' ? 'textarea' : 'text'}
+                  name={field}
+                  value={formData[field]}
+                  onChange={(e) => {
+                    setFormData({ ...formData, [field]: e.target.value });
+                    setErrors({ ...errors, [field]: null });
+                  }}
+                  className={`shadow appearance-none border ${errors[field] ? 'border-red-500' : 'rounded'} w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                />
+                {errors[field] && <p className="text-red-500 text-xs italic">{errors[field]}</p>}
               </label>
             </div>
+          ))}
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Choose images
+              <div onClick={handleClick} style={{ cursor: 'pointer' }} className="box-decoration w-full py-6">
+                {images.length > 0 ? (
+                  images.map((image, index) => (
+                    <img key={index} src={URL.createObjectURL(image)} alt={`Upload Preview ${index}`} className="aspect-video md:w-full h-40 object-cover rounded-lg mb-2" />
+                  ))
+                ) : (
+                  <RxAvatar className="w-40 h-40 text-accent" />
+                )}
+                <input
+                  id="image-upload-input"
+                  type="file"
+                  multiple
+                  onChange={handleImageChange}
+                  ref={hiddenFileInput}
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                />
+              </div>
+              {errors.images && <p className="text-red-500 text-xs italic">{errors.images}</p>}
+            </label>
           </div>
 
           <div className="flex items-center justify-between glass">
             <button
               type="submit"
-              className={`w-full text-white bg-accent hover:bg-accent/75 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
               disabled={isSubmitting}
+              className={`w-full text-white bg-accent hover:bg-accent/75 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
             >
               {isSubmitting ? "Listing..." : "List Property"}
             </button>

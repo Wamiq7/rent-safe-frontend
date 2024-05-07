@@ -22,6 +22,8 @@ function RegisterStateAgent() {
     fname: '',
     estateName: '',
     cnic: '',
+    phone: '',
+    email: '',
     profilePic: '',
     cnicPic: ''
   });
@@ -29,44 +31,34 @@ function RegisterStateAgent() {
     fname: '',
     estateName: '',
     cnic: '',
+    phone: '',
+    email: '',
+    profilePic: '',
+    cnicPic: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateFname = (name) => {
-    if (name.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
-    } else if (!name) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Name is required" }));
-    } else if (name.length < 3) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Name must be atleast 3 characters long." }));
+  const validateField = (field, value) => {
+    if (!value) {
+      setValidationErrors(prev => ({ ...prev, [field]: `${field.charAt(0).toUpperCase() + field.slice(1)} is required` }));
     } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
+      setValidationErrors(prev => ({ ...prev, [field]: '' }));
     }
   };
-  const validateestateName = (name) => {
-    if (name.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, estateName: "" }));
-    } else if (!name) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, estateName: "Estate name is required" }));
-    } else if (name.length < 2) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, estateName: "Estate name must be atleast 2 characters long." }));
+
+  const handleEmailChange = (email) => {
+    if (!email) {
+      setValidationErrors(prev => ({ ...prev, email: 'Email is required' }));
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setValidationErrors(prev => ({ ...prev, email: 'Invalid email format' }));
     } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, estateName: "" }));
-    }
-  };
-  const validatecnic = (cnic) => {
-    if (cnic.length === 0) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
-    } else if (!cnic) {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "CNIC is required" }));
-    } else {
-      setValidationErrors((prevErrors) => ({ ...prevErrors, cnic: "" }));
+      setValidationErrors(prev => ({ ...prev, email: '' }));
     }
   };
 
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
-
+    validateField(field, value);
     if (field === "cnic") {
       validatecnic(value);
     }
@@ -76,7 +68,9 @@ function RegisterStateAgent() {
     else if (field === "estateName") {
       validateestateName(value);
     }
-
+    else if (field === 'email') {
+      handleEmailChange(value);
+    }
   };
 
   const steps = ['Personal Details'];
@@ -97,7 +91,7 @@ function RegisterStateAgent() {
   };
 
   // for not letting the form proceed ahead without these fields being filled
-  const requiredFields = ['fname', 'cnic', 'estateName'];
+  const requiredFields = ['fname', 'cnic', 'estateName','phone','email','profilePic','cnicPic'];
   const uploadToPinata = async (file) => {
     const fileData = new FormData();
     fileData.append("file", file);
