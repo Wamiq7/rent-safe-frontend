@@ -10,6 +10,7 @@ import developer from "../../public/developer.svg";
 import { loadingContext } from '../components/context/LoadingState';
 import ABI from '../../../rent-safe-backend/artifacts/contracts/RegistrationContract.sol/RegistrationContract.json'
 import { ethers } from 'ethers';
+import axios from 'axios';
 
 function RegisterStateAgent() {
   const progressState = useContext(loadingContext);
@@ -21,6 +22,8 @@ function RegisterStateAgent() {
     fname: '',
     estateName: '',
     cnic: '',
+    profilePic: '',
+    cnicPic: ''
   });
   const [validationErrors, setValidationErrors] = useState({
     fname: '',
@@ -95,6 +98,31 @@ function RegisterStateAgent() {
 
   // for not letting the form proceed ahead without these fields being filled
   const requiredFields = ['fname', 'cnic', 'estateName'];
+  const uploadToPinata = async (file) => {
+    const fileData = new FormData();
+    fileData.append("file", file);
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        data: fileData,
+        headers: {
+          pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data.IpfsHash;
+    } catch (error) {
+      console.error("Error uploading file to Pinata:", error);
+      toast.error("Error uploading file to IPFS.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+      return null;
+    }
+  };
+
 
   const handleClick = async (direction) => {
 
@@ -132,34 +160,42 @@ function RegisterStateAgent() {
       bodyData.append('fname', formData.fname);
       bodyData.append('estateName', formData.estateName);
       bodyData.append('cnic', formData.cnic);
+      const uploads = [];
+      if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
+      if (formData.cnicPic) uploads.push(uploadToPinata(formData.cnicPic));
 
-    }
-    console.log(formData);
-    const provider = new ethers.BrowserProvider(window.ethereum)
-    const signer = await provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
-    await setProgress(50)
+      const ipfsHashes = await Promise.all(uploads);
+      bodyData.append('profileHash', ipfsHashes[0])
+      bodyData.append('cnicHash', ipfsHashes[1])
+      console.log(bodyData);
 
-    try {
-      const tx = await contract.registerUser(formData.fname, formData.cnic, 0, formData.estateName);
-      await setProgress(70);
-      const receipt = await tx.wait();
-      console.log("Transaction hash:", receipt.transactionHash);
-      await setProgress(100);
-      if (receipt) {
-        navigate('/login')
-        toast.success("User Registered Successfully");
-      }
-    } catch (error) {
-      console.error("Error calling contract:", error);
-      if (error.message.includes("CNIC already registered")) {
-        toast.error("CNIC already registered");
-      }
-      if (error.message.includes("User already registered")) {
-        toast.error("User already registered");
-      }
+      console.log(bodyData.get('fname'), bodyData.get('cnic'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+      await setProgress(50)
 
-      await setProgress(100);
+      try {
+        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
+        await setProgress(70);
+        const receipt = await tx.wait();
+        console.log("Transaction hash:", receipt.transactionHash);
+        await setProgress(100);
+        if (receipt) {
+          navigate('/login')
+          toast.success("User Registered Successfully");
+        }
+      } catch (error) {
+        console.error("Error calling contract:", error);
+        if (error.message.includes("CNIC already registered")) {
+          toast.error("CNIC already registered");
+        }
+        if (error.message.includes("User already registered")) {
+          toast.error("User already registered");
+        }
+
+        await setProgress(100);
+      }
     }
   };
 

@@ -10,6 +10,7 @@ import { loadingContext } from '../components/context/LoadingState';
 import Details from '../components/form/register/organization/Details';
 import ABI from '../../../rent-safe-backend/artifacts/contracts/RegistrationContract.sol/RegistrationContract.json'
 import { ethers } from 'ethers';
+import axios from 'axios';
 
 function RegisterTenantORLandlord(props) {
   const progressState = useContext(loadingContext);
@@ -22,6 +23,8 @@ function RegisterTenantORLandlord(props) {
   const [formData, setFormData] = useState({
     name: '',
     cnic: '',
+    profilePic: '',
+    cnicPic: ''
   });
   const [validationErrors, setValidationErrors] = useState({
     name: '',
@@ -73,6 +76,30 @@ function RegisterTenantORLandlord(props) {
   };
 
   const requiredFields = ['name', 'cnic'];
+  const uploadToPinata = async (file) => {
+    const fileData = new FormData();
+    fileData.append("file", file);
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        data: fileData,
+        headers: {
+          pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data.IpfsHash;
+    } catch (error) {
+      console.error("Error uploading file to Pinata:", error);
+      toast.error("Error uploading file to IPFS.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+      return null;
+    }
+  };
 
   const handleClick = async (direction) => {
     let newStep = currentStep;
@@ -109,28 +136,37 @@ function RegisterTenantORLandlord(props) {
 
       bodyData.append("name", formData.name);
       bodyData.append('cnic', formData.cnic);
+      const uploads = [];
+      if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
+      if (formData.cnicPic) uploads.push(uploadToPinata(formData.cnicPic));
+
+      const ipfsHashes = await Promise.all(uploads);
+      bodyData.append('profileHash', ipfsHashes[0])
+      bodyData.append('cnicHash', ipfsHashes[1])
+      console.log(bodyData);
+
 
 
       await setProgress(30);
-    }
-    const provider = new ethers.BrowserProvider(window.ethereum)
-    const signer = await provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
-    await setProgress(50)
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
+      await setProgress(50)
 
-    try {
-      const tx = await contract.registerUser(formData.name, formData.cnic, props.role, "");
-      await setProgress(70);
-      const receipt = await tx.wait();
-      console.log("Transaction hash:", receipt.transactionHash);
-      await setProgress(100);
-      if (receipt) {
-        navigate('/login')
-        toast.success("User Registered Successfully");
+      try {
+        const tx = await contract.registerUser(bodyData.get('name'), bodyData.get(cnic), props.role, "", bodyData.get('cnicHash'), bodyData.get('profileHash'));
+        await setProgress(70);
+        const receipt = await tx.wait();
+        console.log("Transaction hash:", receipt.transactionHash);
+        await setProgress(100);
+        if (receipt) {
+          navigate('/login')
+          toast.success("User Registered Successfully");
+        }
+      } catch (error) {
+        console.error("Error calling contract:", error);
+        await setProgress(0);
       }
-    } catch (error) {
-      console.error("Error calling contract:", error);
-      await setProgress(0);
     }
   };
 

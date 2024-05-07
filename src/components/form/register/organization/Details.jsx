@@ -1,62 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-
 function Details({
   formData, validationErrors, updateFormValue,
 }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [profilePic, setProfilePic] = useState(null);
-  const [cnicFrontPic, setCnicFrontPic] = useState(null);
 
-  const handleProfilePicChange = (event) => {
-    if (event.target.files.length > 0) {
-      setProfilePic(event.target.files[0]);
-    }
-  };
-
-  const handleCnicFrontPicChange = (event) => {
-    if (event.target.files.length > 0) {
-      setCnicFrontPic(event.target.files[0]);
-    }
-  };
-
-  const uploadToPinata = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await axios({
-        method: "post",
-        url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-        data: formData,
-        headers: {
-          pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
-          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data.IpfsHash;
-    } catch (error) {
-      console.error("Error uploading file to Pinata:", error);
-      toast.error("Error uploading file to IPFS.");
-      return null;
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
-    const uploads = [];
-    if (profilePic) uploads.push(uploadToPinata(profilePic));
-    if (cnicFrontPic) uploads.push(uploadToPinata(cnicFrontPic));
-
-    const ipfsHashes = await Promise.all(uploads);
-    console.log("Successfully uploaded files to IPFS with hashes:", ipfsHashes);
-    
-    setIsSubmitting(false);
-  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -85,33 +31,25 @@ function Details({
         />
       </div>
 
+      {/* File inputs for Profile and CNIC Pictures */}
       <div className="relative">
         <label className="block text-gray-600 mb-2">Profile Picture</label>
         <input
           type="file"
           accept="image/*"
-          onChange={handleProfilePicChange}
+          onChange={(event) => updateFormValue('profilePic', event.target.files[0])}
           className="border border-gray-300 rounded-md p-2"
         />
       </div>
-
       <div className="relative">
         <label className="block text-gray-600 mb-2">CNIC Front Picture</label>
         <input
           type="file"
           accept="image/*"
-          onChange={handleCnicFrontPicChange}
+          onChange={(event) => updateFormValue('cnicPic', event.target.files[0])}
           className="border border-gray-300 rounded-md p-2"
         />
       </div>
-
-      <button
-        type="submit"
-        className={`w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Processing..." : "Confirm"}
-      </button>
     </form>
   );
 }

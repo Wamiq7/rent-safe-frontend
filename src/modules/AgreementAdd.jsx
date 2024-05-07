@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
+import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json'
 
 
 export default function AgreementAdd() {
     const { uid } = useParams();
+    const rentalAgreementContract = '0x61528a2598513881673E58dCf5c745429646458B'
     const [formData, setFormData] = useState({
+        propertyId: uid,
         rentAmount: "",
-        description: "",
         advance: "",
         duration: "",
         landlord_wallet: "",
         tenant_wallet: "",
-        open: false,
-        propertyStateAgent: localStorage.getItem("isOrg"),
+        extraDetails: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const requiredFields = ['rentAmount'];
@@ -43,7 +44,7 @@ export default function AgreementAdd() {
         setIsSubmitting(true); // Disable the button
 
         const bodyData = new FormData();
-        bodyData.append('propertyId', formData.uid)
+        bodyData.append('propertyId', formData.propertyId)
         bodyData.append('rentAmount', formData.rentAmount);
         bodyData.append('description', formData.description);
         bodyData.append('propertyStateAgent', formData.propertyStateAgent);
@@ -61,7 +62,29 @@ export default function AgreementAdd() {
             bodyData.append('tenant_wallet', formData.tenant_wallet);
         }
 
-        console.log("Submitted Data", bodyData);
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum)
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(rentalAgreementContract, ABI.abi, signer);
+
+            const transaction = await contract.createAgreement(
+                formData.propertyId,
+                formData.rentAmount,
+                formData.advance,
+                formData.duration,
+                formData.landlord_wallet,
+                formData.tenant_wallet,
+                formData.extraDetails,
+            )
+
+            const receipt = await transaction.wait();
+            console.log("Agreement Created", receipt);
+            toast.success("Agreement Created Successfully")
+        }
+        catch (error) {
+            console.error("Error creating Agreement:", error);
+        }
+
     };
 
     return (
@@ -84,7 +107,6 @@ export default function AgreementAdd() {
                             Property Id
                             <input
                                 name="propertyId"
-                                onChange={(e) => setFormData({ ...formData, propertyId: uid })}
                                 id="propertyId"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 value={uid}
@@ -189,8 +211,8 @@ export default function AgreementAdd() {
                             <textarea
                                 id="description"
                                 name="description"
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                value={formData.extraDetails}
+                                onChange={(e) => setFormData({ ...formData, extraDetails: e.target.value })}
                                 rows="3"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Demands from the sides of Tenanat or Requiements of owner"
