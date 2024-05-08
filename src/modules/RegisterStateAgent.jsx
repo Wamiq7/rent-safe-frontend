@@ -15,7 +15,7 @@ import axios from 'axios';
 function RegisterStateAgent() {
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
-  const contractAddress = '0xfF21627553Fd92153b7501a5d868F7eEfa0F8392';
+  const contractAddress = import.meta.env.VITE_REGISTRATION;
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -59,18 +59,7 @@ function RegisterStateAgent() {
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
     validateField(field, value);
-    if (field === "cnic") {
-      validatecnic(value);
-    }
-    else if (field === "fname") {
-      validateFname(value);
-    }
-    else if (field === "estateName") {
-      validateestateName(value);
-    }
-    else if (field === 'email') {
-      handleEmailChange(value);
-    }
+
   };
 
   const steps = ['Personal Details'];
@@ -91,7 +80,7 @@ function RegisterStateAgent() {
   };
 
   // for not letting the form proceed ahead without these fields being filled
-  const requiredFields = ['fname', 'cnic', 'estateName','phone','email','profilePic','cnicPic'];
+  const requiredFields = ['fname', 'cnic', 'estateName', 'phone', 'email', 'profilePic', 'cnicPic'];
   const uploadToPinata = async (file) => {
     const fileData = new FormData();
     fileData.append("file", file);
@@ -154,6 +143,8 @@ function RegisterStateAgent() {
       bodyData.append('fname', formData.fname);
       bodyData.append('estateName', formData.estateName);
       bodyData.append('cnic', formData.cnic);
+      bodyData.append('phone', formData.phone);
+      bodyData.append('email', formData.email);
       const uploads = [];
       if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
       if (formData.cnicPic) uploads.push(uploadToPinata(formData.cnicPic));
@@ -161,16 +152,13 @@ function RegisterStateAgent() {
       const ipfsHashes = await Promise.all(uploads);
       bodyData.append('profileHash', ipfsHashes[0])
       bodyData.append('cnicHash', ipfsHashes[1])
-      console.log(bodyData);
-
-      console.log(bodyData.get('fname'), bodyData.get('cnic'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
       const provider = new ethers.BrowserProvider(window.ethereum)
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
       await setProgress(50)
-
+      console.log(bodyData);
       try {
-        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
+        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
         await setProgress(70);
         const receipt = await tx.wait();
         console.log("Transaction hash:", receipt.transactionHash);

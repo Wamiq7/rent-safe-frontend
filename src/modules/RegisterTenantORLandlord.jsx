@@ -15,7 +15,7 @@ import axios from 'axios';
 function RegisterTenantORLandlord(props) {
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
-  const contractAddress = '0xfF21627553Fd92153b7501a5d868F7eEfa0F8392';
+  const contractAddress = import.meta.env.VITE_REGISTRATION;
 
 
   const navigate = useNavigate();
@@ -23,16 +23,16 @@ function RegisterTenantORLandlord(props) {
   const [formData, setFormData] = useState({
     name: '',
     cnic: '',
-    phone:'',
-    email:'',
+    phone: '',
+    email: '',
     profilePic: '',
     cnicPic: ''
   });
   const [validationErrors, setValidationErrors] = useState({
     name: '',
     cnic: '',
-    phone:'',
-    email:'',
+    phone: '',
+    email: '',
     profilePic: '',
     cnicPic: ''
   });
@@ -59,15 +59,7 @@ function RegisterTenantORLandlord(props) {
   const updateFormValue = (field, value) => {
     setFormData({ ...formData, [field]: value });
     validateField(field, value);
-    if (field === "cnic") {
-      validatecnic(value);
-    }
-    else if (field === "name") {
-      validateName(value);
-    }
-    else if (field === 'email') {
-      handleEmailChange(value);
-    }
+
   };
 
 
@@ -87,7 +79,7 @@ function RegisterTenantORLandlord(props) {
     }
   };
 
-  const requiredFields = ['name', 'cnic','phone','email','profilePic','cnicPic'];
+  const requiredFields = ['name', 'cnic', 'phone', 'email', 'profilePic', 'cnicPic'];
   const uploadToPinata = async (file) => {
     const fileData = new FormData();
     fileData.append("file", file);
@@ -166,7 +158,7 @@ function RegisterTenantORLandlord(props) {
       await setProgress(50)
 
       try {
-        const tx = await contract.registerUser(bodyData.get('name'), bodyData.get(cnic), props.role, "", bodyData.get('cnicHash'), bodyData.get('profileHash'));
+        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
         await setProgress(70);
         const receipt = await tx.wait();
         console.log("Transaction hash:", receipt.transactionHash);
