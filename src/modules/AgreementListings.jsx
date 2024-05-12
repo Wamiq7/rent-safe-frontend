@@ -23,15 +23,26 @@ const filters = [
 function AgreementListings() {
   const [agreements, setagreements] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const isStateAgent=localStorage.getItem("Isstateagent")
-  const islandlord=localStorage.getItem("Islandlord")
-  const isTenanat=localStorage.getItem("Istenant")
+  const isStateAgent = localStorage.getItem("Isstateagent")
+  const islandlord = localStorage.getItem("Islandlord")
+  const isTenanat = localStorage.getItem("Istenant")
 
   useEffect(() => {
 
-    setagreements(Data.AgreementData);
+    fetchAgreements()
 
   }, []);
+
+  const fetchAgreements = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/agreements/getAllAgreements`);
+      const agreementsData = await response.json();
+      setagreements(agreementsData)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col justify-center w-full">
       {/* ------------- Background Gradient ------------ */}
@@ -82,7 +93,7 @@ function AgreementListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {(!isStateAgent && !islandlord &&!isTenanat) && agreements.length > 0 ? (
+          {(!isStateAgent && !islandlord && !isTenanat) && agreements.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>

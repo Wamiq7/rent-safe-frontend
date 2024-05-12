@@ -3,18 +3,19 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { RxAvatar } from 'react-icons/rx';
 import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json'
+
 import { ethers } from 'ethers';
 
 export default function PropertyAdd() {
-  const propertyListingAddress = '0x386dCDA2f99360ade885cd7561b4aFcA3Cd4D926';
+  const propertyListingAddress = import.meta.env.VITE_PROPERTY;
   const [formData, setFormData] = useState({
     address: "",
     description: "",
     city: "",
-    area: "",
     floor: "",
     owner_wallet: "",
-    imageLinks: []
+    imageLinks: [],
+    type: ""
   });
   const [errors, setErrors] = useState({});
   const [images, setImages] = useState([]);
@@ -24,7 +25,7 @@ export default function PropertyAdd() {
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
     setImages((prevImages) => [...prevImages, ...files]);
-    setErrors({ ...errors, images: null });  
+    setErrors({ ...errors, images: null });
   };
 
   const uploadToPinata = async (files) => {
@@ -58,7 +59,7 @@ export default function PropertyAdd() {
     let isValid = true;
 
     // List all fields to validate
-    const fields = ['address', 'city', 'area', 'floor', 'owner_wallet', 'description'];
+    const fields = ['address', 'city', 'floor', 'owner_wallet', 'description'];
     fields.forEach(field => {
       if (!formData[field]) {
         isValid = false;
@@ -82,7 +83,7 @@ export default function PropertyAdd() {
     }
 
     setIsSubmitting(true);
-    
+
     const ipfsHashes = await uploadToPinata(images);
     if (!ipfsHashes || ipfsHashes.includes(null)) {
       setIsSubmitting(false);
@@ -96,14 +97,16 @@ export default function PropertyAdd() {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
+      console.log(formData);
+      console.log(contract);
       const transaction = await contract.listProperty(
         formData.address,
         formData.city,
-        formData.area,
         formData.floor,
         formData.owner_wallet,
         formData.description,
-        ipfsHashes
+        ipfsHashes,
+        formData.type
       );
 
       const receipt = await transaction.wait(); // Wait for the transaction to be mined
@@ -131,7 +134,7 @@ export default function PropertyAdd() {
           <h2 className="text-gray-900 text-center text-2xl md:text-3xl mb-5 font-semibold">Enter Property Details</h2>
 
           {/* Multiple input fields with error handling */}
-          {['address', 'city', 'area', 'floor', 'owner_wallet', 'description'].map((field, index) => (
+          {['address', 'city', 'floor', 'owner_wallet', 'description', 'type'].map((field, index) => (
             <div key={index} className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 {field.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}

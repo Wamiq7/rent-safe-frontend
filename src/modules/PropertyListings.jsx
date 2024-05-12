@@ -8,6 +8,7 @@ import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
 import { loadingContext } from "../components/context/LoadingState";
 import propertiesData from "./properties.json"
+import { Log } from "ethers";
 
 const filters = [
   {
@@ -33,16 +34,22 @@ const filters = [
 ];
 
 function PropertyListings() {
-  // const [isOpen, setIsOpen] = useState(false);
   const [properties, setproperties] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const isStateAgent=localStorage.getItem("Isstateagent")
-  const islandlord=localStorage.getItem("Islandlord")
-  const isTenanat=localStorage.getItem("Istenant")
+  const isStateAgent = localStorage.getItem("Isstateagent")
+  const islandlord = localStorage.getItem("Islandlord")
+  const isTenanat = localStorage.getItem("Istenant")
 
 
   const fetchproperties = async () => {
-    setproperties(propertiesData.properties);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/property/getAllProperties`);
+      const propertiesData = await response.json();
+      setproperties(propertiesData)
+
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchproperties();
@@ -121,7 +128,7 @@ function PropertyListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {(!isStateAgent && !islandlord &&!isTenanat) && properties.length > 0 ? (
+          {(!isStateAgent && !islandlord && !isTenanat) && properties.length > 0 ? (
             <h1 className=" blue-gradient text-center text-2xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>

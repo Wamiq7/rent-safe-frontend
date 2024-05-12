@@ -18,10 +18,9 @@ const PropertyList = ({ propertiesProp = [] }) => {
 
   return limitedproperties.map((properties, index) => {
     const {
-      uid,
-      title,
+      propertyId,
+      listingDate,
       description,
-      timeframe,
       thumbnail,
       floor,
       status,
@@ -34,29 +33,28 @@ const PropertyList = ({ propertiesProp = [] }) => {
         {/* ---------------- Project List--------------- */}
         <Link
           key={index}
-          to={`/properties/${uid}`}
+          to={`/properties/${propertyId}/${listingDate}`}
           className="flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative"
         >
           <div className="flex flex-col lg:flex-row w-full gap-6 items-center relative">
             <img
               src={thumbnail}
               className="flex place-content-start items-start w-full aspect-video  h-48 object-cover rounded-lg"
-              alt={title}
             />
             <div className="flex flex-col w-full">
               {/* ------------ title------------- */}
-              <h1 className="text-xl font-medium text-slate-900">{title}</h1>
+              <h1 className="text-xl font-medium text-slate-900">Rent Amount</h1>
 
               {/* ------------ timestamp ------------- */}
               <div className="flex my-5">
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
-                    <h3 className="listing-content-data">{timeframe}</h3>
+                    <h3 className="listing-content-data">{listingDate}</h3>
                     <h4 className="listing-content-constant">Listed Date</h4>
                   </div>
                   <div>
                     <h3 className="listing-content-data">
-                      {status}
+                      {status === 0 ? 'Pending' : status === 1 ? 'Listed' : status === 2 ? 'Rented' : 'Delisted'}
                     </h3>
                     <h4 className="listing-content-constant">Status</h4>
                   </div>
@@ -77,7 +75,7 @@ const PropertyList = ({ propertiesProp = [] }) => {
 
           {/* -------------tech Stack---------------- */}
           <div className="flex border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl">
-            Posted By :&nbsp;&nbsp;<b>{stateAgent.name}</b>
+            Posted By :&nbsp;&nbsp;<b>{stateAgent}</b>
           </div>
         </Link>
       </React.Fragment>

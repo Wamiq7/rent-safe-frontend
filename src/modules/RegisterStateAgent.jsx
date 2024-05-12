@@ -156,7 +156,6 @@ function RegisterStateAgent() {
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(contractAddress, ABI.abi, signer);
       await setProgress(50)
-      console.log(bodyData);
       try {
         const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
         await setProgress(70);

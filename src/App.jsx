@@ -55,7 +55,7 @@ function App() {
             element={<AboutUs />}
           />
           <Route
-            path="/properties/:uid"
+            path="/properties/:propertyId/:listingDate"
             element={<ProjectMain />}
           />
           <Route
@@ -67,7 +67,7 @@ function App() {
             element={<AgreementListings />}
           />
           <Route
-            path="/agreements/:uid"
+            path="/agreements/:agreementId"
             element={<AgreementMain />}
           />
 

@@ -5,49 +5,96 @@ import { useEffect, useState } from 'react';
 import Container from './Container';
 import Members from './Members';
 import loading from "../../public/SVG/loading.svg";
-import propertiesData from "../modules/properties.json"
 import { RiArrowRightSLine } from "react-icons/ri";
-import Scene from '../component/scena.jsx';
 import '../styles/index.css';
 import { Pannellum } from 'pannellum-react';
-
-
-
-
-
+import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json'
 
 function PropertyDetails() {
-  const { uid } = useParams();
+  const propertyListingAddress = import.meta.env.VITE_PROPERTY;
+  const { propertyId, listingDate } = useParams();
   const [property, setProperty] = useState(null);
   const isStateAgent = localStorage.getItem("Isstateagent") === 'true';
   const islandlord = localStorage.getItem("Islandlord") === 'true';
 
-  const imageLinks = [
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmVpsDGvPuQfoeE5pC4Pg79DzN7QwtsfL4RxDG3duC8L2m",
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmR7cRCNvKjqWpQyGXhUyWTafoBTvqGm7QbMyLKi43pPj1",
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmesKyXshBgnWgYJxpZmQo9XZPHZgkvhCfXzwC3xzJhPD6",
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmWWNsBv2dDd5mQKHxegN7wbH4jn9BeMX7f9ECvQW8yTbm",
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmYe5635izW71LeuHsHUaQCakqBdNfqkuoVQ389LgysZzn",
-    "https://magenta-late-leech-520.mypinata.cloud/ipfs/QmQojQdFiPm4Ar2QZTWZ97pkNDd5niAcQtA5KG7TzGkecz"
-  ];
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imageLinks.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % property.imageLinks.length);
   };
 
-  const fetchProperty = async () => {
-    const matchingProperty = propertiesData.properties.find(
-      (item) => item.uid === uid
-    );
-    if (matchingProperty) {
-      setProperty(matchingProperty);
+  const approveListing = async (id) => {
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
+      const transaction = await contract.approveStatusToListing(id);
+
+      const receipt = await transaction.wait(); // Wait for the transaction to be mined
+      console.log(" Delisted Successfully", receipt);
+      toast.success(" Delisted Successfully");
+    } catch (error) {
+      console.error("Error delisting property:", error);
+      toast.error("Error delisting property.", {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
     }
+
+  }
+  const delistProperty = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
+      const transaction = await contract.delistProperty(id);
+
+      const receipt = await transaction.wait(); // Wait for the transaction to be mined
+      console.log(" Delisted Successfully", receipt);
+      toast.success(" Delisted Successfully");
+    } catch (error) {
+      console.error("Error delisting property:", error);
+      toast.error("Error delisting property.", {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+    }
+
+  }
+  const allowDelisting = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
+      const transaction = await contract.approveDelisting(id);
+
+      const receipt = await transaction.wait();
+      console.log(" Delisted Successfully", receipt);
+      toast.success(" Delisted Successfully");
+    } catch (error) {
+      console.error("Error delisting property:", error);
+      toast.error("Error delisting property.", {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+    }
+
+  }
+
+  const fetchProperty = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/property/getProperty/${propertyId}`);
+      const propertiesData = await response.json();
+      setProperty(propertiesData)
+
+    } catch (error) {
+      console.log(error);
+    }
+
   };
 
   useEffect(() => {
     fetchProperty();
-  }, [uid]);
+  }, [propertyId]);
 
   if (!property || !Object.keys(property).length) {
     return (
@@ -56,7 +103,7 @@ function PropertyDetails() {
       </div>
     );
   }
-  
+
 
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3 relative">
@@ -71,34 +118,34 @@ function PropertyDetails() {
           </div>
           {/* Heading */}
           <div className="flex flex-col w-full md:w-auto justify-start items-start  md:ml-0">
-            <h1 className="text-2xl px-6 text-start font-medium text-slate-800 mb-6 ">
+            {/* <h1 className="text-2xl px-6 text-start font-medium text-slate-800 mb-6 ">
               {property?.title}
-            </h1>
+            </h1> */}
             {/* Domain */}
             <Link
-              className="text-accent px-6 my-2 text-base font-medium underline"
+              className="text-accent px-6 my-2 text-base font-medium underline truncate"
             >
               Posted by
               {' '}
-              {property?.stateAgent.name}
+              {property?.stateAgent}
             </Link>
             {/* Timestamp */}
             <p className="text-sm px-6 text-slate-600">
               Posted on
               {' '}
-              {property?.createdAt}
+              {listingDate}
             </p>
             <div className="flex px-6 flex-col my-5 gap-2">
               {/* City */}
               <p className="text-base flex items-center gap-2 text-slate-800">
                 <BiSolidMap className="text-accent" />
                 {' '}
-                {property?.city}
+                {property?.propertyAddress}
               </p>
               <p className="text-base flex items-center gap-2 text-slate-800">
                 <BiSolidMap className="text-accent" />
                 {' '}
-                {property?.area}
+                {property?.cityArea}
               </p>
 
             </div>
@@ -116,7 +163,7 @@ function PropertyDetails() {
             <p className="text-base font-medium">
               Rs.
               {' '}
-              {property?.rent}
+              {'???'}
               {' '}
               <br />
               {' '}
@@ -128,7 +175,7 @@ function PropertyDetails() {
           {/* Experience Level */}
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
             <p className="text-base font-medium">
-              {property?.timeframe}
+              {listingDate}
               {' '}
               <br />
               {' '}
@@ -148,18 +195,28 @@ function PropertyDetails() {
               </span>
             </p>
           </div>
+          <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
+            <p className="text-base font-medium">
+              {property?.propertyType}
+              {' '}
+              <br />
+              {' '}
+              <span className="text-sm font-light text-slate-600">
+                Floor
+              </span>
+            </p>
+          </div>
         </div>
         <div className="flex w-full border-t py-3">
           {/* Contract type */}
           <p className="text-base capitalize px-6 text-start font-normal text-slate-800">
             <span className=" font-medium">Property Status:</span>
             {' '}
-            {property?.status}
+            {property?.status === 0 ? 'Pending' : property?.status === 1 ? 'Listed' : property?.status === 2 ? 'Rented' : 'Delisted'}
             {' '}
-            property
           </p>
         </div>
-        
+
 
         {/* chatgpt do here */}
 
@@ -168,7 +225,7 @@ function PropertyDetails() {
             <Pannellum
               width="100%"
               height="500px"
-              image={imageLinks[currentImageIndex]}
+              image={`https://gateway.pinata.cloud/ipfs/${property.imageLinks[currentImageIndex]}`}
               pitch={10}
               yaw={180}
               hfov={110}
@@ -178,13 +235,13 @@ function PropertyDetails() {
             <button onClick={handleNext} className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded">
               Next
             </button>
-            <p>Current image index: {currentImageIndex + 1} / {imageLinks.length}</p>
+            <p>Current image index: {currentImageIndex + 1} / {property.imageLinks.length}</p>
           </div>
         </div>
 
 
 
-        <div className="flex flex-col md:flex-row md:gap-64 gap-8 w-full border-t py-3 px-6">
+        <div className="flex flex-col md:flex-row md:gap-10 gap-6 w-full border-t py-3 px-6">
           <div className="flex flex-col items-start justify-start gap-3">
             <h1
               className="text-xl font-semibold text-slate-800"
@@ -192,15 +249,14 @@ function PropertyDetails() {
               Property Owner
             </h1>
             <Members
-              image={`${property?.landlord.image}`}
-              walletAddress={`${property?.landlord.walletAddress}`}
-              name={`${property?.landlord.name}`}
-              cnic={`${property?.landlord.cnic}`}
+              image={`/public/stateagent/stateagent1.jpg`}
+              walletAddress={`${property?.ownerWallet}`}
+
               className="font-medium"
               imageclass="w-[10vw] md:w-14"
             />
           </div>
-          <div className="flex flex-col items-start justify-start gap-3">
+          {/* <div className="flex flex-col items-start justify-start gap-3">
             <h1
               className="text-xl font-semibold text-slate-800"
             >
@@ -216,7 +272,7 @@ function PropertyDetails() {
               imageclass="w-[10vw] md:w-14"
             />
 
-          </div>
+          </div> */}
           <div className="flex flex-col items-start justify-start gap-3">
             <h1
               className="text-xl font-semibold text-slate-800"
@@ -225,13 +281,10 @@ function PropertyDetails() {
             </h1>
 
             <Members
-              image={`${property?.stateAgent.image}`}
-              walletAddress={`${property?.stateAgent.walletAddress}`}
-              name={`${property?.stateAgent.name}`}
-              cnic={`${property?.stateAgent.cnic}`}
-              estateName={`${property?.stateAgent.estateName}`}
-              className="font-medium"
-              imageclass="w-[10vw] md:w-14"
+              image={`/public/stateagent/stateagent1.jpg`}
+              walletAddress={`${property?.stateAgent}`}
+              className="font-medium truncate "
+              imageclass="w-[10vw] md:w-14 "
             />
 
           </div>
@@ -257,7 +310,7 @@ function PropertyDetails() {
             <div className="flex justify-between  items-center cursor-pointer ">
               <button
                 type="button"
-                onClick={() => deleteproperty(1)}
+                onClick={() => approveListing(propertyId)}
                 className="text-green-600 border border-solid border-green-500 text-l w-[11.7rem] lg:text-xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-[7px]"
               >
                 Approve Listing
@@ -268,33 +321,47 @@ function PropertyDetails() {
         )}
 
       {isStateAgent && (<div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
+        <div className="flex justify-between  items-center cursor-pointer ">
+          <button
+            onClick={() => delistProperty(propertyId)}
+            type="button"
+            className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
+          >
+            Delist Property
+          </button>
+        </div>
+        <div className="flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center">
+          <a
+            href={`/agreements/create/${propertyId}`}
+            className="flex p-3 md:p-4 items-center justify-center"
+          >
+            Create Agreement
+            <RiArrowRightSLine className="ml-2 text-md" />
+          </a>
+        </div>
+
+      </div>)}
+      {islandlord &&
+        <div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
           <div className="flex justify-between  items-center cursor-pointer ">
             <button
-                    type="button"
-                    className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
-                  >
-                    Delist Property
-                  </button>
-            </div>
-            <div className="flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center">
-              <a
-                href={`/agreements/create/${uid}`}
-                className="flex p-3 md:p-4 items-center justify-center"
-              >
-                Create Agreement
-                <RiArrowRightSLine className="ml-2 text-md" />
-              </a>
-            </div>
-            
-          </div> )}
+              onClick={() => allowDelisting(propertyId)}
+              type="button"
+              className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
+            >
+              Allow Delisting
+            </button>
+          </div>
+        </div>
+      }
 
 
     </div>
 
-    
 
 
-    
+
+
   );
 }
 
