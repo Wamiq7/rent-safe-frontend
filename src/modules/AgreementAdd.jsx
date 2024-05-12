@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json';
+import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 import { ethers } from 'ethers';
 
 export default function AgreementAdd() {

@@ -8,7 +8,7 @@ import FormContainer from '../components/form/FormContainer';
 import organization from '../../public/organization.svg';
 import { loadingContext } from '../components/context/LoadingState';
 import Details from '../components/form/register/organization/Details';
-import ABI from '../../../rent-safe-backend/artifacts/contracts/RegistrationContract.sol/RegistrationContract.json'
+import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 import { ethers } from 'ethers';
 import axios from 'axios';
 

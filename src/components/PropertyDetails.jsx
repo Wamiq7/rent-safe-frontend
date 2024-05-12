@@ -8,8 +8,7 @@ import loading from "../../public/SVG/loading.svg";
 import { RiArrowRightSLine } from "react-icons/ri";
 import '../styles/index.css';
 import { Pannellum } from 'pannellum-react';
-import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json'
-
+import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 function PropertyDetails() {
   const propertyListingAddress = import.meta.env.VITE_PROPERTY;
   const { propertyId, listingDate } = useParams();

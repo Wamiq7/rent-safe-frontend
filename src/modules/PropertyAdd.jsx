@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { RxAvatar } from 'react-icons/rx';
-import ABI from '../../../rent-safe-backend/artifacts/contracts/PropertyListing.sol/PropertyListing.json'
+import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 
 import { ethers } from 'ethers';
 
