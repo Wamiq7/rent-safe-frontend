@@ -98,7 +98,7 @@ export default function AgreementAdd() {
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                                 {field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                 <input
-                                    type={field.includes('amount') || field === 'advance' || field === 'rentAmount' || field === 'duration'? 'number' : 'text'}
+                                    type={field.includes('amount') || field === 'advance' || field === 'rentAmount' || field === 'duration' ? 'number' : 'text'}
                                     name={field}
                                     value={formData[field]}
                                     onChange={handleInputChange}
@@ -106,7 +106,7 @@ export default function AgreementAdd() {
                                     placeholder={`Enter ${field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}`}
                                     disabled={field === 'propertyId'}
                                 />
-                                {errors[field] && <p className="text-red-500 text-xs italic">{errors[field]}</p>}
+                                {errors[field] && <p className="text-red-5000 text-xs italic">{errors[field]}</p>}
                             </label>
                         </div>
                     ))}
