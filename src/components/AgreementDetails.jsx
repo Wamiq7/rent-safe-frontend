@@ -22,6 +22,18 @@ function AgreementDetails({
   const handleTerminate = () => {
     setTerminate(true);
   }
+  function weiToPKR(weiAmount) {
+    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+
+    // Convert wei to Ether
+    const etherAmount = weiAmount / weiPerEther;
+
+    // Convert Ether to PKR
+    const pkrAmount = etherAmount * etherPriceInPKR;
+
+    return pkrAmount;
+  }
 
 
   return (
@@ -37,7 +49,7 @@ function AgreementDetails({
             <div className="flex items-center relative justify-center h-24 p-0 m-0">
               <img
                 alt="banner"
-                src={agreementData.propertyDetails.thumbnail}
+                src={`https://gateway.pinata.cloud/ipfs/${agreementData.propertyDetails.thumbnail}`}
                 className="inline-block object-cover aspect-video h-full p-0 shadow rounded-xl"
               />
             </div>
@@ -45,7 +57,7 @@ function AgreementDetails({
             <div className="flex flex-col justify-between items-start gap-3">
               {/* --------Agreement Name------------------- */}
               <h1 className="text-3xl font-medium text-slate-900">
-                {agreementData.rentAmount}
+                {weiToPKR(agreementData.rentAmount)}
               </h1>
               {isStateAgent && agreementData.status <= 2 && (
                 <div className="absolute top-6 right-10 md:flex">
@@ -98,15 +110,15 @@ function AgreementDetails({
                       // key={agreementData}
                       className="border text-accent border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
                     >
-                      <span className='font-bold'>Status : </span> {agreementData.status}
+                      <span className='font-bold'>Status : </span>{agreementData.status < 3 ? 'Pending' : agreementData.status === 3 ? 'Active' : agreementData.status === 4 ? 'Inactive' : agreementData.status === 5 && 'Cancelled'}
                     </li>
                   </ul>
                 </div>
-                <h1 className="text-lg "><span className='font-semibold'>Agreement Id :</span> {agreementData._id}</h1>
+                <h1 className="text-lg "><span className='font-semibold'>Agreement Id :</span> {agreementData.agreementId}</h1>
 
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg text-slate-900 font-medium">
-                    Duration : {agreementData.duration} months
+                    Duration : {agreementData.durationMonths} months
                   </h1>
                   <h1 className="text-lg text-slate-400 font-medium">
 
@@ -114,7 +126,7 @@ function AgreementDetails({
                 </div>
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg text-slate-900 font-medium">
-                    Rent : {agreementData.rent}/= Rs
+                    Rent : {weiToPKR(agreementData.rentAmount)}/= Rs
                   </h1>
                   <h1 className="text-lg text-slate-400 font-medium">
 
@@ -122,7 +134,7 @@ function AgreementDetails({
                 </div>
                 <div className="flex flex-col gap-2">
                   <h1 className="text-lg text-slate-900 font-medium">
-                    Advance : {agreementData.advance}/= Rs
+                    Advance : {weiToPKR(agreementData.advancePayment)}/= Rs
                   </h1>
                   <h1 className="text-lg text-slate-400 font-medium">
 
@@ -137,7 +149,7 @@ function AgreementDetails({
                 <h1 className="text-2xl font-semibold mb-3">
                   Extra Details/Requirements
                 </h1>
-                <p className="description">{agreementData.extraDetails}</p>
+                <p className="description">{agreementData.extraDetail}</p>
               </div>
             </div>
           </div>
@@ -173,23 +185,19 @@ function AgreementDetails({
                       alt=""
                       className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
                     />
-                    <div className="flex flex-col md:hidden">
-                      <Link to={`/properties/${agreementData.propertyDetails._id}`} className=" text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.name}</Link>
-                      <p>{agreements.propertyDetails._id}</p>
-                    </div>
+
                   </div>
                   <div className="lg:w-[60%] md:pl-6">
-                    <Link to={`/properties/${agreementData.propertyDetails._id}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</Link>
+                    <Link to={`/properties/${agreementData.propertyId}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</Link>
                     <div className="hidden md:flex place-content-start items-center w-full text-slate-600 gap-1">
                       {/* ------------------------ Project Description-------------------------- */}
-                      <p><span className='font-bold'>Id : </span> {agreementData.propertyDetails._id}</p>
+                      <p><span className='font-bold'>Id : </span> {agreementData.propertyId}</p>
                     </div>
                     <p className="description   w-full md:w-[90%]">
                       <span className='font-bold'>Description : </span> {agreementData.propertyDetails.description}
                     </p>
                   </div>
                 </div>
-                {/* -------Delete Button------- */}
 
 
 
@@ -209,11 +217,11 @@ function AgreementDetails({
             <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Individuals/Entities Involved</h1>
             <div className="py-5">
               {/* Landlord  */}
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreements.landlord._id}>
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300">
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={agreements.landlord.pic}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.landlord.thumbnail}`}
                       alt=""
                       className="w-[20vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
@@ -221,15 +229,15 @@ function AgreementDetails({
                       <div
                         className="flex md:hidden text-xl font-semibold  hover:text-accent"
                       >
-                        {agreements.landlord.name}
+                        {agreementData.landlord.name}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.landlord.cnic}
+                        {agreementData.landlord.cnic}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.landlord.walletAddress}
+                        {agreementData.landlordWalletAddress}
 
                       </div>
                     </div>
@@ -238,7 +246,7 @@ function AgreementDetails({
                     <div
                       className="hidden md:flex text-xl mb-1  font-semibold  hover:text-accent"
                     >
-                      {agreements.landlord.name}
+                      {agreementData.landlord.name}
                     </div>
                     <div className="hidden description w-full md:w-[90%] md:flex items-center">
                       <span className='font-bold'>Role : </span> Landlord
@@ -246,21 +254,21 @@ function AgreementDetails({
                     </div>
 
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> CNIC : </span>{agreements.landlord.cnic}
+                      <span className='font-bold'> CNIC : </span>{agreementData.landlord.cnic}
                     </div>
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> Wallet : </span>{agreements.landlord.walletAddress}
+                      <span className='font-bold'> Wallet : </span>{agreementData.landlordWalletAddress}
                     </div>
 
                   </div>
                 </div>
               </div>
               {/* tenant  */}
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreements.landlord._id}>
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300">
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={agreements.tenant.pic}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.tenant.thumbnail}`}
                       alt=""
                       className="w-[10vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
@@ -268,15 +276,15 @@ function AgreementDetails({
                       <div
                         className="flex md:hidden text-xl font-semibold  hover:text-accent"
                       >
-                        {agreements.tenant.name}
+                        {agreementData.tenant.name}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.tenant.cnic}
+                        {agreementData.tenant.cnic}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.tenant.walletAddress}
+                        {agreementData.tenantWalletAddress}
 
                       </div>
                     </div>
@@ -285,7 +293,7 @@ function AgreementDetails({
                     <div
                       className="hidden md:flex text-xl mb-1  font-semibold  hover:text-accent"
                     >
-                      {agreements.tenant.name}
+                      {agreementData.tenant.name}
                     </div>
                     <div className="hidden description w-full md:w-[90%] md:flex items-center">
                       <span className='font-bold'>Role : </span> Tenant
@@ -293,10 +301,10 @@ function AgreementDetails({
                     </div>
 
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> CNIC : </span>{agreements.tenant.cnic}
+                      <span className='font-bold'> CNIC : </span>{agreementData.tenant.cnic}
                     </div>
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> Wallet : </span>{agreements.tenant.walletAddress}
+                      <span className='font-bold'> Wallet : </span>{agreementData.tenantWalletAddress}
                     </div>
 
                   </div>
@@ -305,11 +313,11 @@ function AgreementDetails({
 
               {/* //StateAgent  */}
 
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreementData.landlord._id}>
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" >
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={agreements.stateAgent.pic}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.stateAgent.thumbnail}`}
                       alt=""
                       className="w-[10vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
@@ -317,15 +325,15 @@ function AgreementDetails({
                       <div
                         className="flex md:hidden text-xl font-semibold  hover:text-accent"
                       >
-                        {agreements.stateAgent.name}
+                        {agreementData.stateAgent.name}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.stateAgent.cnic}
+                        {agreementData.stateAgent.cnic}
 
                       </div>
                       <div className="md:hidden description w-full md:w-[90%] flex items-center">
-                        {agreements.stateAgent.walletAddress}
+                        {agreementData.stateAgentWalletAddress}
 
                       </div>
                     </div>
@@ -334,7 +342,7 @@ function AgreementDetails({
                     <div
                       className="hidden md:flex text-xl mb-1  font-semibold  hover:text-accent"
                     >
-                      {agreements.stateAgent.name}
+                      {agreementData.stateAgent.name}
                     </div>
                     <div className="hidden description w-full md:w-[90%] md:flex items-center">
                       <span className='font-bold'>Role : </span> State Agent
@@ -342,13 +350,13 @@ function AgreementDetails({
                     </div>
 
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> CNIC : </span>{agreements.stateAgent.cnic}
+                      <span className='font-bold'> CNIC : </span>{agreementData.stateAgent.cnic}
                     </div>
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> Wallet : </span>{agreements.stateAgent.walletAddress}
+                      <span className='font-bold'> Wallet : </span>{agreementData.stateAgentWalletAddress}
                     </div>
                     <div className="place-content-start items-center w-full text-slate-600 ">
-                      <span className='font-bold'> Estate Name : </span>{agreements.stateAgent.estateName}
+                      <span className='font-bold'> Estate Name : </span>{agreementData.stateAgent.estateName}
                     </div>
 
                   </div>

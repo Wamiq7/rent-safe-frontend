@@ -15,16 +15,28 @@ const PropertyList = ({ propertiesProp = [] }) => {
   } else {
     limitedproperties = propertiesProp;
   }
+  function weiToPKR(weiAmount) {
+    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
+    // Convert wei to Ether
+    const etherAmount = weiAmount / weiPerEther;
+
+    // Convert Ether to PKR
+    const pkrAmount = etherAmount * etherPriceInPKR;
+
+    return pkrAmount;
+  }
   return limitedproperties.map((properties, index) => {
     const {
       propertyId,
       listingDate,
       description,
+      rentAmount,
       thumbnail,
+      estateName,
       floor,
       status,
-      stateAgent
     } = properties;
 
     return (
@@ -38,12 +50,12 @@ const PropertyList = ({ propertiesProp = [] }) => {
         >
           <div className="flex flex-col lg:flex-row w-full gap-6 items-center relative">
             <img
-              src={thumbnail}
+              src={`https://gateway.pinata.cloud/ipfs/${thumbnail}`}
               className="flex place-content-start items-start w-full aspect-video  h-48 object-cover rounded-lg"
             />
             <div className="flex flex-col w-full">
               {/* ------------ title------------- */}
-              <h1 className="text-xl font-medium text-slate-900">Rent Amount</h1>
+              <h1 className="text-xl font-medium text-slate-900">{weiToPKR(rentAmount)}</h1>
 
               {/* ------------ timestamp ------------- */}
               <div className="flex my-5">
@@ -75,7 +87,7 @@ const PropertyList = ({ propertiesProp = [] }) => {
 
           {/* -------------tech Stack---------------- */}
           <div className="flex border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl">
-            Posted By :&nbsp;&nbsp;<b>{stateAgent}</b>
+            Posted By :&nbsp;&nbsp;<b>{estateName}</b>
           </div>
         </Link>
       </React.Fragment>

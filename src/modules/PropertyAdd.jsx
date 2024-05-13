@@ -15,7 +15,9 @@ export default function PropertyAdd() {
     floor: "",
     owner_wallet: "",
     imageLinks: [],
-    type: ""
+    type: "",
+    rentAmount: "",
+    thumbnail: ""
   });
   const [errors, setErrors] = useState({});
   const [images, setImages] = useState([]);
@@ -59,7 +61,7 @@ export default function PropertyAdd() {
     let isValid = true;
 
     // List all fields to validate
-    const fields = ['address', 'city', 'floor', 'owner_wallet', 'description'];
+    const fields = ['address', 'city', 'floor', 'owner_wallet', 'type', 'rentAmount', 'thumbnail', 'description'];
     fields.forEach(field => {
       if (!formData[field]) {
         isValid = false;
@@ -106,7 +108,9 @@ export default function PropertyAdd() {
         formData.owner_wallet,
         formData.description,
         ipfsHashes,
-        formData.type
+        formData.type,
+        formData.rentAmount,
+        formData.thumbnail
       );
 
       const receipt = await transaction.wait(); // Wait for the transaction to be mined
@@ -134,7 +138,7 @@ export default function PropertyAdd() {
           <h2 className="text-gray-900 text-center text-2xl md:text-3xl mb-5 font-semibold">Enter Property Details</h2>
 
           {/* Multiple input fields with error handling */}
-          {['address', 'city', 'floor', 'owner_wallet', 'description', 'type'].map((field, index) => (
+          {['address', 'city', 'floor', 'owner_wallet', 'description', 'type', 'rentAmount'].map((field, index) => (
             <div key={index} className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 {field.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -152,6 +156,10 @@ export default function PropertyAdd() {
               </label>
             </div>
           ))}
+          <div>
+            Choose thumbnail
+
+          </div>
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">

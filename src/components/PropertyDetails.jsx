@@ -102,7 +102,18 @@ function PropertyDetails() {
       </div>
     );
   }
+  function weiToPKR(weiAmount) {
+    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
+    // Convert wei to Ether
+    const etherAmount = weiAmount / weiPerEther;
+
+    // Convert Ether to PKR
+    const pkrAmount = etherAmount * etherPriceInPKR;
+
+    return pkrAmount;
+  }
 
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3 relative">
@@ -111,7 +122,7 @@ function PropertyDetails() {
           <div className="flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto ">
             <img
               alt="property"
-              src={property?.thumbnail}
+              src={`https://gateway.pinata.cloud/ipfs/${property?.thumbnail}`}
               className="aspect-video  mb-2 w-full  md:h-44 max  object-cover rounded-lg"
             />
           </div>
@@ -162,7 +173,7 @@ function PropertyDetails() {
             <p className="text-base font-medium">
               Rs.
               {' '}
-              {'???'}
+              {weiToPKR(property?.rentAmount)}
               {' '}
               <br />
               {' '}
@@ -280,8 +291,10 @@ function PropertyDetails() {
             </h1>
 
             <Members
+              // to={}
               image={`/public/stateagent/stateagent1.jpg`}
-              walletAddress={`${property?.stateAgent}`}
+              walletAddress={property?.stateAgent}
+              name={property?.stateAgentDetails.name}
               className="font-medium truncate "
               imageclass="w-[10vw] md:w-14 "
             />

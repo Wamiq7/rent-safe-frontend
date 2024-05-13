@@ -1,13 +1,40 @@
 import AboutCard from './AboutCard';
-import Image1 from '../../public/recentproperty/img1.png';
-import Image2 from '../../public/recentproperty/img2.png';
-import Image3 from '../../public/recentproperty/img3.png';
-import Image4 from '../../public/recentproperty/img4.png';
+
+import { useEffect, useState } from 'react';
 
 
 
 export default function AboutSection() {
- 
+
+  const [properties, setproperties] = useState([])
+  const fetchproperties = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/property/getRecentlyProperties`);
+      const propertiesData = await response.json();
+      setproperties(propertiesData)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchproperties();
+  }, []);
+
+  console.log(properties);
+  function weiToPKR(weiAmount) {
+    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+
+    // Convert wei to Ether
+    const etherAmount = weiAmount / weiPerEther;
+
+    // Convert Ether to PKR
+    const pkrAmount = etherAmount * etherPriceInPKR;
+
+    return pkrAmount;
+  }
+
   return (
     <section className="flex flex-col items-center justify-center  bg-[url('/bgsvg.svg')]  min-h-[50vh] w-full">
       <div className=" flex flex-col items-center filter w-full  py-24 h-full bg-white/70">
@@ -15,45 +42,25 @@ export default function AboutSection() {
           Checkout the Recently listed properties
         </h1>
         <div className="flex flex-col md:flex-row z-49 p-6 gap-10 justify-between items-center w-[100%]">
-          <AboutCard
-            image={Image1}
-            name = "Pearl Luxury"
-            location = "Maymar"
-            price = "85,000"
-            type= "Apartment"
-            category= "For rent"
-            id="65716a535c5b47daa40c4572"
-          />
-          <AboutCard
-            image={Image2}
-            name = "Apsara"
-            location = "Nazimabad"
-            price = "60,000"
-            type= "Apartment"
-            category= "For rent" 
-            id={2}
-          />
-          <AboutCard
-            image={Image3}
-            name = "Bridge View"
-            location = "Gulshan"
-            price = "75,000"
-            type= "Apartment"
-            category= "For rent"
-            id={3}
-          />
-           <AboutCard
-            image={Image4}
-            name = "Sky Tower"
-            location = "Bahria Town"
-            price = "54,000"
-            type= "Apartment"
-            category= "For rent"
-            id={4}
-          />
-  
-        
+          {
+            properties?.map((item) => {
+              return (
+                <AboutCard
+                  key={item.propertyId} // Added key prop for optimization
+                  image={`https://gateway.pinata.cloud/ipfs/${item.thumbnail}`}
+                  name={item.propertyType}
+                  location={item.cityArea}
+                  price={weiToPKR(item.rentAmount)}
+                  type={item.estateName}
+                  category="For rent"
+                  id={item.propertyId}
+                />
+              );
+            })
+          }
         </div>
+
+
       </div>
     </section>
   );

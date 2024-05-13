@@ -53,7 +53,7 @@ const AgreementList = ({ agreementsProp = [] }) => {
   return limitedagreements.map((agreement) => {
     // console.log('developer >>>>>', developer);
     const {
-      agreementId, rentAmount, durationMonths, status, propertyId, estateName
+      agreementId, rentAmount, durationMonths, status, propertyId, estateName, thumbnail
     } = agreement;
     return (
       <React.Fragment key={agreementId}>
@@ -65,7 +65,7 @@ const AgreementList = ({ agreementsProp = [] }) => {
           <div className="flex  flex-col lg:flex-row w-full gap-6 items-center relative">
             <img
               // eslint-disable-next-line camelcase
-              src={'/public/recentproperty/img1.png'}
+              src={`https://gateway.pinata.cloud/ipfs/${thumbnail}`}
               className="aspect-video md:w4 h-40 object-cover rounded-lg"
               alt=""
             />
@@ -92,7 +92,7 @@ const AgreementList = ({ agreementsProp = [] }) => {
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
                     <h3 className="listing-content-data">Status</h3>
-                    <h4 className="listing-content-constant">{status}</h4>
+                    <h4 className="listing-content-constant">{status < 3 ? 'Pending' : status === 3 ? 'Active' : status === 4 ? 'Inactive' : status === 5 && 'Cancelled'}</h4>
                   </div>
                   <div>
                     <h3 className="listing-content-data">Created By</h3>

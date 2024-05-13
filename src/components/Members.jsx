@@ -13,7 +13,12 @@ function Members(props) {
           alt=""
           className={`${props.imageclass} rounded-full  object-cover aspect-square`}
         />
-        <h1 className={`${props.className} truncate`}>{props.walletAddress}</h1>
+        <div className='flex flex-col'>
+
+          <h1 className={`${props.className} truncate`}>{props.name}</h1>
+          <h1 className={`${props.className} truncate`}>{props.walletAddress}</h1>
+        </div>
+
       </Link>
     </div>
   );
