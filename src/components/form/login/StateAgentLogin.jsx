@@ -57,6 +57,7 @@ function App(props) {
 
             localStorage.clear();
             localStorage.setItem('Isstateagent', 'true');
+            localStorage.setItem('walletAddress', walletAddress)
 
             navigate('/');
           } else {

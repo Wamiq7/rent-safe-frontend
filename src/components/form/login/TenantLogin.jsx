@@ -59,6 +59,7 @@ function App(props) {
 
             localStorage.clear();
             localStorage.setItem('Istenant', 'true');
+            localStorage.setItem('walletAddress', walletAddress)
 
             navigate('/');
           } else {

@@ -64,7 +64,7 @@ export default function Profile() {
           <div className="flex items-center relative justify-center h-24 lg:h-80 p-0 m-0">
             <img
               alt="profile"
-              src={`https://gateway.pinata.cloud/ipfs//${user?.displayPic}`}
+              src={`https://gateway.pinata.cloud/ipfs/${user?.displayPicture}`}
               className="inline-block object-cover aspect-square  h-full p-0 shadow shadow-accent rounded-full"
             />
           </div>

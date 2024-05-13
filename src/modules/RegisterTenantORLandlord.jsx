@@ -158,7 +158,7 @@ function RegisterTenantORLandlord(props) {
       await setProgress(50)
 
       try {
-        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
+        const tx = await contract.registerUser(bodyData.get('name'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
         await setProgress(70);
         const receipt = await tx.wait();
         console.log("Transaction hash:", receipt.transactionHash);

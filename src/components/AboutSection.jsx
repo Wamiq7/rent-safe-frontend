@@ -42,8 +42,8 @@ export default function AboutSection() {
           Checkout the Recently listed properties
         </h1>
         <div className="flex flex-col md:flex-row z-49 p-6 gap-10 justify-between items-center w-[100%]">
-          {
-            properties?.map((item) => {
+          {/* {
+            properties && properties?.map((item) => {
               return (
                 <AboutCard
                   key={item.propertyId} // Added key prop for optimization
@@ -57,7 +57,7 @@ export default function AboutSection() {
                 />
               );
             })
-          }
+          } */}
         </div>
 
 
