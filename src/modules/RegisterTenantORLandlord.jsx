@@ -21,7 +21,7 @@ function RegisterTenantORLandlord(props) {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    name: '',
+    fname: '',
     cnic: '',
     phone: '',
     email: '',
@@ -29,7 +29,7 @@ function RegisterTenantORLandlord(props) {
     cnicPic: ''
   });
   const [validationErrors, setValidationErrors] = useState({
-    name: '',
+    fname: '',
     cnic: '',
     phone: '',
     email: '',
@@ -79,7 +79,7 @@ function RegisterTenantORLandlord(props) {
     }
   };
 
-  const requiredFields = ['name', 'cnic', 'phone', 'email', 'profilePic', 'cnicPic'];
+  const requiredFields = ['fname', 'cnic', 'phone', 'email', 'profilePic', 'cnicPic'];
   const uploadToPinata = async (file) => {
     const fileData = new FormData();
     fileData.append("file", file);
@@ -138,7 +138,7 @@ function RegisterTenantORLandlord(props) {
 
       await setProgress(15);
 
-      bodyData.append("name", formData.name);
+      bodyData.append("fname", formData.fname);
       bodyData.append('cnic', formData.cnic);
       const uploads = [];
       if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
