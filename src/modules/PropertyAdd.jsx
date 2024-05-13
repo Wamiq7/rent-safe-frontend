@@ -21,13 +21,57 @@ export default function PropertyAdd() {
   });
   const [errors, setErrors] = useState({});
   const [images, setImages] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hiddenFileInput = useRef(null);
+  const hiddenThumbnailInput = useRef(null); 
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
     setImages((prevImages) => [...prevImages, ...files]);
     setErrors({ ...errors, images: null });
+  };
+
+  const handleThumbnailClick = () => {
+    hiddenThumbnailInput.current.click(); 
+  };
+
+  const handleThumbnailChange = async (event) => {
+    const file = event.target.files[0];
+    setThumbnail(file); 
+
+
+    const thumbnailHash = await uploadThumbnailToPinata(file);
+    if (thumbnailHash) {
+      setFormData({ ...formData, thumbnail: thumbnailHash }); 
+      // console.log("Thumbnail hash in formData:", thumbnailHash); 
+    }
+  };
+
+  const uploadThumbnailToPinata = async (file) => {
+    const fileData = new FormData();
+    fileData.append("file", file);
+
+    try {
+      const response = await axios({
+        method: "post",
+        url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        data: fileData,
+        headers: {
+          pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+          pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data.IpfsHash;
+    } catch (error) {
+      console.error("Error uploading thumbnail image to Pinata:", error);
+      toast.error("Error uploading thumbnail image to IPFS.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+      return null;
+    }
   };
 
   const uploadToPinata = async (files) => {
@@ -60,7 +104,6 @@ export default function PropertyAdd() {
     let newErrors = {};
     let isValid = true;
 
-    // List all fields to validate
     const fields = ['address', 'city', 'floor', 'owner_wallet', 'type', 'rentAmount', 'thumbnail', 'description'];
     fields.forEach(field => {
       if (!formData[field]) {
@@ -81,7 +124,7 @@ export default function PropertyAdd() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) {
-      return; // Prevent submission if the form is invalid
+      return; 
     }
 
     setIsSubmitting(true);
@@ -89,11 +132,11 @@ export default function PropertyAdd() {
     const ipfsHashes = await uploadToPinata(images);
     if (!ipfsHashes || ipfsHashes.includes(null)) {
       setIsSubmitting(false);
-      return; // Stop the submission if images fail to upload
+      return; 
     }
 
     setFormData({ ...formData, imageLinks: ipfsHashes });
-    console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
+    // console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
 
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -113,7 +156,7 @@ export default function PropertyAdd() {
         formData.thumbnail
       );
 
-      const receipt = await transaction.wait(); // Wait for the transaction to be mined
+      const receipt = await transaction.wait();
       console.log("Property listed!", receipt);
       toast.success("Property Listed Successfully");
     } catch (error) {
@@ -129,7 +172,6 @@ export default function PropertyAdd() {
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
-
   return (
     <div className="flex justify-center my-10 items-center h-screen">
       <div className="gradient z-0" />
@@ -137,7 +179,6 @@ export default function PropertyAdd() {
         <form className="bg-white/50 shadow-md px-8 pt-6 pb-8 mb-4 border z-10 border-slate-300 rounded-2xl py-5" onSubmit={handleSubmit}>
           <h2 className="text-gray-900 text-center text-2xl md:text-3xl mb-5 font-semibold">Enter Property Details</h2>
 
-          {/* Multiple input fields with error handling */}
           {['address', 'city', 'floor', 'owner_wallet', 'description', 'type', 'rentAmount'].map((field, index) => (
             <div key={index} className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -156,10 +197,24 @@ export default function PropertyAdd() {
               </label>
             </div>
           ))}
-          <div>
-            Choose thumbnail
+          <div className="mb-4">
+  <label className="block text-gray-700 text-sm font-bold mb-2">
+    Choose Thumbnail
+    <div onClick={handleThumbnailClick} style={{ cursor: 'pointer' }} className="box-decoration w-full py-6 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+      <p className="text-gray-700">{thumbnail ? thumbnail.name : 'Choose an image'}</p>
+      <input
+        id="thumbnail-upload-input"
+        type="file"
+        onChange={handleThumbnailChange}
+        ref={hiddenThumbnailInput}
+        style={{ display: 'none' }}
+        accept="image/*"
+      />
+    </div>
+  </label>
+</div>
 
-          </div>
+
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
