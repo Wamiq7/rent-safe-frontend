@@ -8,7 +8,7 @@ import StateAgentDetails from '../components/form/register/developer/StateAgentD
 import FormContainer from '../components/form/FormContainer';
 import developer from "../../public/developer.svg";
 import { loadingContext } from '../components/context/LoadingState';
-import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
+import ABI from '../../src/contracts/RegistrationContract.sol/RegistrationContract.json'
 import { ethers } from 'ethers';
 import axios from 'axios';
 
