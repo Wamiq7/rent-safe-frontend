@@ -37,7 +37,6 @@ function RegisterTenantORLandlord(props) {
     cnicPic: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const validateField = (field, value) => {
     if (!value) {
       setValidationErrors(prev => ({ ...prev, [field]: `${field.charAt(0).toUpperCase() + field.slice(1)} is required` }));
@@ -141,7 +140,8 @@ function RegisterTenantORLandlord(props) {
       bodyData.append("fname", formData.fname);
       bodyData.append('cnic', formData.cnic);
       bodyData.append('phone', formData.phone);
-      bodyData.append('email', formData.email); const uploads = [];
+      bodyData.append('email', formData.email);
+      const uploads = [];
       if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
       if (formData.cnicPic) uploads.push(uploadToPinata(formData.cnicPic));
 
@@ -150,8 +150,6 @@ function RegisterTenantORLandlord(props) {
       bodyData.append('cnicHash', ipfsHashes[1])
       console.log(bodyData);
 
-
-
       await setProgress(30);
       const provider = new ethers.BrowserProvider(window.ethereum)
       const signer = await provider.getSigner();
@@ -159,7 +157,9 @@ function RegisterTenantORLandlord(props) {
       await setProgress(50)
 
       try {
-        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), 0, bodyData.get('estateName'), bodyData.get('cnicHash'), bodyData.get('profileHash'));
+
+
+        const tx = await contract.registerUser(bodyData.get('fname'), bodyData.get('cnic'), bodyData.get('phone'), bodyData.get('email'), props.role, "", bodyData.get('cnicHash'), bodyData.get('profileHash'));
         await setProgress(70);
         const receipt = await tx.wait();
         console.log("Transaction hash:", receipt.transactionHash);
