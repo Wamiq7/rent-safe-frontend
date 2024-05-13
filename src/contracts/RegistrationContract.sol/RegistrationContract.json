@@ -65,6 +65,54 @@
       "type": "event"
     },
     {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_cnic",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_phoneNumber",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "enum RegistrationContract.UserRole",
+          "name": "_role",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "_estateName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "cnicImage",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "displayPicture",
+          "type": "string"
+        }
+      ],
+      "name": "registerUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "addressCount",
       "outputs": [
@@ -135,61 +183,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getAllStateAgents",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "cnic",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "phoneNumber",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "email",
-              "type": "string"
-            },
-            {
-              "internalType": "enum RegistrationContract.UserRole",
-              "name": "role",
-              "type": "uint8"
-            },
-            {
-              "internalType": "string",
-              "name": "estateName",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "cnicImage",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "displayPicture",
-              "type": "string"
-            }
-          ],
-          "internalType": "struct RegistrationContract.User[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "string",
@@ -250,54 +243,6 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_cnic",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_phoneNumber",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "enum RegistrationContract.UserRole",
-          "name": "_role",
-          "type": "uint8"
-        },
-        {
-          "internalType": "string",
-          "name": "_estateName",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "cnicImage",
-          "type": "string"
-        },
-        {
-          "internalType": "string",
-          "name": "displayPicture",
-          "type": "string"
-        }
-      ],
-      "name": "registerUser",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {

@@ -7,7 +7,7 @@ import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 import { ethers } from 'ethers';
 
 export default function PropertyAdd() {
-  const propertyListingAddress = import.meta.env.VITE_PROPERTY;
+  const propertyListingAddress = '0x35CcA6E5fF3965fE090Fa8ba4b900631ef203b39';
   const [formData, setFormData] = useState({
     address: "",
     description: "",
@@ -21,10 +21,10 @@ export default function PropertyAdd() {
   });
   const [errors, setErrors] = useState({});
   const [images, setImages] = useState([]);
-  const [thumbnail, setThumbnail] = useState(null); 
+  const [thumbnail, setThumbnail] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const hiddenFileInput = useRef(null);
-  const hiddenThumbnailInput = useRef(null); 
+  const hiddenThumbnailInput = useRef(null);
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
@@ -33,17 +33,17 @@ export default function PropertyAdd() {
   };
 
   const handleThumbnailClick = () => {
-    hiddenThumbnailInput.current.click(); 
+    hiddenThumbnailInput.current.click();
   };
 
   const handleThumbnailChange = async (event) => {
     const file = event.target.files[0];
-    setThumbnail(file); 
+    setThumbnail(file);
 
 
     const thumbnailHash = await uploadThumbnailToPinata(file);
     if (thumbnailHash) {
-      setFormData({ ...formData, thumbnail: thumbnailHash }); 
+      setFormData({ ...formData, thumbnail: thumbnailHash });
       // console.log("Thumbnail hash in formData:", thumbnailHash); 
     }
   };
@@ -124,7 +124,7 @@ export default function PropertyAdd() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) {
-      return; 
+      return;
     }
 
     setIsSubmitting(true);
@@ -132,17 +132,17 @@ export default function PropertyAdd() {
     const ipfsHashes = await uploadToPinata(images);
     if (!ipfsHashes || ipfsHashes.includes(null)) {
       setIsSubmitting(false);
-      return; 
+      return;
     }
 
     setFormData({ ...formData, imageLinks: ipfsHashes });
-    // console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
+    console.log("Successfully uploaded images to IPFS with hashes:", ipfsHashes);
+    console.log(formData);
 
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-      console.log(formData);
       console.log(contract);
       const transaction = await contract.listProperty(
         formData.address,
@@ -198,21 +198,21 @@ export default function PropertyAdd() {
             </div>
           ))}
           <div className="mb-4">
-  <label className="block text-gray-700 text-sm font-bold mb-2">
-    Choose Thumbnail
-    <div onClick={handleThumbnailClick} style={{ cursor: 'pointer' }} className="box-decoration w-full py-6 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
-      <p className="text-gray-700">{thumbnail ? thumbnail.name : 'Choose an image'}</p>
-      <input
-        id="thumbnail-upload-input"
-        type="file"
-        onChange={handleThumbnailChange}
-        ref={hiddenThumbnailInput}
-        style={{ display: 'none' }}
-        accept="image/*"
-      />
-    </div>
-  </label>
-</div>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Choose Thumbnail
+              <div onClick={handleThumbnailClick} style={{ cursor: 'pointer' }} className="box-decoration w-full py-6 rounded-lg border border-gray-300 hover:bg-gray-100 flex items-center justify-center">
+                <p className="text-gray-700">{thumbnail ? thumbnail.name : 'Choose an image'}</p>
+                <input
+                  id="thumbnail-upload-input"
+                  type="file"
+                  onChange={handleThumbnailChange}
+                  ref={hiddenThumbnailInput}
+                  style={{ display: 'none' }}
+                  accept="image/*"
+                />
+              </div>
+            </label>
+          </div>
 
 
 

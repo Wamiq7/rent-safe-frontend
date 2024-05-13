@@ -42,30 +42,13 @@ function PropertyDetails() {
     }
 
   }
-  const delistProperty = async (id) => {
+
+  const delistProperty = async (id, stateAgent) => {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-      const transaction = await contract.delistProperty(id);
-
-      const receipt = await transaction.wait(); // Wait for the transaction to be mined
-      console.log(" Delisted Successfully", receipt);
-      toast.success(" Delisted Successfully");
-    } catch (error) {
-      console.error("Error delisting property:", error);
-      toast.error("Error delisting property.", {
-        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
-      });
-    }
-
-  }
-  const allowDelisting = async (id) => {
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-      const transaction = await contract.approveDelisting(id);
+      const transaction = await contract.delistProperty(id, stateAgent);
 
       const receipt = await transaction.wait();
       console.log(" Delisted Successfully", receipt);
@@ -302,40 +285,12 @@ function PropertyDetails() {
           </div>
         </div>
 
-        {/* <div className="flex flex-row items-center w-full border-t py-3 px-6 gap-4">
-          <p className="flex items-center text-lg my-3 text-start font-medium text-slate-800">
-            Upgrade your membership to see bid range */}
-        {/* ----------TODO: Tooltip Style ----! pending */}
-        {/* </p>
-          <div
-            className="tooltip"
-            data-tip="Displays a range for the proposed bids"
-          >
-            <AiFillQuestionCircle className="text-base text-accent ml-2" />
-          </div>
-        </div> */}
       </Container>
-      {/* Apply Button */}
-      {islandlord &&
-        (
-          <div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
-            <div className="flex justify-between  items-center cursor-pointer ">
-              <button
-                type="button"
-                onClick={() => approveListing(propertyId)}
-                className="text-green-600 border border-solid border-green-500 text-l w-[11.7rem] lg:text-xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-[7px]"
-              >
-                Approve Listing
-              </button>
-            </div>
-
-          </div>
-        )}
 
       {isStateAgent && (<div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
         <div className="flex justify-between  items-center cursor-pointer ">
           <button
-            onClick={() => delistProperty(propertyId)}
+            onClick={() => delistProperty(propertyId, property?.stateAgent)}
             type="button"
             className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
           >
@@ -353,21 +308,6 @@ function PropertyDetails() {
         </div>
 
       </div>)}
-      {islandlord &&
-        <div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
-          <div className="flex justify-between  items-center cursor-pointer ">
-            <button
-              onClick={() => allowDelisting(propertyId)}
-              type="button"
-              className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
-            >
-              Allow Delisting
-            </button>
-          </div>
-        </div>
-      }
-
-
     </div>
 
 
