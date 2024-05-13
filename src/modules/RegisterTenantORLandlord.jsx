@@ -140,7 +140,8 @@ function RegisterTenantORLandlord(props) {
 
       bodyData.append("fname", formData.fname);
       bodyData.append('cnic', formData.cnic);
-      const uploads = [];
+      bodyData.append('phone', formData.phone);
+      bodyData.append('email', formData.email); const uploads = [];
       if (formData.profilePic) uploads.push(uploadToPinata(formData.profilePic));
       if (formData.cnicPic) uploads.push(uploadToPinata(formData.cnicPic));
 

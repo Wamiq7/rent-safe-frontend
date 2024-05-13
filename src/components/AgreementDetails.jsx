@@ -11,7 +11,6 @@ function AgreementDetails({
   const isStateAgent = localStorage.getItem("Isstateagent")
   const islandlord = localStorage.getItem("Islandlord")
   const isTenanat = localStorage.getItem("Istenant")
-  const [terminate, setTerminate] = useState(false);
 
 
 
@@ -20,7 +19,6 @@ function AgreementDetails({
     return Object.keys(obj).length === 0;
   }
   const handleTerminate = () => {
-    setTerminate(true);
   }
   function weiToPKR(weiAmount) {
     const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
@@ -71,7 +69,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(islandlord && !terminate || isTenanat && !terminate) && (
+              {(isStateAgent && agreementData.status === 3) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -84,7 +82,19 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(islandlord && terminate || isTenanat && terminate) && (
+              {(isTenanat && agreementData.status === 3 && agreementData.tenantApprovalForCancellation === false) && (
+                <div className="absolute top-6 right-10 md:flex">
+
+                  <button
+                    type="button"
+                    className="text-red-500 border border-solid border-red-500  text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  >
+                    Approve Termination
+                  </button>
+
+                </div>
+              )}
+              {(islandlord && agreementData.status === 3 && agreementData.landlordApprovalForCancellation === false) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button

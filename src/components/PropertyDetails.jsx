@@ -23,25 +23,7 @@ function PropertyDetails() {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % property.imageLinks.length);
   };
 
-  const approveListing = async (id) => {
 
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-      const transaction = await contract.approveStatusToListing(id);
-
-      const receipt = await transaction.wait(); // Wait for the transaction to be mined
-      console.log(" Delisted Successfully", receipt);
-      toast.success(" Delisted Successfully");
-    } catch (error) {
-      console.error("Error delisting property:", error);
-      toast.error("Error delisting property.", {
-        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
-      });
-    }
-
-  }
 
   const delistProperty = async (id, stateAgent) => {
     try {
