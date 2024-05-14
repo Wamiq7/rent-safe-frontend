@@ -5,44 +5,136 @@ import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
 import Data from "../components/demo.json";
 
-const filters = [
-  {
-    label: "Newest first",
-    property: "#newest_first_org",
-  },
-  {
-    label: "Sort A-Z",
-    property: "#sort_asc_org",
-  },
-  {
-    label: "Sort Z-A",
-    property: "#sort_dsc_org",
-  },
-];
-
 function AgreementListings() {
   const [agreements, setagreements] = useState([]);
-  const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const isStateAgent = localStorage.getItem("Isstateagent")
-  const islandlord = localStorage.getItem("Islandlord")
-  const isTenanat = localStorage.getItem("Istenant")
+  const [filteredAgreements, setFilteredagreements] = useState([]);
+  const [duration, setDuration] = useState("");
+  const [status, setStatus] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const isStateAgent = localStorage.getItem("Isstateagent");
+  const islandlord = localStorage.getItem("Islandlord");
+  const isTenanat = localStorage.getItem("Istenant");
+  console.log("agreements", agreements);
+
+  const statusFilters = [
+    {
+      label: "All",
+      property: "",
+    },
+    {
+      label: "Pending",
+      property: 0,
+    },
+    {
+      label: "Active",
+      property: 3,
+    },
+    {
+      label: "Inactive",
+      property: 4,
+    },
+    {
+      label: "Cancelled",
+      property: 5,
+    },
+  ];
+
+  const durationFilters = [
+    {
+      label: "All Months",
+      property: "",
+    },
+    {
+      label: "1 Month",
+      property: 1,
+    },
+    {
+      label: "2 Months",
+      property: 2,
+    },
+    {
+      label: "3 Months",
+      property: 3,
+    },
+    {
+      label: "4 Months",
+      property: 4,
+    },
+    {
+      label: "5 Months",
+      property: 5,
+    },
+    {
+      label: "6 Months",
+      property: 6,
+    },
+    {
+      label: "7 Months",
+      property: 7,
+    },
+    {
+      label: "8 Months",
+      property: 8,
+    },
+  ];
 
   useEffect(() => {
-
-    fetchAgreements()
-
+    fetchAgreements();
   }, []);
 
   const fetchAgreements = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/agreements/getAllAgreements`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/agreements/getAllAgreements`
+      );
       const agreementsData = await response.json();
-      setagreements(agreementsData)
-
+      setagreements(agreementsData);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log("duration", typeof duration, duration)
+  console.log("status", typeof status, status)
+
+  const filterAgreements = () => {
+    return agreements.filter((agreements) => {
+      console.log("Running");
+      // Filter by searchInput in description
+      if (
+        searchInput &&
+        !agreements.estateName
+          .toLowerCase()
+          .includes(searchInput.toLowerCase())
+      ) {
+        return false;
+      }
+      // Filter by status
+      if (status?.property && agreements.status !== status?.property) {
+        return false;
+      }
+
+      // Filter by duration
+      if (duration?.property && agreements.durationMonths !== duration?.property) {
+        return false;
+      }
+
+      return true;
+    });
+  };
+
+  useEffect(() => {
+    console.log("useeffect running");
+    if (searchInput || duration || status) {
+      const filtered = filterAgreements();
+      setFilteredagreements(filtered);
+    } else {
+      console.log("else");
+      setFilteredagreements(agreements);
+    }
+  }, [searchInput, status, duration, agreements]);
+  console.log("filteredAgreements", filteredAgreements);
+
   return (
     <div className="flex flex-col justify-center w-full">
       {/* ------------- Background Gradient ------------ */}
@@ -59,9 +151,6 @@ function AgreementListings() {
         </h1>
       </div>
 
-
-
-
       <div className="flex justify-center my-6 relative mx-3">
         <div className="flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start border z-10 border-slate-300  bg-white/50 rounded-2xl py-5">
           <div className="flex mt-6 w-full justify-between border-b ">
@@ -69,12 +158,19 @@ function AgreementListings() {
               List of Agreements
             </h1>
 
-
             {/* --------sort button--------- */}
             <FilterButton
-              filters={filters}
-              agreements={agreements}
-              setagreements={setagreements}
+              filters={statusFilters}
+              sortFilter={status}
+              setSortFilter={setStatus}
+              initialFilter={"Status"}
+            />
+
+            <FilterButton
+              filters={durationFilters}
+              sortFilter={duration}
+              setSortFilter={setDuration}
+              initialFilter={"All Months"}
             />
 
             {/* --------sort button END--------- */}
@@ -87,13 +183,16 @@ function AgreementListings() {
             />
           </div>
           {agreements.length > 0 ? (
-            <AgreementList agreementsProp={agreements} />
+            <AgreementList agreementsProp={filteredAgreements} />
           ) : (
             <div className="flex w-full py-10 justify-center text-slate-500">
               <img alt="loader" src={loading} />
             </div>
           )}
-          {(!isStateAgent && !islandlord && !isTenanat) && agreements.length > 0 ? (
+          {!isStateAgent &&
+          !islandlord &&
+          !isTenanat &&
+          agreements.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>
