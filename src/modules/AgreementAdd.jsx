@@ -52,8 +52,8 @@ export default function AgreementAdd() {
         setIsSubmitting(true);
 
         try {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
             const contract = new ethers.Contract(rentalAgreementContract, ABI.abi, signer);
             const transaction = await contract.createAgreement(
                 formData.propertyId,
