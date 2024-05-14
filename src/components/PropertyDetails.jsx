@@ -10,6 +10,7 @@ import "../styles/index.css";
 import { Pannellum } from "pannellum-react";
 import ABI from "../../src/contracts/PropertyListing.sol/PropertyListing.json";
 import { toast } from "react-toastify";
+import { ethers } from "ethers";
 function PropertyDetails() {
   const propertyListingAddress = import.meta.env.VITE_PROPERTY;
   const { propertyId, listingDate } = useParams();
