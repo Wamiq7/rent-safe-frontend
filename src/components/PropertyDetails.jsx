@@ -144,7 +144,8 @@ function PropertyDetails() {
               </p>
             </div>
           </div>
-          {islandlord && property?.status === 0 && localStorage.getItem('islandlord') === property.ownerWallet &&
+         
+          {islandlord && property?.status === 0 && localStorage.getItem('walletAddress') == property.ownerWallet &&
 
             <div>
               <button
@@ -191,7 +192,7 @@ function PropertyDetails() {
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
             <p className="text-base font-medium">
               {property?.propertyType} <br />{" "}
-              <span className="text-sm font-light text-slate-600">Floor</span>
+              <span className="text-sm font-light text-slate-600">Type</span>
             </p>
           </div>
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
