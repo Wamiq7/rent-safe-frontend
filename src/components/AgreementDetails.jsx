@@ -68,7 +68,7 @@ function AgreementDetails({
   };
   const handleApprove = async (id) => {
     try {
-      const provider = new etherss.BrowserProvider(window.ethereum);
+      const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(
         import.meta.env.VITE_RENTAL_AGREEMENT,
