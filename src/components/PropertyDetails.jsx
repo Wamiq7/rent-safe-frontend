@@ -9,6 +9,7 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import "../styles/index.css";
 import { Pannellum } from "pannellum-react";
 import ABI from "../../src/contracts/PropertyListing.sol/PropertyListing.json";
+import { toast } from "react-toastify";
 function PropertyDetails() {
   const propertyListingAddress = import.meta.env.VITE_PROPERTY;
   const { propertyId, listingDate } = useParams();
