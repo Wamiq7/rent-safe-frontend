@@ -80,7 +80,7 @@ function AgreementDetails({
         transaction = await contract.landlordApproveAgreement(id);
 
       } else {
-        transaction = await contract.tenantApproveAgreement(id,{value:agreementData.rentAmount});
+        transaction = await contract.tenantApproveAgreement(id, { value: agreementData.rentAmount });
 
       }
 
@@ -193,7 +193,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(islandlord && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.landlordWalletAddress) && (
+              {(islandlord && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.landlordWalletAddress && !agreementData.landlordApprovalForCancellation) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -206,7 +206,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(isTenanat && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.tenantWalletAddress) && (
+              {(isTenanat && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.tenantWalletAddress && !agreementData.tenantApprovalForCancellation) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
