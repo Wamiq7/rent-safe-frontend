@@ -62,6 +62,7 @@ function PropertyDetails() {
       const receipt = await transaction.wait();
       console.log("Approved Successfully", receipt);
       toast.success("Approved and Listed Successfully");
+      window.location.reload();
     } catch (error) {
       console.error("Error approving property:", error);
       toast.error("Error approving property.", {
@@ -143,15 +144,18 @@ function PropertyDetails() {
               </p>
             </div>
           </div>
-          <div>
-            <button
-              onClick={() => approveProperty(propertyId)}
-              type="button"
-              className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
-            >
-              Approve
-            </button>
-          </div>
+          {islandlord && property?.status === 0 && localStorage.getItem('islandlord') === property.ownerWallet &&
+
+            <div>
+              <button
+                onClick={() => approveProperty(propertyId)}
+                type="button"
+                className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+              >
+                Approve
+              </button>
+            </div>
+          }
         </div>
 
         <div className="flex w-full border-t py-3">
