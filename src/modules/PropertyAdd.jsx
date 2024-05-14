@@ -7,7 +7,7 @@ import ABI from '../../src/contracts/PropertyListing.sol/PropertyListing.json'
 import { ethers } from 'ethers';
 
 export default function PropertyAdd() {
-  const propertyListingAddress = '0x35CcA6E5fF3965fE090Fa8ba4b900631ef203b39';
+  const propertyListingAddress = import.meta.env.VITE_PROPERTY;
   const [formData, setFormData] = useState({
     address: "",
     description: "",
