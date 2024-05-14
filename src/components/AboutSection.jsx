@@ -1,18 +1,16 @@
-import AboutCard from './AboutCard';
+import AboutCard from "./AboutCard";
 
-import { useEffect, useState } from 'react';
-
-
+import { useEffect, useState } from "react";
 
 export default function AboutSection() {
-
-  const [properties, setproperties] = useState([])
+  const [properties, setproperties] = useState([]);
   const fetchproperties = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/property/getRecentlyProperties`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/property/getRecentlyProperties`
+      );
       const propertiesData = await response.json();
-      setproperties(propertiesData)
-
+      setproperties(propertiesData);
     } catch (error) {
       console.log(error);
     }
@@ -41,9 +39,16 @@ export default function AboutSection() {
         <h1 className="text-5xl blue-gradient font-semibold drop-shadow-lg ">
           Checkout the Recently listed properties
         </h1>
-        <div className="flex flex-col md:flex-row z-49 p-6 gap-10 justify-between items-center w-[100%]">
-          {
-            properties && properties?.map((item) => {
+        <div
+          className="grid gap-4 z-49 p-6 w-full content-center place-content-center"
+          style={{
+            gridTemplateColumns: `repeat(${
+              properties && properties.length
+            }, minmax(0, 1fr)`,
+          }}
+        >
+          {properties &&
+            properties?.map((item) => {
               return (
                 <AboutCard
                   key={item.propertyId} // Added key prop for optimization
@@ -56,11 +61,8 @@ export default function AboutSection() {
                   id={item.propertyId}
                 />
               );
-            })
-          }
+            })}
         </div>
-
-
       </div>
     </section>
   );
