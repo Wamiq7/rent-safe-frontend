@@ -127,7 +127,7 @@ function PropertyDetails() {
             </h1> */}
             {/* Domain */}
             <Link className="text-accent px-6 my-2 text-base font-medium underline truncate">
-              Posted by {property?.stateAgent}
+              Posted by {property?.stateAgentDetails.estateName}
             </Link>
             {/* Timestamp */}
             <p className="text-sm px-6 text-slate-600">
@@ -284,7 +284,7 @@ function PropertyDetails() {
           </div> */}
           <div className="flex flex-col items-start justify-start gap-3">
             <h1 className="text-xl font-semibold text-slate-800">
-              State Agent
+              Estate Agent
             </h1>
 
             <Members
