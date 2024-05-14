@@ -29,15 +29,15 @@ const AgreementList = ({ agreementsProp = [] }) => {
   }
   // Function to convert Wei to PKR format
   function weiToPKR(weiAmount) {
-    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
-    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+    // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
-    // Convert wei to Ether
-    const etherAmount = weiAmount / weiPerEther;
+    // // Convert wei to Ether
+    // const etherAmount = weiAmount / weiPerEther;
 
-    // Convert Ether to PKR
-    const pkrAmount = etherAmount * etherPriceInPKR;
-
+    // // Convert Ether to PKR
+    // const pkrAmount = etherAmount * etherPriceInPKR;
+    const pkrAmount = weiAmount * 1000;
     return pkrAmount;
   }
 
@@ -71,7 +71,19 @@ const AgreementList = ({ agreementsProp = [] }) => {
             />
             <div className="flex flex-col w-full">
               {/* ------------ Agreement Name------------- */}
-              <h1 className="text-xl font-medium text-slate-900">{weiToPKR(rentAmount)}</h1>
+              <div className="flex text-base  text-start font-normal gap-3 items-start">
+                <p className="text-base font-medium">
+                  Rs.
+                  {' '}
+                  {weiToPKR(rentAmount)}
+                  {' '}
+                  <br />
+                  {' '}
+                  <span className="text-sm font-light text-slate-600">
+                    Rent Amount
+                  </span>
+                </p>
+              </div>
 
 
               <div className="flex my-5">

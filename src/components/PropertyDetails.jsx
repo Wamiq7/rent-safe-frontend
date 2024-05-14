@@ -68,14 +68,15 @@ function PropertyDetails() {
     );
   }
   function weiToPKR(weiAmount) {
-    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
-    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+    // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
-    // Convert wei to Ether
-    const etherAmount = weiAmount / weiPerEther;
+    // // Convert wei to Ether
+    // const etherAmount = weiAmount / weiPerEther;
 
     // Convert Ether to PKR
-    const pkrAmount = etherAmount * etherPriceInPKR;
+    // const pkrAmount = etherAmount * etherPriceInPKR;
+    const pkrAmount = weiAmount * 1000;
 
     return pkrAmount;
   }

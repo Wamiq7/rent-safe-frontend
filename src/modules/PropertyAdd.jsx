@@ -143,7 +143,6 @@ export default function PropertyAdd() {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(propertyListingAddress, ABI.abi, signer);
-      console.log(contract);
       const transaction = await contract.listProperty(
         formData.address,
         formData.city,

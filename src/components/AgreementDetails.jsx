@@ -21,15 +21,15 @@ function AgreementDetails({
   const handleTerminate = () => {
   }
   function weiToPKR(weiAmount) {
-    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
-    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+    // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
-    // Convert wei to Ether
-    const etherAmount = weiAmount / weiPerEther;
+    // // Convert wei to Ether
+    // const etherAmount = weiAmount / weiPerEther;
 
-    // Convert Ether to PKR
-    const pkrAmount = etherAmount * etherPriceInPKR;
-
+    // // Convert Ether to PKR
+    // const pkrAmount = etherAmount * etherPriceInPKR;
+    const pkrAmount = weiAmount * 1000;
     return pkrAmount;
   }
 
@@ -54,9 +54,19 @@ function AgreementDetails({
 
             <div className="flex flex-col justify-between items-start gap-3">
               {/* --------Agreement Name------------------- */}
-              <h1 className="text-3xl font-medium text-slate-900">
-                {weiToPKR(agreementData.rentAmount)}
-              </h1>
+              <div className="flex text-base  text-start font-normal gap-3 items-start">
+                <p className="text-base font-medium">
+                  Rs.
+                  {' '}
+                  {weiToPKR(agreementData.rentAmount)}
+                  {' '}
+                  <br />
+                  {' '}
+                  <span className="text-sm font-light text-slate-600">
+                    Rent Amount
+                  </span>
+                </p>
+              </div>
               {isStateAgent && agreementData.status <= 2 && (
                 <div className="absolute top-6 right-10 md:flex">
 
@@ -191,7 +201,7 @@ function AgreementDetails({
                 <div className="flex flex-col md:flex-row gap-6 md:gap-0">
                   <div className="flex items-start justify-start">
                     <img
-                      src={agreementData.propertyDetails.thumbnailImage}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.propertyDetails.thumbnailImage}`}
                       alt=""
                       className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
                     />

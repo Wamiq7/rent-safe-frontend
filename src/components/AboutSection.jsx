@@ -23,15 +23,15 @@ export default function AboutSection() {
 
   console.log(properties);
   function weiToPKR(weiAmount) {
-    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
-    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+    // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
-    // Convert wei to Ether
-    const etherAmount = weiAmount / weiPerEther;
+    // // Convert wei to Ether
+    // const etherAmount = weiAmount / weiPerEther;
 
-    // Convert Ether to PKR
-    const pkrAmount = etherAmount * etherPriceInPKR;
-
+    // // Convert Ether to PKR
+    // const pkrAmount = etherAmount * etherPriceInPKR;
+    const pkrAmount = weiAmount * 1000;
     return pkrAmount;
   }
 
@@ -42,7 +42,7 @@ export default function AboutSection() {
           Checkout the Recently listed properties
         </h1>
         <div className="flex flex-col md:flex-row z-49 p-6 gap-10 justify-between items-center w-[100%]">
-          {/* {
+          {
             properties && properties?.map((item) => {
               return (
                 <AboutCard
@@ -57,7 +57,7 @@ export default function AboutSection() {
                 />
               );
             })
-          } */}
+          }
         </div>
 
 

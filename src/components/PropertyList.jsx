@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
+import { FaCircleDollarToSlot } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 
 const PropertyList = ({ propertiesProp = [] }) => {
@@ -16,15 +17,15 @@ const PropertyList = ({ propertiesProp = [] }) => {
     limitedproperties = propertiesProp;
   }
   function weiToPKR(weiAmount) {
-    const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
-    const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
+    // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
+    // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
 
-    // Convert wei to Ether
-    const etherAmount = weiAmount / weiPerEther;
+    // // Convert wei to Ether
+    // const etherAmount = weiAmount / weiPerEther;
 
-    // Convert Ether to PKR
-    const pkrAmount = etherAmount * etherPriceInPKR;
-
+    // // Convert Ether to PKR
+    // const pkrAmount = etherAmount * etherPriceInPKR;
+    const pkrAmount = weiAmount * 1000;
     return pkrAmount;
   }
   return limitedproperties.map((properties, index) => {
@@ -55,7 +56,19 @@ const PropertyList = ({ propertiesProp = [] }) => {
             />
             <div className="flex flex-col w-full">
               {/* ------------ title------------- */}
-              <h1 className="text-xl font-medium text-slate-900">{weiToPKR(rentAmount)}</h1>
+              <div className="flex text-base  text-start font-normal gap-3 items-start">
+                <p className="text-base font-medium">
+                  Rs.
+                  {' '}
+                  {weiToPKR(rentAmount)}
+                  {' '}
+                  <br />
+                  {' '}
+                  <span className="text-sm font-light text-slate-600">
+                    Rent Amount
+                  </span>
+                </p>
+              </div>
 
               {/* ------------ timestamp ------------- */}
               <div className="flex my-5">
