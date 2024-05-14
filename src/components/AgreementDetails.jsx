@@ -80,7 +80,7 @@ function AgreementDetails({
         transaction = await contract.landlordApproveAgreement(id);
 
       } else {
-        transaction = await contract.tenantApproveAgreement(id);
+        transaction = await contract.tenantApproveAgreement(id,{value:agreementData.rentAmount});
 
       }
 
