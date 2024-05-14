@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 
 export default function AgreementAdd() {
     const { uid } = useParams();
-    const rentalAgreementContract = '0x61528a2598513881673E58dCf5c745429646458B';
+    const rentalAgreementContract = import.meta.env.VITE_RENTAL_AGREEMENT;
     const [formData, setFormData] = useState({
         propertyId: uid,
         rentAmount: "",
@@ -58,8 +58,8 @@ export default function AgreementAdd() {
             const transaction = await contract.createAgreement(
                 formData.propertyId,
                 formData.rentAmount,
-                formData.advance,
                 formData.duration,
+                formData.advance,
                 formData.landlord_wallet,
                 formData.tenant_wallet,
                 formData.extraDetails,
