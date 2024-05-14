@@ -5,17 +5,14 @@ export default function Search({
   setSearchInput,
   searchPlaceholder,
 }) {
-  const onSearch = (event) => {
-    event.preventDefault();
-    setSearchInput({ ...searchInput, searchString: event.target.value });
-  };
+
   return (
     <div className="flex gap-0 items-center w-full rounded-xl p-0 h-10 justify-center">
       <input
         type="text"
         placeholder={searchPlaceholder}
-        value={searchInput.searchString}
-        onChange={(e) => onSearch(e)}
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
         className="px-3 h-full outline-1 border w-full rounded-xl text-center border-slate-300 outline-slate-300/50 "
       />
     </div>

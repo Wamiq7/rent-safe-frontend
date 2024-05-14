@@ -1,52 +1,99 @@
 import { useContext, useEffect, useState } from "react";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import PropertyList from "../components/PropertyList";
 import FilterButton from "../components/navbar/FilterButton";
 // import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
 import { loadingContext } from "../components/context/LoadingState";
-import propertiesData from "./properties.json"
+import propertiesData from "./properties.json";
 import { Log } from "ethers";
 
-const filters = [
-  {
-    label: "featured",
-    property: "#featured",
-  },
+const sortFilters = [
   {
     label: "Newest first",
-    property: "#newest_first_project",
+    property: "newest",
   },
   {
-    label: "Sort A-Z",
-    property: "#proj_sort_asc",
+    label: "Oldest first",
+    property: "oldest",
+  },
+];
+
+const floorFilters = [
+  {
+    label: "All Floors",
+    property: "",
   },
   {
-    label: "Sort Z-A",
-    property: "#proj_sort_dsc",
+    label: "1 Floor",
+    property: 1,
   },
   {
-    label: "Open to work",
-    property: "#open_for_development",
+    label: "2 FLoor",
+    property: 2,
+  },
+  {
+    label: "3 FLoor",
+    property: 3,
+  },
+  {
+    label: "4 FLoor",
+    property: 4,
+  },
+  {
+    label: "5 FLoor",
+    property: 5,
+  },
+  {
+    label: "6 FLoor",
+    property: 6,
+  },
+];
+
+const statusFilters = [
+  {
+    label: "All",
+    property: "",
+  },
+  {
+    label: "Pending",
+    property: 0,
+  },
+  {
+    label: "Listed",
+    property: 1,
+  },
+  {
+    label: "Rented",
+    property: 2,
   },
 ];
 
 function PropertyListings() {
   const [properties, setproperties] = useState([]);
-  const [searchInput, setSearchInput] = useState({ searchString: "" });
-  const isStateAgent = localStorage.getItem("Isstateagent")
-  const islandlord = localStorage.getItem("Islandlord")
-  const isTenanat = localStorage.getItem("Istenant")
-
+  const [searchInput, setSearchInput] = useState("");
+  const [sort, setSort] = useState("");
+  const [status, setStatus] = useState("");
+  const [floor, setFloor] = useState("");
+  const isStateAgent = localStorage.getItem("Isstateagent");
+  const islandlord = localStorage.getItem("Islandlord");
+  const isTenanat = localStorage.getItem("Istenant");
+  const [filteredProperties, setFilteredproperties] = useState([]);
+  
+  // console.log("searchInput", typeof searchInput, searchInput)
+  // console.log("sort", typeof sort, sort)
+  // console.log("status", typeof status, status)
+  // console.log("floor", typeof floor, floor)
 
   const fetchproperties = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/property/getAllProperties`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/property/getAllProperties`
+      );
       const propertiesData = await response.json();
-      setproperties(propertiesData)
-
+      setproperties(propertiesData);
     } catch (error) {
       console.log(error);
     }
@@ -54,10 +101,52 @@ function PropertyListings() {
   useEffect(() => {
     fetchproperties();
   }, []);
+  console.log("properties", properties);
+
+  const filterProperties = () => {
+    return properties
+      .filter((property) => {
+
+        console.log("Running")
+        // Filter by searchInput in description
+        if (searchInput && !property.description.toLowerCase().includes(searchInput.toLowerCase())) {
+          return false;
+        }
+        // Filter by status
+        if (status?.property && property.status !== status?.property) {
+          return false;
+        }
+
+        // Filter by floor
+        if (floor?.property && property.floor !== floor?.property) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        if (sort === "newest") {
+          return new Date(b.listingDate) - new Date(a.listingDate);
+        }
+        if (sort === "oldest") {
+          return new Date(a.listingDate) - new Date(b.listingDate);
+        }
+        return 0;
+      });
+  };
 
 
-
-
+  useEffect(() => {
+    console.log("useeffect running")
+    if (searchInput || sort || status || floor) {
+      const filtered = filterProperties();
+      setFilteredproperties(filtered)
+    } else {
+      console.log('else')
+      setFilteredproperties(properties)
+    }
+  }, [searchInput, sort, status, floor, properties]);
+  console.log('filteredProperties', filteredProperties)
 
   return (
     <div className="flex flex-col justify-center w-full">
@@ -96,21 +185,35 @@ function PropertyListings() {
             Properties Listed on Platform
           </h1>
           <div className="flex mt-6 w-full justify-between border-b ">
-            <div className="tabs gap-4 pl-6">
-            </div>
+            <div className="tabs gap-4 pl-6"></div>
 
             {/* --------sort button--------- */}
             <FilterButton
-              filters={filters}
-              properties={properties}
-              setproperties={setproperties}
+              filters={sortFilters}
+              initialFilter={"Sort"}
+              sortFilter={sort}
+              setSortFilter={setSort}
             />
 
+            <FilterButton
+              filters={floorFilters}
+              initialFilter={"Floor Type"}
+              sortFilter={floor}
+              setSortFilter={setFloor}
+            />
+
+            <FilterButton
+              filters={statusFilters}
+              initialFilter={"Status"}
+              sortFilter={status}
+              setSortFilter={setStatus}
+            />
             {/* --------sort button END--------- */}
           </div>
 
           <p className="mx-5 my-2 text-base">
-            Browse properties that match your living criteria and prefered area. Ordered by most relevant.
+            Browse properties that match your living criteria and prefered area.
+            Ordered by most relevant.
           </p>
           <div className="flex w-full px-4 py-2">
             <Search
@@ -122,13 +225,16 @@ function PropertyListings() {
           </div>
 
           {properties.length > 0 ? (
-            <PropertyList propertiesProp={properties} />
+            <PropertyList propertiesProp={filteredProperties} />
           ) : (
             <div className="flex w-full py-10 justify-center text-slate-500">
               <img alt="loader" src={loading} />
             </div>
           )}
-          {(!isStateAgent && !islandlord && !isTenanat) && properties.length > 0 ? (
+          {!isStateAgent &&
+          !islandlord &&
+          !isTenanat &&
+          properties.length > 0 ? (
             <h1 className=" blue-gradient text-center text-2xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>
