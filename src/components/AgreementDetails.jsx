@@ -47,7 +47,7 @@ function AgreementDetails({
             <div className="flex items-center relative justify-center h-24 p-0 m-0">
               <img
                 alt="banner"
-                src={`https://gateway.pinata.cloud/ipfs/${agreementData.propertyDetails.thumbnail}`}
+                src={`https://gateway.pinata.cloud/ipfs/${agreementData.propertyDetails.thumbnailImage}`}
                 className="inline-block object-cover aspect-video h-full p-0 shadow rounded-xl"
               />
             </div>
@@ -191,7 +191,7 @@ function AgreementDetails({
                 <div className="flex flex-col md:flex-row gap-6 md:gap-0">
                   <div className="flex items-start justify-start">
                     <img
-                      src={agreementData.propertyDetails.thumbnail}
+                      src={agreementData.propertyDetails.thumbnailImage}
                       alt=""
                       className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
                     />
@@ -231,7 +231,7 @@ function AgreementDetails({
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.landlord.thumbnail}`}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.landlord.displayPicture}`}
                       alt=""
                       className="w-[20vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
@@ -278,7 +278,7 @@ function AgreementDetails({
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.tenant.thumbnail}`}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.tenant.displayPicture}`}
                       alt=""
                       className="w-[10vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
@@ -327,7 +327,7 @@ function AgreementDetails({
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
-                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.stateAgent.thumbnail}`}
+                      src={`https://gateway.pinata.cloud/ipfs/${agreementData.stateAgent.displayPicture}`}
                       alt=""
                       className="w-[10vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
