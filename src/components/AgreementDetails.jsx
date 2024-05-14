@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import loading from "../../public/SVG/loading.svg";
+import ABI from "../../src/contracts/RentalAgreement.sol/RentalAgreement.json";
 
 
 function AgreementDetails({
@@ -18,8 +19,81 @@ function AgreementDetails({
   function isObjectEmpty(obj) {
     return Object.keys(obj).length === 0;
   }
-  const handleTerminate = () => {
-  }
+  const handleActivation = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        import.meta.env.VITE_RENTAL_AGREEMENT,
+        ABI.abi,
+        signer
+      );
+      const transaction = await contract.activateAgreement(id);
+      const receipt = await transaction.wait();
+      console.log("Agreement Activated Successfully", receipt);
+      toast.success("Agreement Activated Successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error activating agreement:", error);
+      toast.error("Error activating agreement", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+    }
+  };
+
+  const handleTerminate = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        import.meta.env.VITE_RENTAL_AGREEMENT,
+        ABI.abi,
+        signer
+      );
+      const transaction = await contract.cancelAgreement(id);
+      const receipt = await transaction.wait();
+      console.log("Terminated Successfully", receipt);
+      toast.success("Terminated Successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error terminating agreement:", error);
+      toast.error("Error terminating agreement", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+    }
+  };
+  const handleApprove = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        import.meta.env.VITE_RENTAL_AGREEMENT,
+        ABI.abi,
+        signer
+      );
+      let transaction;
+      if (islandlord) {
+        transaction = await contract.landlordApproveAgreement(id);
+
+      } else {
+        transaction = await contract.tenantApproveAgreement(id);
+
+      }
+
+      const receipt = await transaction.wait();
+      console.log("Approved Successfully", receipt);
+      toast.success("Approved Successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error approving agreement:", error);
+      toast.error("Error approving agreement.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+    }
+  };
   function weiToPKR(weiAmount) {
     // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
     // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
@@ -67,19 +141,20 @@ function AgreementDetails({
                   </span>
                 </p>
               </div>
-              {isStateAgent && agreementData.status <= 2 && (
+              {(isStateAgent && agreementData.status <= 2 && localStorage.getItem('walletAdress') === agreementData.stateAgentWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
                     type="button"
                     className="text-green-500 border border-solid border-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-xl"
+                    onClick={handleActivation}
                   >
                     Activate
                   </button>
 
                 </div>
               )}
-              {(isStateAgent && agreementData.status === 3) && (
+              {(isStateAgent && agreementData.status === 3 && localStorage.getItem('walletAdress') === agreementData.stateAgentWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -92,26 +167,28 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(isTenanat && agreementData.status === 3 && agreementData.tenantApprovalForCancellation === false) && (
+              {(isTenanat && agreementData.status === 1 && localStorage.getItem('walletAdress') === agreementData.landlordWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
                     type="button"
-                    className="text-red-500 border border-solid border-red-500  text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                    className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+                    onClick={handleApprove}
                   >
-                    Approve Termination
+                    Approve Agreement
                   </button>
 
                 </div>
               )}
-              {(islandlord && agreementData.status === 3 && agreementData.landlordApprovalForCancellation === false) && (
+              {(islandlord && agreementData.status === 0 && localStorage.getItem('walletAdress') === agreementData.tenantWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
                     type="button"
-                    className="text-red-500 border border-solid border-red-500  text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                    className="cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+                    onClick={handleApprove}
                   >
-                    Approve Termination
+                    Approve Agreement
                   </button>
 
                 </div>
