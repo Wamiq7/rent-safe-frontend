@@ -50,7 +50,7 @@ function App(props) {
         console.log(data);
 
         if (data.cnic !== "") {
-          if (data.role === 1) {
+          if (data.role === 2) {
 
             toast.success('You are logged in now.', {
               position: toast.POSITION.TOP_CENTER,
