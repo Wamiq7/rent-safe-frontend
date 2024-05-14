@@ -151,7 +151,7 @@ export default function FilterButton({
               {filters.map((filter, index) => (
                 <a                 
                   key={index}
-                  className="font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm"
+                  className="font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm cursor-pointer"
                   onClick={()=>{setIsOpen(false); setSortFilter(filter)}}
                 >
                   {filter.label}

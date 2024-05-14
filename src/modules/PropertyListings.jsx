@@ -142,11 +142,9 @@ function PropertyListings() {
       const filtered = filterProperties();
       setFilteredproperties(filtered)
     } else {
-      console.log('else')
       setFilteredproperties(properties)
     }
   }, [searchInput, sort, status, floor, properties]);
-  console.log('filteredProperties', filteredProperties)
 
   return (
     <div className="flex flex-col justify-center w-full">
