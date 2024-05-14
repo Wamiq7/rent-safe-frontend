@@ -96,6 +96,30 @@ function AgreementDetails({
       });
     }
   };
+  const handleApproveCancellation = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        import.meta.env.VITE_RENTAL_AGREEMENT,
+        ABI.abi,
+        signer
+      );
+
+      const transaction = await contract.approveCancellation(id);
+
+      const receipt = await transaction.wait();
+      console.log("Cancellation approved Successfully", receipt);
+      toast.success("Cancellation Successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error approving cancellation of  agreement:", error);
+      toast.error("Error approving cancellation of agreement.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+    }
+  };
   function weiToPKR(weiAmount) {
     // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
     // const weiPerEther = 10 ** 18; // 1 Ether equals 10^18 wei
@@ -165,6 +189,32 @@ function AgreementDetails({
                     className="text-red-500 border border-solid border-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
                   >
                     Terminate
+                  </button>
+
+                </div>
+              )}
+              {(islandlord && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.landlordWalletAddress) && (
+                <div className="absolute top-6 right-10 md:flex">
+
+                  <button
+                    onClick={() => handleApproveCancellation(agreementData.agreementId)}
+                    type="button"
+                    className="text-red-500 border border-solid border-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  >
+                    Approve Cancellation
+                  </button>
+
+                </div>
+              )}
+              {(isTenanat && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.tenantWalletAddress) && (
+                <div className="absolute top-6 right-10 md:flex">
+
+                  <button
+                    onClick={() => handleApproveCancellation(agreementData.agreementId)}
+                    type="button"
+                    className="text-red-500 border border-solid border-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  >
+                    Approve Cancellation
                   </button>
 
                 </div>

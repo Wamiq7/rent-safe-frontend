@@ -40,6 +40,8 @@ function PropertyDetails() {
       const receipt = await transaction.wait();
       console.log(" Delisted Successfully", receipt);
       toast.success(" Delisted Successfully");
+      window.location.reload();
+
     } catch (error) {
       console.error("Error delisting property:", error);
       toast.error("Error delisting property.", {
@@ -144,7 +146,7 @@ function PropertyDetails() {
               </p>
             </div>
           </div>
-         
+
           {islandlord && property?.status === 0 && localStorage.getItem('walletAddress') == property.ownerWallet &&
 
             <div>
