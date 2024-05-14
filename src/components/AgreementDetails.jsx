@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import loading from "../../public/SVG/loading.svg";
 import ABI from "../../src/contracts/RentalAgreement.sol/RentalAgreement.json";
+import { toast } from "react-toastify";
+import { ethers } from "ethers";
 
 
 function AgreementDetails({
@@ -66,7 +68,7 @@ function AgreementDetails({
   };
   const handleApprove = async (id) => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new etherss.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new ethers.Contract(
         import.meta.env.VITE_RENTAL_AGREEMENT,
@@ -147,7 +149,7 @@ function AgreementDetails({
                   <button
                     type="button"
                     className="text-green-500 border border-solid border-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-xl"
-                    onClick={handleActivation}
+                    onClick={() => handleActivation(agreementData.agreementId)}
                   >
                     Activate
                   </button>
@@ -158,7 +160,7 @@ function AgreementDetails({
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
-                    onClick={handleTerminate}
+                    onClick={() => handleTerminate(agreementData.agreementId)}
                     type="button"
                     className="text-red-500 border border-solid border-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
                   >
@@ -173,7 +175,7 @@ function AgreementDetails({
                   <button
                     type="button"
                     className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
-                    onClick={handleApprove}
+                    onClick={() => handleApprove(agreementData.agreementId)}
                   >
                     Approve Agreement
                   </button>
@@ -186,7 +188,7 @@ function AgreementDetails({
                   <button
                     type="button"
                     className="cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
-                    onClick={handleApprove}
+                    onClick={() => handleApprove(agreementData.agreementId)}
                   >
                     Approve Agreement
                   </button>
