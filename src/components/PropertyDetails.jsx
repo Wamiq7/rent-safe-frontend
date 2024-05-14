@@ -46,6 +46,28 @@ function PropertyDetails() {
       });
     }
   };
+  const approveProperty = async (id) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        propertyListingAddress,
+        ABI.abi,
+        signer
+      );
+      const transaction = await contract.approveStatusToListing(id);
+
+      const receipt = await transaction.wait();
+      console.log("Approved Successfully", receipt);
+      toast.success("Approved and Listed Successfully");
+    } catch (error) {
+      console.error("Error approving property:", error);
+      toast.error("Error approving property.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+    }
+  };
 
   const fetchProperty = async () => {
     try {
@@ -119,6 +141,15 @@ function PropertyDetails() {
               </p>
             </div>
           </div>
+          <div>
+            <button
+              onClick={() => approveProperty(propertyId)}
+              type="button"
+              className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+            >
+              Approve
+            </button>
+          </div>
         </div>
 
         <div className="flex w-full border-t py-3">
@@ -164,10 +195,10 @@ function PropertyDetails() {
                 {property?.status === 0
                   ? "Pending"
                   : property?.status === 1
-                  ? "Listed"
-                  : property?.status === 2
-                  ? "Rented"
-                  : "Delisted"}
+                    ? "Listed"
+                    : property?.status === 2
+                      ? "Rented"
+                      : "Delisted"}
               </span>
             </p>
           </div>
@@ -200,9 +231,8 @@ function PropertyDetails() {
           <div className="flex gap-4 items-center mt-4">
             {property.imageLinks.map((item, index) => (
               <div
-                className={`border-2 ${
-                  currentImageIndex === index && "border-gray-500"
-                }`}
+                className={`border-2 ${currentImageIndex === index && "border-gray-500"
+                  }`}
               >
                 <img
                   src={`https://gateway.pinata.cloud/ipfs/${item}`}
@@ -260,7 +290,7 @@ function PropertyDetails() {
             />
           </div>
         </div>
-      </Container>
+      </Container >
 
       {isStateAgent && (
         <div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
@@ -268,7 +298,7 @@ function PropertyDetails() {
             <button
               onClick={() => delistProperty(propertyId, property?.stateAgent)}
               type="button"
-              className="text-red-500 border border-solid border-red-300 text-l w-[11.7rem] lg:text-xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-[7px]"
+              className="text-red-500 border border-solid border-red-300  bg-red-50 hover:bg-red-500 hover:text-white text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
             >
               Delist Property
             </button>
@@ -283,8 +313,11 @@ function PropertyDetails() {
             </a>
           </div>
         </div>
-      )}
-    </div>
+
+      )
+      }
+
+    </div >
   );
 }
 
