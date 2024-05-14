@@ -141,7 +141,7 @@ function AgreementDetails({
                   </span>
                 </p>
               </div>
-              {(isStateAgent && agreementData.status <= 2 && localStorage.getItem('walletAdress') === agreementData.stateAgentWalletAddress) && (
+              {(isStateAgent && agreementData.status <= 2 && localStorage.getItem('walletAddress') === agreementData.stateAgentWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -154,7 +154,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(isStateAgent && agreementData.status === 3 && localStorage.getItem('walletAdress') === agreementData.stateAgentWalletAddress) && (
+              {(isStateAgent && agreementData.status === 3 && localStorage.getItem('walletAddress') === agreementData.stateAgentWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -167,7 +167,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(isTenanat && agreementData.status === 1 && localStorage.getItem('walletAdress') === agreementData.landlordWalletAddress) && (
+              {(isTenanat && agreementData.status === 1 && localStorage.getItem('walletAddress') === agreementData.tenantWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
@@ -180,7 +180,7 @@ function AgreementDetails({
 
                 </div>
               )}
-              {(islandlord && agreementData.status === 0 && localStorage.getItem('walletAdress') === agreementData.tenantWalletAddress) && (
+              {(islandlord && agreementData.status === 0 && localStorage.getItem('walletAddress') === agreementData.landlordWalletAddress) && (
                 <div className="absolute top-6 right-10 md:flex">
 
                   <button
