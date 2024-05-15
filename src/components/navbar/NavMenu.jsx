@@ -7,6 +7,10 @@ const navigations = [
     path: "/",
   },
   {
+    name: "Search",
+    path: "/search",
+  },
+  {
     name: "Properties",
     path: "/properties",
   },

@@ -30,10 +30,6 @@ function AgreementListings() {
       property: 3,
     },
     {
-      label: "Inactive",
-      property: 4,
-    },
-    {
       label: "Cancelled",
       property: 5,
     },
@@ -110,7 +106,7 @@ function AgreementListings() {
         return false;
       }
       // Filter by status
-      if (status?.property && agreements.status !== status?.property) {
+      if ((status?.property === 0  || status?.property) && agreements.status !== status?.property) {
         return false;
       }
 

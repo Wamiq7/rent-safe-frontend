@@ -124,23 +124,18 @@ function PropertyListings() {
 
         return true;
       })
-      .sort((a, b) => {
-        if (sort === "newest") {
-          return new Date(b.listingDate) - new Date(a.listingDate);
-        }
-        if (sort === "oldest") {
-          return new Date(a.listingDate) - new Date(b.listingDate);
-        }
-        return 0;
-      });
   };
 
 
   useEffect(() => {
-    console.log("useeffect running")
+    console.log("useeffect running", sort.label)
     if (searchInput || sort || status || floor) {
       const filtered = filterProperties();
-      setFilteredproperties(filtered)
+      if (sort.property === "newest") {
+        setFilteredproperties(filtered.reverse())
+      } else {
+        setFilteredproperties(filtered)
+      }
     } else {
       setFilteredproperties(properties)
     }

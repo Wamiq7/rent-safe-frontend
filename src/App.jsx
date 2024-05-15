@@ -22,6 +22,7 @@ import AgreementAdd from "./modules/AgreementAdd";
 import Profile from "./components/profile/Profile";
 import { loadingContext } from "./components/context/LoadingState";
 import LandlordLogin from "./components/form/login/LandlordLogin";
+import Search from "./modules/Search";
 
 function App() {
   const progressState = useContext(loadingContext);
@@ -34,6 +35,7 @@ function App() {
       <div className="pt-20">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/properties" element={<PropertyListings />} />
           <Route path="/properties/create" element={<PropertyAdd />} />
           <Route path="/about" element={<AboutUs />} />
