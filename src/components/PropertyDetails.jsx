@@ -242,6 +242,7 @@ function PropertyDetails() {
               <div
                 className={`border-2 ${currentImageIndex === index && "border-gray-500"
                   }`}
+                key={index}
               >
                 <img
                   src={`https://gateway.pinata.cloud/ipfs/${item}`}
@@ -261,6 +262,8 @@ function PropertyDetails() {
               Property Owner
             </h1>
             <Members
+              to={`/user/${property?.ownerWallet}`}
+
               image={`https://gateway.pinata.cloud/ipfs/${property.landlordDetails.displayPicture}`}
               walletAddress={property?.ownerWallet}
               name={property?.landlordDetails.name}
@@ -291,7 +294,7 @@ function PropertyDetails() {
             </h1>
 
             <Members
-              // to={}
+              to={`/user/${property?.stateAgentWallet}`}
               image={`https://gateway.pinata.cloud/ipfs/${property.stateAgentDetails.displayPicture}`}
               walletAddress={property?.stateAgentWallet}
               name={property?.stateAgentDetails.name}

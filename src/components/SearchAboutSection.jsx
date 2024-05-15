@@ -2,7 +2,7 @@ import AboutCard from "./AboutCard";
 
 import { useEffect, useState } from "react";
 
-export default function SearchAboutSection({properties}) {
+export default function SearchAboutSection({ properties }) {
 
 
   console.log(properties);
@@ -28,9 +28,8 @@ export default function SearchAboutSection({properties}) {
         <div
           className="grid gap-4 z-49 p-6 w-full content-center place-content-center"
           style={{
-            gridTemplateColumns: `repeat(${
-              properties && properties.length
-            }, minmax(0, 1fr)`,
+            gridTemplateColumns: `repeat(${properties && properties.length
+              }, minmax(0, 1fr)`,
           }}
         >
           {properties &&
@@ -41,6 +40,7 @@ export default function SearchAboutSection({properties}) {
                   image={`https://gateway.pinata.cloud/ipfs/${item.thumbnail}`}
                   name={item.propertyType}
                   location={item.cityArea}
+                  address={item.propertyAddress}
                   price={weiToPKR(item.rentAmount)}
                   type={item.estateName}
                   category="For rent"

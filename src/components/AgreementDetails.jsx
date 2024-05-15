@@ -319,14 +319,14 @@ function AgreementDetails({
         <div
           className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
-           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10 "
         >
-          <div className="flex w-full flex-col">
+          <Link to={`/properties/${agreementData.propertyId}/${'1 Jan-2024'}`} className="flex w-full flex-col hover:bg-slate-200">
             <h1 className="text-2xl font-semibold px-5 pt-7 mb-1">Property Details</h1>
             {/* ---------TODO: Property Details------------ */}
-            <div className=" py-5">
+            <div className=" py-5 hover:bg-slate-200">
 
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreementData.propertyDetails._id}>
+              <div className=" flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={agreementData.propertyDetails._id}>
                 <div className="flex flex-col md:flex-row gap-6 md:gap-0">
                   <div className="flex items-start justify-start">
                     <img
@@ -337,7 +337,7 @@ function AgreementDetails({
 
                   </div>
                   <div className="lg:w-[60%] md:pl-6">
-                    <Link to={`/properties/${agreementData.propertyId}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</Link>
+                    <div className="hidden md:flex text-xl font-semibold  hover:text-accent">{agreementData.propertyDetails.propertyType}</div>
                     <div className="hidden md:flex place-content-start items-center w-full text-slate-600 gap-1">
                       {/* ------------------------ Project Description-------------------------- */}
                       <p><span className='font-bold'>Id : </span> {agreementData.propertyId}</p>
@@ -353,7 +353,7 @@ function AgreementDetails({
               </div>
 
             </div>
-          </div>
+          </Link>
 
         </div>
         {/* ----------Entities Involved------------ */}
@@ -366,7 +366,7 @@ function AgreementDetails({
             <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Individuals/Entities Involved</h1>
             <div className="py-5">
               {/* Landlord  */}
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300">
+              <Link className="  hover:bg-slate-200 flex w-full justify-between  items-center py-5 relative border-t px-5 gap-5 border-slate-300" to={`/user/${agreementData.landlordWalletAddress}`}>
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
@@ -411,9 +411,9 @@ function AgreementDetails({
 
                   </div>
                 </div>
-              </div>
+              </Link>
               {/* tenant  */}
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300">
+              <Link className="flex hover:bg-slate-200 w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" to={`/user/${agreementData.tenantWalletAddress}`} >
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
@@ -432,7 +432,7 @@ function AgreementDetails({
                         {agreementData.tenant.cnic}
 
                       </div>
-                      <div className="md:hidden description w-full md:w-[90%] flex items-center">
+                      <div className="md:hidden description w-full md:w-[90%] flex items-center ">
                         {agreementData.tenantWalletAddress}
 
                       </div>
@@ -458,11 +458,12 @@ function AgreementDetails({
 
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* //StateAgent  */}
 
-              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" >
+              <Link className="flex hover:bg-slate-200 w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" to={`/user/${agreementData.stateAgentWalletAddress}`}
+              >
                 <div className="flex flex-col md:flex-row gap-2 md:gap-0">
                   <div className="flex items-center justify-start">
                     <img
@@ -510,7 +511,7 @@ function AgreementDetails({
 
                   </div>
                 </div>
-              </div>
+              </Link>
 
 
             </div>

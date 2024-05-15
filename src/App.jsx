@@ -23,6 +23,7 @@ import Profile from "./components/profile/Profile";
 import { loadingContext } from "./components/context/LoadingState";
 import LandlordLogin from "./components/form/login/LandlordLogin";
 import Search from "./modules/Search";
+import User from "./components/User/User";
 
 function App() {
   const progressState = useContext(loadingContext);
@@ -46,6 +47,8 @@ function App() {
           <Route path="/agreements/create/:uid" element={<AgreementAdd />} />
           <Route path="/agreements" element={<AgreementListings />} />
           <Route path="/agreements/:agreementId" element={<AgreementMain />} />
+
+          <Route path="/user/:walletAddress" element={<User />} />
 
           {/* -------------Profile----------------- */}
           <Route path="/profile" element={<Profile />} />

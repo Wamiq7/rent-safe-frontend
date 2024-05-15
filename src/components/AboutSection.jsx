@@ -42,9 +42,8 @@ export default function AboutSection() {
         <div
           className="grid gap-4 z-49 p-6 w-full content-center place-content-center"
           style={{
-            gridTemplateColumns: `repeat(${
-              properties && properties.length
-            }, minmax(0, 1fr)`,
+            gridTemplateColumns: `repeat(${properties && properties.length
+              }, minmax(0, 1fr)`,
           }}
         >
           {properties &&
@@ -59,6 +58,7 @@ export default function AboutSection() {
                   type={item.estateName}
                   category="For rent"
                   id={item.propertyId}
+                  listingDate={item.listingDate}
                 />
               );
             })}

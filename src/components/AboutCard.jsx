@@ -10,7 +10,7 @@ export default function AboutCard(props) {
   return (
     <div
       onClick={() => {
-        navigate(`/properties/${props.id}`);
+        navigate(`/properties/${props.id}/${props.listingDate}`);
       }}
       className="flex z-49 flex-col bg-red
                   backdrop-blur-2xl
@@ -41,9 +41,11 @@ export default function AboutCard(props) {
         >
           {props.name}
         </h2>
-        <p className={`flex items-center mt-1 ${commonColorStyle} `}>
-          <FaMapMarkerAlt className="hover:text-blue-600 mr-2 text-xl" />
-          <span className="text-lg">{props.location}</span>
+        <p className={`flex items-center gap-2 mt-1 ${commonColorStyle} `}>
+          <FaMapMarkerAlt className="hover:text-blue-600  text-xl" />
+          <span className="text-lg">{props.location}{','}</span>
+
+          <span className="text-lg">{props.address}</span>
         </p>
         <div className="button flex"></div>
         <div className={`${commonColorStyle} flex items-center mt-10 ml-1`}>
