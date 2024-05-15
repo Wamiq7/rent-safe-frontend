@@ -261,8 +261,9 @@ function PropertyDetails() {
               Property Owner
             </h1>
             <Members
-              image={`/public/stateagent/stateagent1.jpg`}
-              walletAddress={`${property?.ownerWallet}`}
+              image={`https://gateway.pinata.cloud/ipfs/${property.landlordDetails.displayPicture}`}
+              walletAddress={property?.ownerWallet}
+              name={property?.landlordDetails.name}
               className="font-medium"
               imageclass="w-[10vw] md:w-14"
             />
@@ -291,9 +292,10 @@ function PropertyDetails() {
 
             <Members
               // to={}
-              image={`/public/stateagent/stateagent1.jpg`}
-              walletAddress={property?.stateAgent}
+              image={`https://gateway.pinata.cloud/ipfs/${property.stateAgentDetails.displayPicture}`}
+              walletAddress={property?.stateAgentWallet}
               name={property?.stateAgentDetails.name}
+              estateName={property?.stateAgentDetails.estateName}
               className="font-medium truncate "
               imageclass="w-[10vw] md:w-14 "
             />

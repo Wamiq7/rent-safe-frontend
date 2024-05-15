@@ -17,6 +17,8 @@ function Members(props) {
 
           <h1 className={`${props.className} truncate`}>{props.name}</h1>
           <h1 className={`${props.className} truncate`}>{props.walletAddress}</h1>
+          <h1 className={`${props.className} truncate`}>{props.estateName}</h1>
+
         </div>
 
       </Link>
