@@ -61,7 +61,7 @@ export default function User() {
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
             >
-                <div className="flex justify-start lg:items-center w-full mt-6 items-start  place-content-start md:gap-[5%] border-b border-slate-300 px-5 py-7 relative">
+                <div className="flex gap-7 justify-start lg:items-center w-full mt-6 items-start  place-content-start md:gap-[5%] border-b border-slate-300 px-5 py-7 relative">
                     <div className="flex items-center relative justify-center h-24 lg:h-80 p-0 m-0">
                         <img
                             alt="User"
@@ -96,10 +96,10 @@ export default function User() {
                             <h1 className="text-lg text-slate-900 font-medium">
                                 Wallet Address
                             </h1>
-                            <p className="description truncate">{walletAddress}</p>
+                            <p className="description  truncate w-[300px] md:w-full">{walletAddress}</p>
                         </div>
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-lg text-slate-900 font-medium">
+                            <h1 className="text-lg text-slate-900 font-medium ">
                                 CNIC
                             </h1>
                             <p className="description">{user?.cnic}</p>

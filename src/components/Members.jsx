@@ -14,15 +14,28 @@ function Members(props) {
           className={`${props.imageclass} rounded-full  object-cover aspect-square`}
         />
         <div className="flex flex-col">
-          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
-            {props.name}
-          </h1>
-          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
-            {props.walletAddress}
-          </h1>
-          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
-            {props.estateName}
-          </h1>
+          <div className="flex flex-col md:flex-row gap-2">
+
+            <p>{'Name: '}</p>
+            <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+              {props.name}
+            </h1>
+          </div>
+          <div className="flex flex-col md:flex-row gap-2">
+
+            <p> {'Wallet:'}</p>
+            <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+              {props.walletAddress}
+            </h1>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-2">
+
+            <p>{props.estateName && 'Estate:'}</p>
+            <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+              {props.estateName}
+            </h1>
+          </div>
         </div>
       </Link>
     </div>
