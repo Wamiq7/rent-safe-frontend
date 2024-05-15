@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Members(props) {
   return (
@@ -13,14 +13,17 @@ function Members(props) {
           alt=""
           className={`${props.imageclass} rounded-full  object-cover aspect-square`}
         />
-        <div className='flex flex-col'>
-
-          <h1 className={`${props.className} truncate`}>{props.name}</h1>
-          <h1 className={`${props.className} truncate`}>{props.walletAddress}</h1>
-          <h1 className={`${props.className} truncate`}>{props.estateName}</h1>
-
+        <div className="flex flex-col">
+          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+            {props.name}
+          </h1>
+          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+            {props.walletAddress}
+          </h1>
+          <h1 className={`${props.className} truncate w-[250px] md:w-full`}>
+            {props.estateName}
+          </h1>
         </div>
-
       </Link>
     </div>
   );

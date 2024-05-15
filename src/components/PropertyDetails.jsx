@@ -41,7 +41,6 @@ function PropertyDetails() {
       console.log(" Delisted Successfully", receipt);
       toast.success(" Delisted Successfully");
       window.location.reload();
-
     } catch (error) {
       console.error("Error delisting property:", error);
       toast.error("Error delisting property.", {
@@ -147,18 +146,19 @@ function PropertyDetails() {
             </div>
           </div>
 
-          {islandlord && property?.status === 0 && localStorage.getItem('walletAddress') == property.ownerWallet &&
-
-            <div>
-              <button
-                onClick={() => approveProperty(propertyId)}
-                type="button"
-                className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
-              >
-                Approve
-              </button>
-            </div>
-          }
+          {islandlord &&
+            property?.status === 0 &&
+            localStorage.getItem("walletAddress") == property.ownerWallet && (
+              <div>
+                <button
+                  onClick={() => approveProperty(propertyId)}
+                  type="button"
+                  className=" cursor-pointer bg-accent hover:bg-accent/50  text-white font-semibold text-center text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+                >
+                  Approve
+                </button>
+              </div>
+            )}
         </div>
 
         <div className="flex w-full border-t py-3">
@@ -166,7 +166,7 @@ function PropertyDetails() {
           <h1 className="description px-6">{property?.description}</h1>
         </div>
         {/* Pricing */}
-        <div className="flex justify-start gap-8 w-full border-t pt-3 pb-6">
+        <div className="flex justify-start flex-wrap gap-4 w-full border-t pt-3 pb-6">
           <div className="flex text-base px-6 text-start font-normal gap-3 items-start">
             <FaCircleDollarToSlot className="text-accent mt-2" />
             <p className="text-base font-medium">
@@ -204,10 +204,10 @@ function PropertyDetails() {
                 {property?.status === 0
                   ? "Pending"
                   : property?.status === 1
-                    ? "Listed"
-                    : property?.status === 2
-                      ? "Rented"
-                      : "Delisted"}
+                  ? "Listed"
+                  : property?.status === 2
+                  ? "Rented"
+                  : "Delisted"}
               </span>
             </p>
           </div>
@@ -240,8 +240,9 @@ function PropertyDetails() {
           <div className="flex gap-4 items-center mt-4">
             {property.imageLinks.map((item, index) => (
               <div
-                className={`border-2 ${currentImageIndex === index && "border-gray-500"
-                  }`}
+                className={`border-2 ${
+                  currentImageIndex === index && "border-gray-500"
+                }`}
                 key={index}
               >
                 <img
@@ -263,8 +264,7 @@ function PropertyDetails() {
             </h1>
             <Members
               to={`/user/${property?.ownerWallet}`}
-
-              image={`https://gateway.pinata.cloud/ipfs/${property.landlordDetails.displayPicture}`}
+              image={`https://gateway.pinata.cloud/ipfs/${property.landlordDetails?.displayPicture}`}
               walletAddress={property?.ownerWallet}
               name={property?.landlordDetails.name}
               className="font-medium"
@@ -299,12 +299,12 @@ function PropertyDetails() {
               walletAddress={property?.stateAgentWallet}
               name={property?.stateAgentDetails.name}
               estateName={property?.stateAgentDetails.estateName}
-              className="font-medium truncate "
+              className="font-medium truncate w-[300px] md:w-full"
               imageclass="w-[10vw] md:w-14 "
             />
           </div>
         </div>
-      </Container >
+      </Container>
 
       {isStateAgent && (
         <div className="flex  2xl:flex-col md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[59%] 2xl:right-[21%] fixed bottom-0 bg-white gap-5 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
@@ -312,7 +312,7 @@ function PropertyDetails() {
             <button
               onClick={() => delistProperty(propertyId, property?.stateAgent)}
               type="button"
-              className="text-red-500 border border-solid border-red-300  bg-red-50 hover:bg-red-500 hover:text-white text-l w-[11.7rem] lg:text-xl p-3 rounded-[7px]"
+              className="text-red-500 w-fit border border-solid border-red-300  bg-red-50 hover:bg-red-500 hover:text-white text-l lg:text-xl p-3 rounded-[7px]"
             >
               Delist Property
             </button>
@@ -327,11 +327,8 @@ function PropertyDetails() {
             </a>
           </div>
         </div>
-
-      )
-      }
-
-    </div >
+      )}
+    </div>
   );
 }
 

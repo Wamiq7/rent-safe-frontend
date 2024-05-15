@@ -15,7 +15,7 @@ function FormContainer({ children, image }) {
               />
             </div>
           </div>
-          <div className="w-full flex items-center mx-0  relative z-10 max-w-2xl lg:mt-0 lg:w-1/2 mt-20">
+          <div className="w-full flex items-center mx-0  relative z-10 max-w-2xl lg:mt-0 lg:w-1/2">
             <div
               className="flex w-full flex-col items-start h-[80vh] md:h-[80vh] justify-start p-5 lg:p-10 bg-white shadow-2xl rounded-xl
             relative z-10"

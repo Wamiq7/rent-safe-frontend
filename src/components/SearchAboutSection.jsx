@@ -3,8 +3,6 @@ import AboutCard from "./AboutCard";
 import { useEffect, useState } from "react";
 
 export default function SearchAboutSection({ properties }) {
-
-
   console.log(properties);
   function weiToPKR(weiAmount) {
     // const etherPriceInPKR = 810483; // Current price of 1 Ether in PKR
@@ -25,13 +23,7 @@ export default function SearchAboutSection({ properties }) {
         {/* <h1 className="text-5xl blue-gradient font-semibold drop-shadow-lg ">
           Checkout the Recently listed properties
         </h1> */}
-        <div
-          className="grid gap-4 z-49 p-6 w-full content-center place-content-center"
-          style={{
-            gridTemplateColumns: `repeat(${properties && properties.length
-              }, minmax(0, 1fr)`,
-          }}
-        >
+        <div className="flex flex-wrap gap-4 z-49 p-6 w-full justify-center">
           {properties &&
             properties?.map((item) => {
               return (

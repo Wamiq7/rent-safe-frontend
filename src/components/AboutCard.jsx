@@ -12,9 +12,7 @@ export default function AboutCard(props) {
       onClick={() => {
         navigate(`/properties/${props.id}/${props.listingDate}`);
       }}
-      className="flex z-49 flex-col bg-red
-                  backdrop-blur-2xl
-             rounded-3xl gap-5 bg-slate-400/5 items-center border relative border-slate-300/50 hover:bg-slate-400/20 p-5 transition-all duration-200"
+      className="flex z-49 w-full max-w-[300px] flex-col bg-red backdrop-blur-2xl rounded-3xl gap-5 bg-slate-400/5 items-center border relative border-slate-300/50 hover:bg-slate-400/20 p-5 transition-all duration-200"
     >
       <div className="img">
         <img
@@ -43,7 +41,10 @@ export default function AboutCard(props) {
         </h2>
         <p className={`flex items-center gap-2 mt-1 ${commonColorStyle} `}>
           <FaMapMarkerAlt className="hover:text-blue-600  text-xl" />
-          <span className="text-lg">{props.location}{','}</span>
+          <span className="text-lg">
+            {props.location}
+            {","}
+          </span>
 
           <span className="text-lg">{props.address}</span>
         </p>

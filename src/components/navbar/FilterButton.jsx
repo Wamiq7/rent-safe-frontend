@@ -5,7 +5,7 @@ export default function FilterButton({
   filters,
   initialFilter,
   sortFilter,
-  setSortFilter
+  setSortFilter,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -114,11 +114,19 @@ export default function FilterButton({
   //   setIsOpen(!isOpen);
   // };
   return (
-    <div className="flex items-center justify-end px-4">
+    <div
+      className={`flex items-center justify-end ${
+        location.pathname !== "/search" && "px-4"
+      }`}
+    >
       <div className="relative inline-block text-left">
         <button
           type="button"
-          className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-accent"
+          className={`${
+            location.pathname === "/search"
+              ? "bg-white h-[42px] rounded-lg items-center px-4"
+              : ""
+          } group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-accent `}
           id="menu-button"
           aria-expanded="false"
           aria-haspopup="true"
@@ -149,10 +157,13 @@ export default function FilterButton({
             {" "}
             <div className="py-1" role="none">
               {filters.map((filter, index) => (
-                <a                 
+                <a
                   key={index}
                   className="font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm cursor-pointer"
-                  onClick={()=>{setIsOpen(false); setSortFilter(filter)}}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setSortFilter(filter);
+                  }}
                 >
                   {filter.label}
                 </a>
