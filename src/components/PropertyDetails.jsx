@@ -63,7 +63,7 @@ function PropertyDetails() {
       const receipt = await transaction.wait();
       console.log("Approved Successfully", receipt);
       toast.success("Approved and Listed Successfully");
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("Error approving property:", error);
       toast.error("Error approving property.", {
