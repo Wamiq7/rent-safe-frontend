@@ -27,6 +27,8 @@ function AgreementDetails({ agreementData }) {
       const receipt = await transaction.wait();
       console.log("Agreement Activated Successfully", receipt);
       toast.success("Agreement Activated Successfully");
+      toast.success("Your Commission Transfered  Successfully");
+
       window.location.reload();
     } catch (error) {
       console.error("Error activating agreement:", error);
@@ -157,7 +159,7 @@ function AgreementDetails({ agreementData }) {
           {isStateAgent &&
             agreementData.status <= 2 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.stateAgentWalletAddress && (
+            agreementData.stateAgentWalletAddress && (
               <div className="">
                 <button
                   type="button"
@@ -171,7 +173,7 @@ function AgreementDetails({ agreementData }) {
           {isStateAgent &&
             agreementData.status === 3 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.stateAgentWalletAddress && (
+            agreementData.stateAgentWalletAddress && (
               <div className="">
                 <button
                   onClick={() => handleTerminate(agreementData.agreementId)}
@@ -185,7 +187,7 @@ function AgreementDetails({ agreementData }) {
           {islandlord &&
             agreementData.status === 3 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.landlordWalletAddress &&
+            agreementData.landlordWalletAddress &&
             !agreementData.landlordApprovalForCancellation && (
               <div className="">
                 <button
@@ -202,7 +204,7 @@ function AgreementDetails({ agreementData }) {
           {isTenanat &&
             agreementData.status === 3 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.tenantWalletAddress &&
+            agreementData.tenantWalletAddress &&
             !agreementData.tenantApprovalForCancellation && (
               <div className="">
                 <button
@@ -219,7 +221,7 @@ function AgreementDetails({ agreementData }) {
           {isTenanat &&
             agreementData.status === 1 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.tenantWalletAddress && (
+            agreementData.tenantWalletAddress && (
               <div className="">
                 <button
                   type="button"
@@ -233,7 +235,7 @@ function AgreementDetails({ agreementData }) {
           {islandlord &&
             agreementData.status === 0 &&
             localStorage.getItem("walletAddress") ===
-              agreementData.landlordWalletAddress && (
+            agreementData.landlordWalletAddress && (
               <div className="">
                 <button
                   type="button"
@@ -259,10 +261,10 @@ function AgreementDetails({ agreementData }) {
                     {agreementData.status < 3
                       ? "Pending"
                       : agreementData.status === 3
-                      ? "Active"
-                      : agreementData.status === 4
-                      ? "Inactive"
-                      : agreementData.status === 5 && "Cancelled"}
+                        ? "Active"
+                        : agreementData.status === 4
+                          ? "Inactive"
+                          : agreementData.status === 5 && "Cancelled"}
                   </li>
                 </ul>
               </div>
