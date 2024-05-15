@@ -27,27 +27,27 @@ const floorFilters = [
     property: "",
   },
   {
-    label: "1 Floor",
+    label: "1 Floors",
     property: 1,
   },
   {
-    label: "2 FLoor",
+    label: "2 FLoors",
     property: 2,
   },
   {
-    label: "3 FLoor",
+    label: "3 FLoors",
     property: 3,
   },
   {
-    label: "4 FLoor",
+    label: "4 FLoors",
     property: 4,
   },
   {
-    label: "5 FLoor",
+    label: "5 FLoors",
     property: 5,
   },
   {
-    label: "6 FLoor",
+    label: "6 FLoors",
     property: 6,
   },
 ];

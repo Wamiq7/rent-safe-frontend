@@ -197,3 +197,10 @@ html {
 .cursor-not-allowed {
     cursor: not-allowed;
 }
+
+
+.search-hero {
+	background-image: url('./images/SearchHero.jpg');
+	background-position: center center;
+	background-size: cover;
+}
